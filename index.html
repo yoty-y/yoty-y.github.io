@@ -11,7 +11,7 @@
         /* ========================================== */
         :root {
             --ancho-sidebar: 250px;
-            --alto-header: 50px;
+            --alto-header: 55px;
             
             /* Colores Modo Claro */
             --bg-principal: #f4f4f9;
@@ -21,12 +21,12 @@
             --texto-secundario: #64748b;
             --borde-color: #cbd5e1;
             
-            /* Sombras Modo Claro para Efecto Relieve */
-            --btn-bg: #f0f2f5;
-            --btn-sombra-oscura: rgba(163, 177, 198, 0.5);
-            --btn-sombra-clara: rgba(255, 255, 255, 0.9);
-            --icono-hundido: rgba(0, 0, 0, 0.15);
-            --sombra-header: rgba(0, 0, 0, 0.05);
+            /* Material Unificado (Modo Claro) */
+            --btn-bg: #f1f5f9;
+            --btn-sombra-oscura: rgba(148, 163, 184, 0.3);
+            --btn-sombra-clara: rgba(255, 255, 255, 0.8);
+            --icono-sumido: rgba(0, 0, 0, 0.15);
+            --sombra-general: rgba(0, 0, 0, 0.05);
         }
 
         body.modo-oscuro {
@@ -38,21 +38,21 @@
             --texto-secundario: #9ca3af;
             --borde-color: #334155;
             
-            /* Sombras Modo Oscuro para Efecto Relieve */
-            --btn-bg: #242424;
-            --btn-sombra-oscura: rgba(0, 0, 0, 0.6);
+            /* Material Unificado (Modo Oscuro) */
+            --btn-bg: #27272a;
+            --btn-sombra-oscura: rgba(0, 0, 0, 0.5);
             --btn-sombra-clara: rgba(255, 255, 255, 0.05);
-            --icono-hundido: rgba(255, 255, 255, 0.1);
-            --sombra-header: rgba(0, 0, 0, 0.3);
+            --icono-sumido: rgba(255, 255, 255, 0.1);
+            --sombra-general: rgba(0, 0, 0, 0.3);
         }
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            padding: 0;
             font-family: sans-serif;
             background-color: var(--bg-principal);
             color: var(--texto-principal);
@@ -62,21 +62,24 @@
             width: 100%;
         }
 
-        .contenedor-principal {
+        /* ========================================== */
+        /* 2. CONTENEDOR MAESTRO DE LA INTERFAZ       */
+        /* ========================================== */
+        .contenido-interfaz {
             width: 100%;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            /* Esta transición mueve TODO el bloque junto (Header + Main) */
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* ========================================== */
-        /* 2. ENCABEZADO FIJO (HEADER)                */
+        /* 3. ENCABEZADO (HEADER STICKY EN BLOQUE)    */
         /* ========================================== */
         header {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0; /* Cambiado a left: 0 para que sea un anclaje natural */
             width: 100%;
             height: var(--alto-header);
             display: flex;
@@ -84,53 +87,36 @@
             align-items: center;
             padding: 0 15px;
             background-color: var(--bg-tarjetas);
-            box-shadow: 0 2px 8px var(--sombra-header);
+            box-shadow: 0 2px 8px var(--sombra-general);
             z-index: 1000;
-            /* Agregamos transform para que se mueva exactamente igual al contenedor */
-            transition: background-color 0.2s, box-shadow 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background-color 0.2s, box-shadow 0.2s;
         }
 
         .header-izq, .header-der {
             display: flex;
             align-items: center;
             gap: 12px;
-            min-width: 80px;
-        }
-
-        .header-der {
-            justify-content: flex-end;
         }
 
         header h2 {
-            margin: 0;
             font-size: 1rem;
             text-align: center;
             flex-grow: 1;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-
-        .placeholder-btn {
-            background-color: var(--bg-sidebar);
-            border: 1px dashed var(--borde-color);
-            padding: 6px 12px;
-            font-size: 0.85rem;
-            border-radius: 4px;
-            color: var(--texto-secundario);
-            user-select: none;
-            cursor: pointer;
+            padding: 0 10px;
         }
 
         /* ========================================== */
-        /* 3. BOTÓN CON RELIEVE Y ICONO SUMIDO        */
+        /* 4. DISEÑO DE BOTONES UNIFICADOS (MISMO MATERIAL) */
         /* ========================================== */
-        .btn-relieve {
+        .btn-interactivo {
             background-color: var(--btn-bg);
-            border: none;
+            border: 1px solid var(--borde-color);
             width: 38px;
             height: 38px;
-            border-radius: 10px;
+            border-radius: 10px; /* Redondeado suave */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -138,31 +124,37 @@
             user-select: none;
             outline: none;
             transition: all 0.2s ease;
+            
+            /* Sombra sutil de relieve */
             box-shadow: 
-                -2px -2px 5px var(--btn-sombra-clara),
-                2px 2px 5px var(--btn-sombra-oscura);
+                -1px -1px 4px var(--btn-sombra-clara),
+                1px 1px 4px var(--btn-sombra-oscura);
         }
 
-        .btn-relieve span {
-            font-size: 1.25rem;
+        /* Icono de texto sumido para todos los botones */
+        .btn-interactivo span {
+            font-size: 1.15rem;
             font-weight: bold;
-            color: var(--texto-principal); 
+            color: var(--texto-principal);
             opacity: 0.85;
             transition: all 0.2s ease;
+            
+            /* Efecto grabado/sumido en el centro */
             text-shadow: 
                 1px 1px 1px var(--btn-sombra-clara), 
-                -1px -1px 1px var(--icono-hundido);
+                -1px -1px 1px var(--icono-sumido);
         }
 
-        .btn-relieve:active {
+        /* Efecto al presionar un botón (Cualquiera de los tres se hunde) */
+        .btn-interactivo:active {
             box-shadow: 
-                inset -2px -2px 4px var(--btn-sombra-clara),
-                inset 2px 2px 4px var(--btn-sombra-oscura);
-            transform: scale(0.98);
+                inset -1px -1px 3px var(--btn-sombra-clara),
+                inset 1px 1px 3px var(--btn-sombra-oscura);
+            transform: scale(0.96);
         }
 
         /* ========================================== */
-        /* 4. BARRA LATERAL (SIDEBAR)                 */
+        /* 5. BARRA LATERAL (SIDEBAR)                 */
         /* ========================================== */
         aside {
             position: fixed;
@@ -179,17 +171,14 @@
         }
 
         aside h3 {
-            margin-top: 0;
+            margin-bottom: 15px;
         }
 
         /* ========================================== */
-        /* 5. ÁREA DE CONTENIDO (MAIN)                */
+        /* 6. ÁREA DE CONTENIDO (MAIN)                */
         /* ========================================== */
         main {
-            padding-top: calc(var(--alto-header) + 20px);
-            padding-left: 20px;
-            padding-right: 20px;
-            padding-bottom: 40px;
+            padding: 20px;
             width: 100%;
             max-width: 100%;
             flex-grow: 1;
@@ -201,10 +190,9 @@
             font-size: 1.2rem;
         }
 
+        /* Regla de puntos adaptativa por CSS */
         .regla-prueba {
             list-style: none;
-            padding: 0;
-            margin: 0;
         }
 
         .regla-prueba li {
@@ -224,18 +212,11 @@
         }
 
         /* ========================================== */
-        /* 6. DISPOSITIVOS COMPUTADORA (CORREGIDO)    */
+        /* 7. COMPORTAMIENTO COMPUTADORA (PC)         */
         /* ========================================== */
         @media (min-width: 768px) {
-            /* Al abrir, el contenedor se desplaza exactamente el ancho de la barra */
-            body.sidebar-abierta .contenedor-principal {
-                transform: translateX(var(--ancho-sidebar));
-                width: calc(100% - var(--ancho-sidebar));
-            }
-            
-            /* SOLUCIÓN AL DESFASE: El encabezado ahora acompaña el movimiento */
-            /* de forma idéntica, manteniendo sus dimensiones emparejadas al milímetro */
-            body.sidebar-abierta header {
+            /* Al abrir la barra lateral, movemos TODO el bloque al unísono */
+            body.sidebar-abierta .contenido-interfaz {
                 transform: translateX(var(--ancho-sidebar));
                 width: calc(100% - var(--ancho-sidebar));
             }
@@ -245,8 +226,7 @@
             }
             
             main {
-                padding-left: 40px;
-                padding-right: 40px;
+                padding: 40px;
             }
             header h2 {
                 font-size: 1.1rem;
@@ -254,14 +234,16 @@
         }
 
         /* ========================================== */
-        /* 7. DISPOSITIVOS MÓVILES (CELULARES)        */
+        /* 8. COMPORTAMIENTO CELULARES                */
         /* ========================================== */
         @media (max-width: 767px) {
+            /* En celular el menú flota, el contenido se queda fijo abajo */
             body.sidebar-abierta aside {
                 transform: translateX(0);
                 box-shadow: 5px 0 15px rgba(0,0,0,0.2);
             }
-            .contenedor-principal {
+            
+            .contenido-interfaz {
                 width: 100vw;
                 max-width: 100vw;
             }
@@ -273,35 +255,44 @@
     <!-- BARRA LATERAL (SIDEBAR) -->
     <aside id="barra-lateral">
         <h3>Navegación</h3>
-        <p style="font-size:0.9rem; color: var(--texto-secundario);">(Aquí irán tus secciones pronto)</p>
-        <button onclick="toggleSidebar()" class="placeholder-btn" style="width:100%; border-style:solid; margin-top: 20px;">Cerrar Menú</button>
+        <p style="font-size:0.9rem; color: var(--texto-secundario); margin-bottom: 20px;">(Tus secciones irán aquí)</p>
+        <button onclick="toggleSidebar()" class="btn-interactivo" style="width: 100%; height: 40px;">
+            <span>Cerrar Menú</span>
+        </button>
     </aside>
 
-    <!-- CONTENEDOR PRINCIPAL -->
-    <div class="contenedor-principal" id="contenedor-principal">
+    <!-- CONTENEDOR INTEGRADO (HEADER + MAIN) -->
+    <div class="contenido-interfaz" id="contenido-interfaz">
         
         <!-- ENCABEZADO (HEADER) -->
         <header id="encabezado-fijo">
             <div class="header-izq">
-                <span class="placeholder-btn" onclick="toggleSidebar()" style="border-style:solid; font-weight:bold;">☰</span>
+                <!-- Botón Menú Lateral -->
+                <button class="btn-interactivo" onclick="toggleSidebar()" title="Abrir Menú">
+                    <span>☰</span>
+                </button>
             </div>
             
             <h2>Mi Sitio Web</h2>
             
             <div class="header-der">
-                <!-- BOTÓN CON RELIEVE CÍCLICO (Actualizado con tu cambio de A normal) -->
-                <button id="btn-tema" class="btn-relieve" onclick="rotarTema()" title="Cambiar Tema">
+                <!-- Botón de Tema Cíclico Renovado con la A normal -->
+                <button id="btn-tema" class="btn-interactivo" onclick="rotarTema()" title="Cambiar Tema">
                     <span id="icono-tema">A</span>
                 </button>
-                <span class="placeholder-btn">[ ••• ]</span>
+                
+                <!-- Botón de Opciones -->
+                <button class="btn-interactivo" title="Opciones">
+                    <span>⋮</span>
+                </button>
             </div>
         </header>
 
         <!-- CONTENIDO PRINCIPAL -->
         <main>
-            <h3 class="titulo-contenido">Verificación de Comportamiento Híbrido</h3>
+            <h3 class="titulo-contenido">Estructura Homogénea Corregida</h3>
             <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
-                Usa el nuevo botón biselado en la esquina superior derecha para alternar los modos visuales en tiempo real.
+                Los botones ahora comparten el mismo material y la barra superior se desplaza en perfecta armonía en computadoras.
             </p>
             
             <ul class="regla-prueba">
@@ -314,7 +305,7 @@
         </main>
     </div>
 
-    <!-- EL CEREBRO JAVASCRIPT -->
+    <!-- SCRIPT DE CONTROL REACTIVO -->
     <script>
         function toggleSidebar() {
             document.body.classList.toggle('sidebar-abierta');
@@ -322,7 +313,7 @@
 
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
         
-        // Mapeo con tu cambio aplicado: 'A' limpia en lugar de la versión con círculo
+        // Configuración de la rotación cíclica usando tu letra 'A' estándar
         const mapasTemas = {
             'auto': { siguiente: 'light', icono: 'A' },
             'light': { siguiente: 'dark', icono: '☼' },
@@ -341,7 +332,6 @@
                     document.body.classList.remove('modo-oscuro');
                 }
             }
-            
             document.getElementById('icono-tema').textContent = mapasTemas[tema].icono;
         }
 
@@ -353,6 +343,7 @@
             aplicarTema(proximoTema);
         }
 
+        // Inicialización
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
         aplicarTema(temaInicial);
 
