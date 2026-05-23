@@ -6,7 +6,9 @@
     <title>La web de Yoty-y</title>
     
     <style>
-        /* 1. CONFIGURACIÓN DE COLORES POR DEFECTO (TEMA CLARO) */
+        /* ========================================== */
+        /* 1. CONFIGURACIÓN GENERAL Y COLORES        */
+        /* ========================================== */
         body {
             margin: 0;
             padding: 0;
@@ -16,39 +18,88 @@
             transition: background-color 0.2s, color 0.2s;
         }
 
+        /* ========================================== */
+        /* 2. CAPA FLOTANTE: ENCABEZADO FIJO         */
+        /* ========================================== */
         header {
-            background-color: #ffffff;
-            padding: 10px 20px;
+            /* Aquí ocurre el truco de congelado */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px; /* Altura fija para el encabezado */
+            
+            /* Alineación de los elementos internos */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 0 20px;
+            box-sizing: border-box; /* Evita que el padding deforme el ancho */
+            
+            /* Estética */
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000; /* Asegura que siempre flote por ENCIMA del contenido */
+        }
+
+        /* Zonas del encabezado (Izquierda, Centro, Derecha) */
+        .header-izq {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-der {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Marcadores de posición discretos para los futuros botones */
+        .placeholder-btn {
+            background: #e2e8f0;
+            border: 1px dashed #cbd5e1;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            color: #64748b;
         }
 
         header h2 {
             margin: 0;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
-        /* La lista desplegable discreta */
-        .selector-tema {
-            background: #e2e8f0;
-            border: 1px solid #cbd5e1;
-            padding: 5px 10px;
-            font-size: 0.85rem;
-            border-radius: 4px;
-            cursor: pointer;
-            color: #1a1a1a;
-            outline: none;
-        }
-
+        /* ========================================== */
+        /* 3. CAPA DE CONTENIDO (CON SCROLL)         */
+        /* ========================================== */
         main {
-            padding: 20px;
-            text-align: center;
+            /* ¡MUY IMPORTANTE! Dejamos un espacio arriba igual a la altura */
+            /* del encabezado para que el contenido no nazca tapado por él */
+            padding-top: 70px; 
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 20px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* 2. REGLAS PARA EL MODO OSCURO */
-        /* Se aplicarán si el usuario elige "Oscuro" manualmente, O si elige "Auto" y su sistema es oscuro */
+        /* Estilos de la regla de prueba para hacer scroll */
+        .regla-prueba {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .regla-prueba li {
+            padding: 15px 0;
+            border-bottom: 1px dotted #cbd5e1;
+            font-size: 1.1rem;
+        }
+
+        /* ========================================== */
+        /* 4. MODOS VISUALES (MANTENIENDO LO ANTERIOR)*/
+        /* ========================================== */
         body.modo-oscuro {
             background-color: #121212;
             color: #f3f4f6;
@@ -56,46 +107,111 @@
 
         body.modo-oscuro header {
             background-color: #1e1e1e;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        body.modo-oscuro .selector-tema {
+        body.modo-oscuro .placeholder-btn {
             background: #333333;
             border-color: #444444;
-            color: #ffffff;
+            color: #9ca3af;
+        }
+
+        body.modo-oscuro .regla-prueba li {
+            border-bottom-color: #333333;
         }
     </style>
 </head>
 <body>
 
+    <!-- NUEVO ENCABEZADO ESTRUCTURADO Y FIJO -->
     <header>
-        <h2>Mi Sitio Web</h2>
+        <!-- Lado Izquierdo: Aquí irán las 3 rayitas y el título -->
+        <div class="header-izq">
+            <span class="placeholder-btn">[ ☰ ]</span>
+            <h2>Mi Sitio Web</h2>
+        </div>
         
-        <!-- Lista desplegable discreta en lugar del botón -->
-        <select id="selector-tema" class="selector-tema" onchange="seleccionarTema(this.value)">
-            <option value="auto">Auto</option>
-            <option value="light">Claro</option>
-            <option value="dark">Oscuro</option>
-        </select>
+        <!-- Lado Derecho: Aquí irá el botón camaleón y los 3 puntos -->
+        <div class="header-der">
+            <!-- Temporalmente dejamos el selector viejo para no romper la memoria aún -->
+            <select id="selector-tema" class="placeholder-btn" onchange="seleccionarTema(this.value)" style="border-style: solid; cursor: pointer;">
+                <option value="auto">Auto</option>
+                <option value="light">Claro</option>
+                <option value="dark">Oscuro</option>
+            </select>
+            <span class="placeholder-btn">[ ••• ]</span>
+        </div>
     </header>
 
+    <!-- ÁREA DE CONTENIDO PRINCIPAL CON REGLA DE SCROLL -->
     <main>
-        <h1>¡Bienvenido a tu Web Dinámica!</h1>
-        <p>El tema elegido se guardará en la memoria de tu navegador.</p>
+        <h3>Regla de verificación de Scroll</h3>
+        <p>Baja con la ruedita del ratón para comprobar que el encabezado se queda fijo en la parte superior.</p>
+        
+        <ul class="regla-prueba">
+            <li>Punto 01 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 02 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 03 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 04 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 05 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 06 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 07 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 08 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 09 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 10 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 11 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 12 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 13 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 14 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 15 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 16 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 17 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 18 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 19 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 20 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 21 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 22 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 23 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 24 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 25 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 26 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 27 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 28 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 29 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 30 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 31 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 32 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 33 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 34 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 35 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 36 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 37 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 38 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 39 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 40 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 41 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 42 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 43 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 44 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 45 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 46 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 47 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 48 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 49 ••••••••••••••••••••••••••••••••••</li>
+            <li>Punto 50 ••••••••••••••••••••••••••••••••••</li>
+        </ul>
     </main>
 
+    <!-- MANTENEMOS TU CEREBRO OPERATIVO PARA NO PERDER LA MEMORIA -->
     <script>
-        // Guardamos en una variable el detector del sistema operativo
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
 
-        // Esta es la función que decide si poner la pantalla clara u oscura
         function aplicarTema(tema) {
             if (tema === 'dark') {
                 document.body.classList.add('modo-oscuro');
             } else if (tema === 'light') {
                 document.body.classList.remove('modo-oscuro');
             } else if (tema === 'auto') {
-                // Si es auto, revisamos qué prefiere el sistema en ese instante
                 if (detectorSistema.matches) {
                     document.body.classList.add('modo-oscuro');
                 } else {
@@ -104,23 +220,15 @@
             }
         }
 
-        // Esta función se ejecuta cuando el usuario cambia la opción en la lista desplegable
         function seleccionarTema(tema) {
-            localStorage.setItem('tema-guardado', tema); // Guarda la elección en la memoria del navegador
+            localStorage.setItem('tema-guardado', tema);
             aplicarTema(tema);
         }
 
-        // --- AL CARGAR LA PÁGINA POR PRIMERA VEZ ---
-        // 1. Buscamos si ya hay un tema guardado en la memoria. Si no hay nada, por defecto será 'auto'.
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
-        
-        // 2. Hacemos que la lista desplegable muestre visualmente la opción que está activa
         document.getElementById('selector-tema').value = temaInicial;
-        
-        // 3. Aplicamos el tema correspondiente
         aplicarTema(temaInicial);
 
-        // 4. Si el usuario lo dejó en 'auto' y cambia el tema de Bodhi Linux mientras la web está abierta, reacciona al instante
         detectorSistema.addEventListener('change', () => {
             if (localStorage.getItem('tema-guardado') === 'auto' || !localStorage.getItem('tema-guardado')) {
                 aplicarTema('auto');
