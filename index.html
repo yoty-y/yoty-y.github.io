@@ -10,8 +10,8 @@
         /* 1. VARIABLES Y CONFIGURACIÓN BASE          */
         /* ========================================== */
         :root {
-            --ancho-sidebar-mini: 65px;  /* Grosor del riel permanente */
-            --ancho-sidebar-total: 260px; /* Ancho cuando se expande */
+            --ancho-sidebar-mini: 65px;  
+            --ancho-sidebar-total: 260px; 
             --alto-header: 55px;
             
             /* Colores Modo Claro */
@@ -64,7 +64,7 @@
         }
 
         /* ========================================== */
-        /* 2. CONTENEDOR DE LA INTERFAZ (HEADER+MAIN) */
+        /* 2. CONTENEDOR DE LA INTERFAZ               */
         /* ========================================== */
         .contenido-interfaz {
             width: 100%;
@@ -96,11 +96,6 @@
             display: flex;
             align-items: center;
             gap: 12px;
-        }
-
-        /* Botón de menú que SOLO se verá en celulares */
-        .btn-menu-movil {
-            display: none; 
         }
 
         header h2 {
@@ -150,14 +145,14 @@
         }
 
         /* ========================================== */
-        /* 5. NUEVA BARRA LATERAL (SIDEBAR DOCK)      */
+        /* 5. BARRA LATERAL (SIDEBAR DOCK)            */
         /* ========================================== */
         aside {
             position: fixed;
             top: 0;
             left: 0;
             height: 100vh;
-            width: var(--ancho-sidebar-mini); /* Por defecto tamaño riel delgado */
+            width: var(--ancho-sidebar-mini); 
             background-color: var(--bg-sidebar);
             z-index: 2000;
             overflow-x: hidden;
@@ -165,12 +160,11 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            padding: 9px 13px; /* Alineación milimétrica con el header */
+            padding: 9px 13px; 
             gap: 20px;
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Contenedor de cada fila de navegación */
         .opcion-navegacion {
             display: flex;
             align-items: center;
@@ -181,29 +175,26 @@
             gap: 15px;
         }
 
-        /* El texto al lado de los iconos */
         .texto-opcion {
             font-size: 0.95rem;
             font-weight: 500;
             white-space: nowrap;
-            opacity: 0; /* Escondido por defecto en modo mini */
+            opacity: 0; 
             transform: translateX(-10px);
             transition: opacity 0.2s ease, transform 0.2s ease;
             pointer-events: none;
         }
 
-        /* CUANDO LA SIDEBAR SE EXPANDE (Modo Ancho) */
         body.sidebar-abierta aside {
             width: var(--ancho-sidebar-total);
         }
 
         body.sidebar-abierta .texto-opcion {
-            opacity: 1; /* Muestra el texto suavemente */
+            opacity: 1; 
             transform: translateX(0);
             pointer-events: auto;
         }
 
-        /* Separador estético opcional bajo el botón máster */
         .divisor-sidebar {
             width: 100%;
             border-bottom: 1px solid var(--borde-color);
@@ -247,7 +238,6 @@
             height: 1px;
         }
 
-        /* Capa oscura trasera para celulares cuando el menú está abierto */
         .overlay-fondo {
             display: none;
             position: fixed;
@@ -263,12 +253,10 @@
         /* 7. COMPORTAMIENTO COMPUTADORA (PC)         */
         /* ========================================== */
         @media (min-width: 768px) {
-            /* Dejar un espacio a la izquierda para que el contenido no quede tapado por el riel mini */
             .contenido-interfaz {
                 padding-left: var(--ancho-sidebar-mini);
             }
             
-            /* Cuando se expande, empuja el contenido sumando el espacio extra */
             body.sidebar-abierta .contenido-interfaz {
                 transform: translateX(calc(var(--ancho-sidebar-total) - var(--ancho-sidebar-mini)));
                 width: calc(100% - (var(--ancho-sidebar-total) - var(--ancho-sidebar-mini)));
@@ -286,18 +274,11 @@
         /* 8. COMPORTAMIENTO CELULARES                */
         /* ========================================== */
         @media (max-width: 767px) {
-            /* En celulares ocultamos por completo el riel para ganar espacio de pantalla */
             aside {
                 transform: translateX(-100%);
-                width: var(--ancho-sidebar-total) !important; /* Siempre ancho completo en cel */
+                width: var(--ancho-sidebar-total) !important; 
             }
             
-            /* El botón del menú reaparece arriba a la izquierda del Header */
-            .btn-menu-movil {
-                display: flex;
-            }
-            
-            /* Al abrir en celular, el menú se desliza flotando elegantemente */
             body.sidebar-abierta aside {
                 transform: translateX(0);
                 box-shadow: 5px 0 15px rgba(0,0,0,0.2);
@@ -309,7 +290,7 @@
             }
             
             body.sidebar-abierta .overlay-fondo {
-                display: block; /* Muestra el tapiz oscuro para cerrar tocando fuera */
+                display: block; 
             }
         }
     </style>
@@ -319,9 +300,9 @@
     <!-- CAPA OSCURA PARA CELULARES -->
     <div class="overlay-fondo" onclick="toggleSidebar()"></div>
 
-    <!-- NUEVA BARRA LATERAL INTERACTIVA (CON EL BOTÓN INTEGRADO) -->
+    <!-- BARRA LATERAL INTERACTIVA (DOCK) -->
     <aside id="barra-lateral">
-        <!-- Fila del Botón Máster Intercambiador -->
+        <!-- Interruptor Máster Único -->
         <div class="opcion-navegacion divisor-sidebar" onclick="toggleSidebar()">
             <button class="btn-interactivo" style="flex-shrink: 0;">
                 <span>☰</span>
@@ -329,7 +310,7 @@
             <span class="texto-opcion" style="font-weight: bold; color: var(--texto-secundario);">Menú Lateral</span>
         </div>
 
-        <!-- Opción de Navegación 1 -->
+        <!-- Opción A -->
         <div class="opcion-navegacion">
             <button class="btn-interactivo" style="flex-shrink: 0;">
                 <span>A</span>
@@ -337,7 +318,7 @@
             <span class="texto-opcion">Texto Uno</span>
         </div>
 
-        <!-- Opción de Navegación 2 -->
+        <!-- Opción B -->
         <div class="opcion-navegacion">
             <button class="btn-interactivo" style="flex-shrink: 0;">
                 <span>B</span>
@@ -345,7 +326,7 @@
             <span class="texto-opcion">Texto Dos</span>
         </div>
 
-        <!-- Opción de Navegación 3 -->
+        <!-- Opción C -->
         <div class="opcion-navegacion">
             <button class="btn-interactivo" style="flex-shrink: 0;">
                 <span>C</span>
@@ -353,7 +334,7 @@
             <span class="texto-opcion">Texto Tres</span>
         </div>
 
-        <!-- Opción de Navegación 4 -->
+        <!-- Opción D -->
         <div class="opcion-navegacion">
             <button class="btn-interactivo" style="flex-shrink: 0;">
                 <span>D</span>
@@ -365,18 +346,14 @@
     <!-- CONTENEDOR INTEGRADO (HEADER + MAIN) -->
     <div class="contenido-interfaz" id="contenido-interfaz">
         
-        <!-- ENCABEZADO (HEADER MODULAR) -->
+        <!-- ENCABEZADO CORREGIDO (SIN EL BOTÓN DUPLICADO) -->
         <header id="encabezado-fijo">
             <div class="header-izq">
-                <!-- Este botón solo se activa y ve en celulares -->
-                <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()" title="Abrir Menú">
-                    <span>☰</span>
-                </button>
                 <h2>Mi Sitio Web</h2>
             </div>
             
             <div class="header-der">
-                <!-- Botón de Tema Cíclico Unificado -->
+                <!-- Botón de Tema Cíclico -->
                 <button id="btn-tema" class="btn-interactivo" onclick="rotarTema()" title="Cambiar Tema">
                     <span id="icono-tema">A</span>
                 </button>
@@ -388,11 +365,11 @@
             </div>
         </header>
 
-        <!-- CUERPO DE LA PÁGINA (ESTE ES EL CORAZÓN INTERCAMBIABLE) -->
+        <!-- CUERPO DE LA PÁGINA (CORAZÓN INTERCAMBIABLE) -->
         <main>
-            <h3 class="titulo-contenido">Verificación del Sistema Dock Unificado</h3>
+            <h3 class="titulo-contenido">Diseño Limpio y Asignado</h3>
             <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
-                Estructura lista para producción. El menú `☰` ahora controla la expansión del Dock desde un único punto.
+                La barra superior ahora queda libre de redundancias y enfocada únicamente en el título y las interacciones rápidas.
             </p>
             
             <ul class="regla-prueba">
@@ -407,7 +384,6 @@
 
     <!-- SCRIPT DE CONTROL REACTIVO -->
     <script>
-        // Cambia el estado de la barra (Abierta/Cerrada)
         function toggleSidebar() {
             document.body.classList.toggle('sidebar-abierta');
         }
@@ -443,7 +419,6 @@
             aplicarTema(proximoTema);
         }
 
-        // Inicialización
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
         aplicarTema(temaInicial);
 
