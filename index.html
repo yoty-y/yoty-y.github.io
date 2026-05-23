@@ -31,7 +31,7 @@
         }
 
         /* ========================================== */
-        /* 2. CATÁLOGO COMPLETO DE 9 TEMAS            */
+        /* 2. CATÁLOGO COMPLETO DE 9 TEMAS (INYECCIÓN)*/
         /* ========================================== */
         
         /* [BASE 1/3] OSCURO */
@@ -90,7 +90,7 @@
             --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.03);
         }
 
-        /* [FRÍO 1/3] OCÉANO PROFUNDO (ALTO CONTRASTE) */
+        /* [FRÍO 1/3] OCÉANO PROFUNDO */
         body.tema-oceano {
             --bg-principal: #030712; --bg-tarjetas: #111827; --bg-sidebar: #0f172a;
             --texto-principal: #06b6d4; --texto-secundario: #38bdf8; --borde-color: #1e293b;
@@ -206,7 +206,7 @@
         body.modo-oscuro .carpeta-contenido { background-color: rgba(255,255,255,0.01); }
 
         /* Estados Abiertos mediante JS */
-        .carpeta-categoria.abierta .carpeta-contenido { max-height: 150px; }
+        .carpeta-categoria.abierta .carpeta-contenido { max-height: 150px; /* Suficiente para albergar los subtemas */ }
         .carpeta-categoria.abierta .indicador-flecha { transform: rotate(180deg); }
 
         /* ========================================== */
@@ -416,7 +416,9 @@
             document.getElementById('icono-tema').textContent = config.icono;
         }
 
-        // Clic Principal Izquierdo: Rotación Inteligente del bloque base
+        // CONTROLADORES DE EVENTOS
+        
+        // Clic Principal Izquierdo
         function rotarTemaBase() {
             let temaActual = localStorage.getItem('tema-guardado') || 'auto';
             let index = carruselBase.indexOf(temaActual);
@@ -435,21 +437,23 @@
             menuFlotante.classList.toggle('activo');
         }
 
-        // Control de Acordeones Integrados
+        // Control Manejo de Carpetas Acordeón (Cierra las demás al abrir una nueva)
         function toggleCarpeta(cabeceraElemento) {
             const carpetaPadre = cabeceraElemento.parentElement;
             const estaAbierta = carpetaPadre.classList.contains('abierta');
             
+            // Cerrar todas las demás carpetas primero para mantener el orden
             document.querySelectorAll('.carpeta-categoria').forEach(folder => {
                 folder.classList.remove('abierta');
             });
 
+            // Si no estaba abierta, la abrimos
             if (!estaAbierta) {
                 carpetaPadre.classList.add('abierta');
             }
         }
 
-        // Selección Directa de opciones internas
+        // Seleccionar Tema de cualquier fila
         function seleccionarTemaDirecto(nombreTema) {
             localStorage.setItem('tema-guardado', nombreTema);
             aplicarTema(nombreTema);
@@ -468,7 +472,7 @@
             cerrarTodoElMenu();
         });
 
-        // Inicialización Instantánea
+        // Inicializador
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
         aplicarTema(temaInicial);
 
