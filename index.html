@@ -76,7 +76,7 @@
         header {
             position: fixed;
             top: 0;
-            right: 0;
+            left: 0; /* Cambiado a left: 0 para que sea un anclaje natural */
             width: 100%;
             height: var(--alto-header);
             display: flex;
@@ -86,7 +86,8 @@
             background-color: var(--bg-tarjetas);
             box-shadow: 0 2px 8px var(--sombra-header);
             z-index: 1000;
-            transition: background-color 0.2s, box-shadow 0.2s;
+            /* Agregamos transform para que se mueva exactamente igual al contenedor */
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .header-izq, .header-der {
@@ -122,14 +123,14 @@
         }
 
         /* ========================================== */
-        /* 3. BOTÓN CON RELIEVE Y ICONO SUMIDO (NUEVO)*/
+        /* 3. BOTÓN CON RELIEVE Y ICONO SUMIDO        */
         /* ========================================== */
         .btn-relieve {
             background-color: var(--btn-bg);
             border: none;
             width: 38px;
             height: 38px;
-            border-radius: 10px; /* Redondeado suave en sintonía con la interfaz */
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -137,29 +138,22 @@
             user-select: none;
             outline: none;
             transition: all 0.2s ease;
-            
-            /* Doble sombra técnica: luz arriba-izquierda, sombra abajo-derecha */
             box-shadow: 
                 -2px -2px 5px var(--btn-sombra-clara),
                 2px 2px 5px var(--btn-sombra-oscura);
         }
 
-        /* El icono de texto dentro del botón */
         .btn-relieve span {
             font-size: 1.25rem;
             font-weight: bold;
-            /* El mismo color base pero sutilmente alterado por las sombras */
             color: var(--texto-principal); 
             opacity: 0.85;
             transition: all 0.2s ease;
-            
-            /* Sombra interna simulada: le da el efecto "tallado" o sumido en el material */
             text-shadow: 
                 1px 1px 1px var(--btn-sombra-clara), 
                 -1px -1px 1px var(--icono-hundido);
         }
 
-        /* Efecto al presionar (Se hunde físicamente el botón) */
         .btn-relieve:active {
             box-shadow: 
                 inset -2px -2px 4px var(--btn-sombra-clara),
@@ -230,19 +224,26 @@
         }
 
         /* ========================================== */
-        /* 6. DISPOSITIVOS COMPUTADORA                */
+        /* 6. DISPOSITIVOS COMPUTADORA (CORREGIDO)    */
         /* ========================================== */
         @media (min-width: 768px) {
+            /* Al abrir, el contenedor se desplaza exactamente el ancho de la barra */
             body.sidebar-abierta .contenedor-principal {
                 transform: translateX(var(--ancho-sidebar));
                 width: calc(100% - var(--ancho-sidebar));
             }
+            
+            /* SOLUCIÓN AL DESFASE: El encabezado ahora acompaña el movimiento */
+            /* de forma idéntica, manteniendo sus dimensiones emparejadas al milímetro */
             body.sidebar-abierta header {
+                transform: translateX(var(--ancho-sidebar));
                 width: calc(100% - var(--ancho-sidebar));
             }
+            
             body.sidebar-abierta aside {
                 transform: translateX(0);
             }
+            
             main {
                 padding-left: 40px;
                 padding-right: 40px;
@@ -288,9 +289,9 @@
             <h2>Mi Sitio Web</h2>
             
             <div class="header-der">
-                <!-- NUEVO BOTÓN CON RELIEVE CÍCLICO -->
+                <!-- BOTÓN CON RELIEVE CÍCLICO (Actualizado con tu cambio de A normal) -->
                 <button id="btn-tema" class="btn-relieve" onclick="rotarTema()" title="Cambiar Tema">
-                    <span id="icono-tema">Ⓐ</span>
+                    <span id="icono-tema">A</span>
                 </button>
                 <span class="placeholder-btn">[ ••• ]</span>
             </div>
@@ -321,7 +322,7 @@
 
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
         
-        // Mapeo de estados del tema cíclico: Auto -> Claro -> Oscuro -> Auto
+        // Mapeo con tu cambio aplicado: 'A' limpia en lugar de la versión con círculo
         const mapasTemas = {
             'auto': { siguiente: 'light', icono: 'A' },
             'light': { siguiente: 'dark', icono: '☼' },
@@ -329,7 +330,6 @@
         };
 
         function aplicarTema(tema) {
-            // 1. Aplicar cambios de color al body
             if (tema === 'dark') {
                 document.body.classList.add('modo-oscuro');
             } else if (tema === 'light') {
@@ -342,11 +342,9 @@
                 }
             }
             
-            // 2. Actualizar el icono del botón según el tema seleccionado
             document.getElementById('icono-tema').textContent = mapasTemas[tema].icono;
         }
 
-        // Función que se ejecuta al presionar el botón de relieve
         function rotarTema() {
             const temaActual = localStorage.getItem('tema-guardado') || 'auto';
             const proximoTema = mapasTemas[temaActual].siguiente;
@@ -355,11 +353,9 @@
             aplicarTema(proximoTema);
         }
 
-        // Inicialización al cargar la página
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
         aplicarTema(temaInicial);
 
-        // Escucha cambios del sistema operativo
         detectorSistema.addEventListener('change', () => {
             const temaActual = localStorage.getItem('tema-guardado') || 'auto';
             if (temaActual === 'auto') {
