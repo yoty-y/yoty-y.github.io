@@ -2,10 +2,39 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La web de Yoty-y</title>
+    
+    <style>
+        /* 1. TEMA CLARO (Por defecto) */
+        /* Si el navegador del usuario está en modo claro, se aplicará esto */
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 2. EL DETECTOR UNIVERSAL (Tema Oscuro) */
+        /* Esta línea le pregunta en secreto al navegador: "¿El usuario prefiere modo oscuro?" */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212; /* Cambia el fondo a negro oscuro */
+                color: #f3f4f6;            /* Cambia las letras a blanco grisáceo */
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>¡Hola Mundo!</h1>
-    <p>Esta es mi primera página web en GitHub Pages corriendo desde Bodhi Linux.</p>
+
+    <h1>Detección Automática Activada</h1>
+    <p>Esta página cambia de color según la configuración de tu navegador o sistema operativo.</p>
+
 </body>
 </html>
