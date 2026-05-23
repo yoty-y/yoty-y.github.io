@@ -14,7 +14,7 @@
             --ancho-sidebar-total: 260px; 
             --alto-header: 55px;
             
-            /* Colores Modo Claro */
+            /* Colores Modo Claro Estándar */
             --bg-principal: #f4f4f9;
             --bg-tarjetas: #ffffff;
             --bg-sidebar: #e2e8f0;
@@ -30,21 +30,96 @@
             --sombra-general: rgba(0, 0, 0, 0.05);
         }
 
+        /* PALETAS DE TEMAS (CLASES MAESTRAS APLICADAS EN BODY) */
+        
+        /* 1. MODO OSCURO */
         body.modo-oscuro {
-            /* Colores Modo Oscuro */
             --bg-principal: #121212;
             --bg-tarjetas: #1e1e1e;
             --bg-sidebar: #1e293b;
             --texto-principal: #f3f4f6;
             --texto-secundario: #9ca3af;
             --borde-color: #334155;
-            
-            /* Material Unificado (Modo Oscuro) */
             --btn-bg: #27272a;
             --btn-sombra-oscura: rgba(0, 0, 0, 0.5);
             --btn-sombra-clara: rgba(255, 255, 255, 0.05);
             --icono-sumido: rgba(255, 255, 255, 0.1);
             --sombra-general: rgba(0, 0, 0, 0.3);
+        }
+
+        /* 2. CYBERPUNK */
+        body.tema-cyberpunk {
+            --bg-principal: #05050a;
+            --bg-tarjetas: #0d0e15;
+            --bg-sidebar: #1a0033;
+            --texto-principal: #fffb00;
+            --texto-secundario: #ff007f;
+            --borde-color: #ff007f;
+            --btn-bg: #121324;
+            --btn-sombra-oscura: rgba(255, 0, 127, 0.2);
+            --btn-sombra-clara: rgba(255, 251, 0, 0.1);
+            --icono-sumido: rgba(255, 251, 0, 0.3);
+            --sombra-general: rgba(255, 0, 127, 0.15);
+        }
+
+        /* 3. BOSQUE MÍSTICO */
+        body.tema-bosque {
+            --bg-principal: #1b2620;
+            --bg-tarjetas: #233229;
+            --bg-sidebar: #131c17;
+            --texto-principal: #e1efe6;
+            --texto-secundario: #a3b899;
+            --borde-color: #3b5345;
+            --btn-bg: #2a3d32;
+            --btn-sombra-oscura: rgba(0,0,0,0.4);
+            --btn-sombra-clara: rgba(255,255,255,0.05);
+            --icono-sumido: rgba(0,0,0,0.2);
+            --sombra-general: rgba(0,0,0,0.25);
+        }
+
+        /* 4. AKI-RETRO (OTOÑO JAPONÉS) */
+        body.tema-retro {
+            --bg-principal: #f5ebe0;
+            --bg-tarjetas: #f2e8cf;
+            --bg-sidebar: #e6ccb2;
+            --texto-principal: #6b2d5c;
+            --texto-secundario: #bc4749;
+            --borde-color: #ddb892;
+            --btn-bg: #ede0d4;
+            --btn-sombra-oscura: rgba(107, 45, 92, 0.15);
+            --btn-sombra-clara: rgba(255, 255, 255, 0.9);
+            --icono-sumido: rgba(0,0,0,0.08);
+            --sombra-general: rgba(107, 45, 92, 0.05);
+        }
+
+        /* 5. OCÉANO PROFUNDO */
+        body.tema-oceano {
+            --bg-principal: #0b132b;
+            --bg-tarjetas: #1c2541;
+            --bg-sidebar: #111a33;
+            --texto-principal: #48cae4;
+            --texto-secundario: #00b4d8;
+            --borde-color: #3a506b;
+            --btn-bg: #22305c;
+            --btn-sombra-oscura: rgba(0,0,0,0.5);
+            --btn-sombra-clara: rgba(255,255,255,0.08);
+            --icono-sumido: rgba(0,0,0,0.3);
+            --sombra-general: rgba(0,0,0,0.4);
+        }
+
+        /* 6. FUEGO NEÓN */
+        body.tema-fuego {
+            --bg-principal: #0f0f12;
+            --bg-tarjetas: #18181c;
+            --bg-sidebar: #241414;
+            --texto-principal: #ff4d00;
+            --texto-secundario: #ff9e00;
+            --borde-color: #ff3c00;
+            --btn-bg: #212126;
+            --btn-sombra-oscura: rgba(0, 0, 0, 0.6);
+            --btn-sombra-clara: rgba(255, 77, 0, 0.05);
+            --icono-sumido: rgba(255, 77, 0, 0.2);
+            --sombra-general: rgba(0, 0, 0, 0.5);
         }
 
         * {
@@ -62,9 +137,6 @@
             overflow-x: hidden;
         }
 
-        /* ========================================== */
-        /* 2. CONTENEDOR MAESTRO (ELÁSTICO HORIZONTAL)*/
-        /* ========================================== */
         .layout-global {
             display: flex;
             width: 100vw;
@@ -73,7 +145,7 @@
         }
 
         /* ========================================== */
-        /* 3. BARRA LATERAL (ESTILO DOCK PERMANENTE)  */
+        /* 2. BARRA LATERAL (SIDEBAR)                 */
         /* ========================================== */
         aside {
             width: var(--ancho-sidebar-mini); 
@@ -88,7 +160,6 @@
             overflow-x: hidden;
             overflow-y: auto;
             z-index: 2000;
-            /* Curva de aceleración ultra-fluida sincronizada */
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -112,7 +183,6 @@
             pointer-events: none;
         }
 
-        /* CONFIGURACIÓN EXPANSIÓN EN PC */
         body.sidebar-abierta aside {
             width: var(--ancho-sidebar-total);
         }
@@ -121,7 +191,7 @@
             opacity: 1; 
             transform: translateX(0);
             pointer-events: auto;
-            transition-delay: 0.05s; /* Espera un milisegundo para mostrar el texto de forma orgánica */
+            transition-delay: 0.05s;
         }
 
         .divisor-sidebar {
@@ -132,21 +202,17 @@
         }
 
         /* ========================================== */
-        /* 4. BLOQUE DERECHO (SE ADAPTA DE FORMA FLUIDA) */
+        /* 3. CONTENEDOR DE INTERFAZ ELÁSTICO         */
         /* ========================================== */
         .contenido-interfaz {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            min-width: 0; /* Evita que el contenido rompa el layout */
-            /* Esta línea es la magia que elimina el efecto flash de recorte */
+            min-width: 0;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ========================================== */
-        /* 5. ENCABEZADO (HEADER ADAPTATIVO SIN SALTOS)*/
-        /* ========================================== */
         header {
             position: sticky;
             top: 0;
@@ -168,7 +234,6 @@
             gap: 12px;
         }
 
-        /* BLOQUEO ABSOLUTO EN PC: Aquí se elimina selectivamente de la computadora */
         .btn-menu-movil {
             display: none !important;
         }
@@ -181,7 +246,7 @@
         }
 
         /* ========================================== */
-        /* 6. MATERIAL DE BOTONES UNIFICADO           */
+        /* 4. DISEÑO DE BOTONES (MATERIAL)            */
         /* ========================================== */
         .btn-interactivo {
             background-color: var(--btn-bg);
@@ -207,9 +272,6 @@
             color: var(--texto-principal);
             opacity: 0.85;
             transition: all 0.2s ease;
-            text-shadow: 
-                1px 1px 1px var(--btn-sombra-clara), 
-                -1px -1px 1px var(--icono-sumido);
         }
 
         .btn-interactivo:active {
@@ -220,7 +282,114 @@
         }
 
         /* ========================================== */
-        /* 7. ÁREA DE CONTENIDO (MAIN)                */
+        /* 5. NUEVO BOTÓN RECTANGULAR DIVIDIDO (SPLIT)*/
+        /* ========================================== */
+        .contenedor-split-button {
+            position: relative; /* Ancla el menú flotante aquí */
+            display: flex;
+            align-items: center;
+            background-color: var(--btn-bg);
+            border: 1px solid var(--borde-color);
+            height: 38px;
+            width: 82px; /* Rectangular extendido */
+            border-radius: 10px;
+            box-shadow: 
+                -1px -1px 4px var(--btn-sombra-clara),
+                1px 1px 4px var(--btn-sombra-oscura);
+            overflow: hidden;
+        }
+
+        .split-accion-principal {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+        
+        .split-accion-principal:hover {
+            background-color: rgba(0,0,0,0.03);
+        }
+        body.modo-oscuro .split-accion-principal:hover {
+            background-color: rgba(255,255,255,0.03);
+        }
+
+        .split-divisor {
+            width: 1px;
+            height: 60%;
+            background-color: var(--borde-color);
+        }
+
+        .split-flecha {
+            width: 32px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.65rem;
+            transition: background-color 0.2s;
+        }
+
+        .split-flecha:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        /* ========================================== */
+        /* 6. MENÚ FLOTANTE DE TEMAS EXTENDIDOS       */
+        /* ========================================== */
+        .menu-temas-flotante {
+            position: absolute;
+            top: 46px;
+            right: 0;
+            background-color: var(--bg-tarjetas);
+            border: 1px solid var(--borde-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px var(--sombra-general);
+            width: 170px;
+            padding: 6px;
+            display: none; /* Se activa con JS */
+            flex-direction: column;
+            gap: 4px;
+            z-index: 3000;
+            animation: entradaMenu 0.2s ease-out;
+        }
+
+        @keyframes entradaMenu {
+            from { opacity: 0; transform: translateY(-8px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .item-tema-opcion {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+
+        .item-tema-opcion:hover {
+            background-color: var(--btn-bg);
+            transform: translateX(3px);
+        }
+
+        .item-tema-opcion .circulo-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        /* ========================================== */
+        /* 7. ELEMENTOS DEL CUERPO (MAIN)             */
         /* ========================================== */
         main {
             padding: 20px;
@@ -258,28 +427,13 @@
             display: none;
         }
 
-        /* ========================================== */
-        /* 8. AJUSTES EXCLUSIVOS PARA PC              */
-        /* ========================================== */
         @media (min-width: 768px) {
-            main {
-                padding: 40px;
-            }
-            header h2 {
-                font-size: 1.1rem;
-            }
+            main { padding: 40px; }
+            header h2 { font-size: 1.1rem; }
         }
 
-        /* ========================================== */
-        /* 9. AJUSTES EXCLUSIVOS PARA CELULARES       */
-        /* ========================================== */
         @media (max-width: 767px) {
-            /* Activamos el botón del menú ÚNICAMENTE en la pantalla móvil */
-            .btn-menu-movil {
-                display: flex !important;
-            }
-
-            /* Modificamos la barra lateral para que flote en el teléfono */
+            .btn-menu-movil { display: flex !important; }
             aside {
                 position: fixed;
                 top: 0;
@@ -287,34 +441,22 @@
                 transform: translateX(-100%);
                 width: var(--ancho-sidebar-total) !important; 
             }
-            
             body.sidebar-abierta aside {
                 transform: translateX(0);
                 box-shadow: 5px 0 15px rgba(0,0,0,0.2);
             }
-
-            body.sidebar-abierta .texto-opcion {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            
-            /* Fondo traslúcido reactivo para móvil */
+            body.sidebar-abierta .texto-opcion { opacity: 1; transform: translateX(0); }
             body.sidebar-abierta .overlay-fondo {
                 display: block;
                 position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background: rgba(0,0,0,0.4);
-                z-index: 1500;
+                top: 0; left: 0; width: 100vw; height: 100vh;
+                background: rgba(0,0,0,0.4); z-index: 1500;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- CONTENEDOR ELÁSTICO MAESTRO -->
     <div class="layout-global">
 
         <!-- CAPA OSCURA PARA CELULARES -->
@@ -322,78 +464,90 @@
 
         <!-- BARRA LATERAL (DOCK INTEGRADO) -->
         <aside id="barra-lateral">
-            <!-- Interruptor Máster Único -->
             <div class="opcion-navegacion divisor-sidebar" onclick="toggleSidebar()">
                 <button class="btn-interactivo" style="flex-shrink: 0;">
-                    <span>☰</span>
+                    <span style="color: var(--texto-principal);">☰</span>
                 </button>
                 <span class="texto-opcion" style="font-weight: bold; color: var(--texto-secundario);">Menú Lateral</span>
             </div>
 
-            <!-- Opción A -->
             <div class="opcion-navegacion">
-                <button class="btn-interactivo" style="flex-shrink: 0;">
-                    <span>A</span>
-                </button>
+                <button class="btn-interactivo" style="flex-shrink: 0;"><span>A</span></button>
                 <span class="texto-opcion">Texto Uno</span>
             </div>
-
-            <!-- Opción B -->
             <div class="opcion-navegacion">
-                <button class="btn-interactivo" style="flex-shrink: 0;">
-                    <span>B</span>
-                </button>
+                <button class="btn-interactivo" style="flex-shrink: 0;"><span>B</span></button>
                 <span class="texto-opcion">Texto Dos</span>
             </div>
-
-            <!-- Opción C -->
             <div class="opcion-navegacion">
-                <button class="btn-interactivo" style="flex-shrink: 0;">
-                    <span>C</span>
-                </button>
+                <button class="btn-interactivo" style="flex-shrink: 0;"><span>C</span></button>
                 <span class="texto-opcion">Texto Tres</span>
-            </div>
-
-            <!-- Opción D -->
-            <div class="opcion-navegacion">
-                <button class="btn-interactivo" style="flex-shrink: 0;">
-                    <span>D</span>
-                </button>
-                <span class="texto-opcion">Texto Cuatro</span>
             </div>
         </aside>
 
-        <!-- CONTENEDOR DE LA INTERFAZ FLEXIBLE (SE ENCOGE/ESTIRA SIN FLASHES) -->
+        <!-- CONTENEDOR DE LA INTERFAZ -->
         <div class="contenido-interfaz" id="contenido-interfaz">
             
-            <!-- ENCABEZADO ASILADO -->
             <header id="encabezado-fijo">
                 <div class="header-izq">
-                    <!-- Botón Condicional: Protegido físicamente por el CSS de PC -->
-                    <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()" title="Abrir Menú">
-                        <span>☰</span>
+                    <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()">
+                        <span style="color: var(--texto-principal);">☰</span>
                     </button>
                     <h2>Mi Sitio Web</h2>
                 </div>
                 
                 <div class="header-der">
-                    <!-- Botón de Tema Cíclico -->
-                    <button id="btn-tema" class="btn-interactivo" onclick="rotarTema()" title="Cambiar Tema">
-                        <span id="icono-tema">A</span>
-                    </button>
                     
-                    <!-- Botón de Opciones -->
+                    <!-- NUEVO SPLIT BUTTON RECTANGULAR -->
+                    <div class="contenedor-split-button">
+                        <!-- Lado Izquierdo: Acción Principal (Cambio Cíclico Base) -->
+                        <div class="split-accion-principal" onclick="rotarTemaBase()" title="Rotar Tema Base">
+                            <span id="icono-tema" style="font-weight: bold; color: var(--texto-principal); font-size: 1.1rem;">A</span>
+                        </div>
+                        
+                        <!-- Separador Físico Minimalista -->
+                        <div class="split-divisor"></div>
+                        
+                        <!-- Lado Derecho: Flecha Desplegable para Temas Premium -->
+                        <div class="split-flecha" onclick="toggleMenuTemas(event)" title="Más Temas">
+                            <span style="color: var(--texto-principal);">▼</span>
+                        </div>
+
+                        <!-- MENÚ FLOTANTE INTERNO -->
+                        <div class="menu-temas-flotante" id="menu-flotante">
+                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('cyberpunk')">
+                                <div class="circulo-color" style="background-color: #ff007f;"></div>
+                                <span>⚡ Cyberpunk</span>
+                            </div>
+                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('bosque')">
+                                <div class="circulo-color" style="background-color: #2a3d32;"></div>
+                                <span>🌲 Místico</span>
+                            </div>
+                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('retro')">
+                                <div class="circulo-color" style="background-color: #bc4749;"></div>
+                                <span>🌸 Aki-Retro</span>
+                            </div>
+                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('oceano')">
+                                <div class="circulo-color" style="background-color: #00b4d8;"></div>
+                                <span>🌊 Océano</span>
+                            </div>
+                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('fuego')">
+                                <div class="circulo-color" style="background-color: #ff4d00;"></div>
+                                <span>🔥 Fuego Neón</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <button class="btn-interactivo" title="Opciones">
-                        <span>⋮</span>
+                        <span style="color: var(--texto-principal);">⋮</span>
                     </button>
                 </div>
             </header>
 
-            <!-- CUERPO DE LA PÁGINA (CORAZÓN INTERCAMBIABLE) -->
             <main>
-                <h3 class="titulo-contenido">Animación Elástica Sincronizada</h3>
+                <h3 class="titulo-contenido">Estilos Premium Expandidos</h3>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
-                    Prueba a abrir y cerrar el menú en tu computadora. Notarás cómo la barra superior y las tarjetas inferiores acompañan el movimiento en un deslizamiento perfecto, sin cortes instantáneos a la derecha.
+                    Usa el nuevo botón dividido. Haz clic en el icono para alternar entre Auto, Claro y Oscuro. Haz clic en la pequeña flecha para desatar la locura visual.
                 </p>
                 
                 <ul class="regla-prueba">
@@ -408,48 +562,98 @@
 
     </div>
 
-    <!-- SCRIPT DE CONTROL REACTIVO -->
+    <!-- SCRIPT DE CONTROL TOTAL DE TEMAS -->
     <script>
         function toggleSidebar() {
             document.body.classList.toggle('sidebar-abierta');
         }
 
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
+        const menuFlotante = document.getElementById('menu-flotante');
         
-        const mapasTemas = {
+        // Mapeo unificado de iconos y estados base
+        const mapasTemasBase = {
             'auto': { siguiente: 'light', icono: 'A' },
             'light': { siguiente: 'dark', icono: '☼' },
             'dark': { siguiente: 'auto', icono: '☽' }
         };
 
-        function aplicarTema(tema) {
-            if (tema === 'dark') {
-                document.body.classList.add('modo-oscuro');
-            } else if (tema === 'light') {
-                document.body.classList.remove('modo-oscuro');
-            } else if (tema === 'auto') {
-                if (detectorSistema.matches) {
-                    document.body.classList.add('modo-oscuro');
-                } else {
-                    document.body.classList.remove('modo-oscuro');
-                }
-            }
-            document.getElementById('icono-tema').textContent = mapasTemas[tema].icono;
+        // Iconos estáticos para identificar los temas locos en el botón principal si están activos
+        const iconosPremium = {
+            'cyberpunk': '⚡',
+            'bosque': '🌲',
+            'retro': '🌸',
+            'oceano': '🌊',
+            'fuego': '🔥'
+        };
+
+        // Elimina de golpe cualquier configuración de tema previa del body
+        function limpiarClasesDeTema() {
+            document.body.classList.remove('modo-oscuro', 'tema-cyberpunk', 'tema-bosque', 'tema-retro', 'tema-oceano', 'tema-fuego');
         }
 
-        function rotarTema() {
-            const temaActual = localStorage.getItem('tema-guardado') || 'auto';
-            const proximoTema = mapasTemas[temaActual].siguiente;
+        function aplicarTema(tema) {
+            limpiarClasesDeTema();
             
+            // Verificación y ejecución
+            if (mapasTemasBase[tema]) {
+                // Es un tema base
+                if (tema === 'dark') {
+                    document.body.classList.add('modo-oscuro');
+                } else if (tema === 'auto' && detectorSistema.matches) {
+                    document.body.classList.add('modo-oscuro');
+                }
+                document.getElementById('icono-tema').textContent = mapasTemasBase[tema].icono;
+            } else if (iconosPremium[tema]) {
+                // Es un tema loco de la flecha
+                document.body.classList.add(`tema-${tema}`);
+                document.getElementById('icono-tema').textContent = iconosPremium[tema];
+            }
+        }
+
+        // CONTROL CLICKS
+
+        // 1. Click Izquierdo: Carrusel de los 3 básicos
+        function rotarTemaBase() {
+            let temaActual = localStorage.getItem('tema-guardado') || 'auto';
+            
+            // Si venimos de un tema premium loco, forzamos regresar al ciclo desde 'auto'
+            if (!mapasTemasBase[temaActual]) {
+                temaActual = 'auto';
+            }
+            
+            const proximoTema = mapasTemasBase[temaActual].siguiente;
             localStorage.setItem('tema-guardado', proximoTema);
             aplicarTema(proximoTema);
+            menuFlotante.style.display = 'none'; // Cierra menú por si acaso
         }
 
+        // 2. Click Derecho: Lanzar la caja de sorpresas
+        function toggleMenuTemas(event) {
+            event.stopPropagation(); // Evita que se cierre inmediatamente
+            const estaVisible = menuFlotante.style.display === 'flex';
+            menuFlotante.style.display = estaVisible ? 'none' : 'flex';
+        }
+
+        // 3. Click en una opción loca del menú
+        function seleccionarTemaPremium(nombreTema) {
+            localStorage.setItem('tema-guardado', nombreTema);
+            aplicarTema(nombreTema);
+            menuFlotante.style.display = 'none';
+        }
+
+        // Cierre automático del menú si haces click en cualquier otra parte
+        document.addEventListener('click', () => {
+            menuFlotante.style.display = 'none';
+        });
+
+        // Inicializador del sistema
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
         aplicarTema(temaInicial);
 
+        // Escucha cambios del sistema en tiempo real
         detectorSistema.addEventListener('change', () => {
-            const temaActual = localStorage.getItem('tema-guardado') || 'auto';
+            const temaActual = localStorage.getItem('tema-guardaged') || 'auto';
             if (temaActual === 'auto') {
                 aplicarTema('auto');
             }
