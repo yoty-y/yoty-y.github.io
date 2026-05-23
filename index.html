@@ -7,7 +7,7 @@
     
     <style>
         /* ========================================== */
-        /* 1. CONFIGURACIÓN GENERAL Y COLORES        */
+        /* 1. CONFIGURACIÓN GENERAL Y VARIABLES       */
         /* ========================================== */
         body {
             margin: 0;
@@ -16,46 +16,81 @@
             background-color: #f4f4f9;
             color: #1a1a1a;
             transition: background-color 0.2s, color 0.2s;
+            /* Flexbox aquí nos permite poner la barra lateral y el contenido lado a lado */
+            display: flex; 
+            overflow-x: hidden; /* Evita que salga una barra abajo al empujar */
         }
 
         /* ========================================== */
-        /* 2. CAPA FLOTANTE: ENCABEZADO FIJO         */
+        /* [PREPARACIÓN FASE 2] LA BARRA LATERAL      */
         /* ========================================== */
-        header {
-            /* Aquí ocurre el truco de congelado */
+        aside {
             position: fixed;
             top: 0;
             left: 0;
+            height: 100vh;
+            width: 0; /* Nace completamente invisible y sin volumen */
+            background-color: #e2e8f0;
+            z-index: 1001; /* Un paso por encima del encabezado */
+            transition: width 0.3s ease; /* Transición suave para el efecto "achatar" */
+            overflow: hidden;
+        }
+
+        /* ========================================== */
+        /* 2. EL CONTENEDOR QUE SE REDIMENSIONA       */
+        /* ========================================== */
+        /* Esta caja envuelve TODO (Encabezado y Contenido). */
+        /* Cuando la barra lateral se abra, a esta caja le daremos un margen izquierdo */
+        /* provocando que se achique y recalcule todos sus centros automáticamente. */
+        .contenedor-principal {
             width: 100%;
-            height: 50px; /* Altura fija para el encabezado */
-            
-            /* Alineación de los elementos internos */
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+
+        /* ========================================== */
+        /* 3. ENCABEZADO FIJO (DENTRO DEL CONTENEDOR) */
+        /* ========================================== */
+        header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            /* Modificado: en lugar de left:0, usamos un ancho dinámico ligado al contenedor */
+            width: 100%; 
+            height: 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            box-sizing: border-box; /* Evita que el padding deforme el ancho */
-            
-            /* Estética */
+            box-sizing: border-box;
             background-color: #ffffff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 1000; /* Asegura que siempre flote por ENCIMA del contenido */
+            z-index: 1000;
+            transition: left 0.3s ease, width 0.3s ease;
         }
 
-        /* Zonas del encabezado (Izquierda, Centro, Derecha) */
-        .header-izq {
+        .header-izq, .header-der {
             display: flex;
             align-items: center;
             gap: 15px;
+            /* Fijamos un ancho estimado a los lados para que el título del centro */
+            /* tenga una referencia real para centrarse perfectamente */
+            min-width: 120px; 
         }
-
+        
         .header-der {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            justify-content: flex-end;
         }
 
-        /* Marcadores de posición discretos para los futuros botones */
+        /* Tu título del encabezado principal */
+        header h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            text-align: center;
+            flex-grow: 1; /* Toma todo el espacio del centro */
+        }
+
         .placeholder-btn {
             background: #e2e8f0;
             border: 1px dashed #cbd5e1;
@@ -65,40 +100,41 @@
             color: #64748b;
         }
 
-        header h2 {
-            margin: 0;
-            font-size: 1.1rem;
-        }
-
         /* ========================================== */
-        /* 3. CAPA DE CONTENIDO (CON SCROLL)         */
+        /* 4. ÁREA DE CONTENIDO (CORREGIDA)          */
         /* ========================================== */
         main {
-            /* ¡MUY IMPORTANTE! Dejamos un espacio arriba igual a la altura */
-            /* del encabezado para que el contenido no nazca tapado por él */
             padding-top: 70px; 
-            padding-left: 20px;
-            padding-right: 20px;
-            padding-bottom: 20px;
-            max-width: 600px;
-            margin: 0 auto;
+            padding-left: 40px; /* Un poco de espacio respecto al borde izquierdo */
+            padding-right: 40px;
+            padding-bottom: 40px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Estilos de la regla de prueba para hacer scroll */
+        /* El encabezado de texto interno (Centrado) */
+        .titulo-contenido {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* La regla de prueba (Alineada a la izquierda) */
         .regla-prueba {
             list-style: none;
             padding: 0;
             margin: 0;
+            text-align: left; /* Alineación forzada a la izquierda */
         }
 
         .regla-prueba li {
-            padding: 15px 0;
+            padding: 12px 0;
             border-bottom: 1px dotted #cbd5e1;
             font-size: 1.1rem;
+            font-family: monospace; /* Fuente tipográfica recta para simular una regla */
         }
 
         /* ========================================== */
-        /* 4. MODOS VISUALES (MANTENIENDO LO ANTERIOR)*/
+        /* 5. MODOS VISUALES (MANTENIDOS)             */
         /* ========================================== */
         body.modo-oscuro {
             background-color: #121212;
@@ -108,6 +144,10 @@
         body.modo-oscuro header {
             background-color: #1e1e1e;
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        body.modo-oscuro aside {
+            background-color: #1e293b;
         }
 
         body.modo-oscuro .placeholder-btn {
@@ -123,86 +163,59 @@
 </head>
 <body>
 
-    <!-- NUEVO ENCABEZADO ESTRUCTURADO Y FIJO -->
-    <header>
-        <!-- Lado Izquierdo: Aquí irán las 3 rayitas y el título -->
-        <div class="header-izq">
-            <span class="placeholder-btn">[ ☰ ]</span>
+    <!-- [PREPARACIÓN FASE 2] Aquí vivirá el menú que saldrá de la izquierda -->
+    <aside id="barra-lateral">
+        <!-- Contenido oculto de momento -->
+    </aside>
+
+    <!-- EL CONTENEDOR PRINCIPAL (El que se va a encoger/achatar) -->
+    <div class="contenedor-principal" id="contenedor-principal">
+        
+        <!-- ENCABEZADO -->
+        <header id="encabezado-fijo">
+            <div class="header-izq">
+                <span class="placeholder-btn" style="cursor:pointer;">[ ☰ ]</span>
+            </div>
+            
             <h2>Mi Sitio Web</h2>
-        </div>
-        
-        <!-- Lado Derecho: Aquí irá el botón camaleón y los 3 puntos -->
-        <div class="header-der">
-            <!-- Temporalmente dejamos el selector viejo para no romper la memoria aún -->
-            <select id="selector-tema" class="placeholder-btn" onchange="seleccionarTema(this.value)" style="border-style: solid; cursor: pointer;">
-                <option value="auto">Auto</option>
-                <option value="light">Claro</option>
-                <option value="dark">Oscuro</option>
-            </select>
-            <span class="placeholder-btn">[ ••• ]</span>
-        </div>
-    </header>
+            
+            <div class="header-der">
+                <select id="selector-tema" class="placeholder-btn" onchange="seleccionarTema(this.value)" style="border-style: solid; cursor: pointer;">
+                    <option value="auto">Auto</option>
+                    <option value="light">Claro</option>
+                    <option value="dark">Oscuro</option>
+                </select>
+                <span class="placeholder-btn">[ ••• ]</span>
+            </div>
+        </header>
 
-    <!-- ÁREA DE CONTENIDO PRINCIPAL CON REGLA DE SCROLL -->
-    <main>
-        <h3>Regla de verificación de Scroll</h3>
-        <p>Baja con la ruedita del ratón para comprobar que el encabezado se queda fijo en la parte superior.</p>
-        
-        <ul class="regla-prueba">
-            <li>Punto 01 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 02 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 03 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 04 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 05 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 06 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 07 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 08 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 09 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 10 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 11 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 12 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 13 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 14 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 15 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 16 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 17 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 18 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 19 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 20 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 21 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 22 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 23 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 24 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 25 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 26 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 27 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 28 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 29 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 30 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 31 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 32 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 33 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 34 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 35 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 36 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 37 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 38 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 39 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 40 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 41 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 42 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 43 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 44 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 45 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 46 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 47 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 48 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 49 ••••••••••••••••••••••••••••••••••</li>
-            <li>Punto 50 ••••••••••••••••••••••••••••••••••</li>
-        </ul>
-    </main>
+        <!-- CONTENIDO -->
+        <main>
+            <!-- Encabezado de texto centrado -->
+            <h3 class="titulo-contenido">Regla de verificación de Scroll e Impacto</h3>
+            
+            <!-- Lista alineada a la izquierda -->
+            <ul class="regla-prueba">
+                <li>01 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>02 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>03 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>04 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>05 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>06 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>07 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>08 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>09 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>10 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>11 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>12 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>13 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>14 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>15 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+            </ul>
+        </main>
+    </div>
 
-    <!-- MANTENEMOS TU CEREBRO OPERATIVO PARA NO PERDER LA MEMORIA -->
+    <!-- SCRIPT DE TEMAS (INTACTO) -->
     <script>
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
 
