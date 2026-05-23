@@ -16,32 +16,35 @@
             background-color: #f4f4f9;
             color: #1a1a1a;
             transition: background-color 0.2s, color 0.2s;
-            /* Flexbox aquí nos permite poner la barra lateral y el contenido lado a lado */
             display: flex; 
-            overflow-x: hidden; /* Evita que salga una barra abajo al empujar */
+            overflow-x: hidden;
         }
 
         /* ========================================== */
-        /* [PREPARACIÓN FASE 2] LA BARRA LATERAL      */
+        /* 2. LA BARRA LATERAL (SIDEBAR)              */
         /* ========================================== */
         aside {
             position: fixed;
             top: 0;
             left: 0;
             height: 100vh;
-            width: 0; /* Nace completamente invisible y sin volumen */
+            width: 0; /* Nace cerrada */
             background-color: #e2e8f0;
-            z-index: 1001; /* Un paso por encima del encabezado */
-            transition: width 0.3s ease; /* Transición suave para el efecto "achatar" */
+            z-index: 2000; /* Siempre por encima en celulares */
+            transition: width 0.3s ease;
             overflow: hidden;
         }
 
+        /* Contenido interno de la barra lateral (Tus futuros links) */
+        .contenido-sidebar {
+            width: 250px; /* Ancho fijo interno para que no se deforme al abrir */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
         /* ========================================== */
-        /* 2. EL CONTENEDOR QUE SE REDIMENSIONA       */
+        /* 3. EL CONTENEDOR PRINCIPAL                 */
         /* ========================================== */
-        /* Esta caja envuelve TODO (Encabezado y Contenido). */
-        /* Cuando la barra lateral se abra, a esta caja le daremos un margen izquierdo */
-        /* provocando que se achique y recalcule todos sus centros automáticamente. */
         .contenedor-principal {
             width: 100%;
             display: flex;
@@ -50,13 +53,12 @@
         }
 
         /* ========================================== */
-        /* 3. ENCABEZADO FIJO (DENTRO DEL CONTENEDOR) */
+        /* 4. ENCABEZADO FIJO                         */
         /* ========================================== */
         header {
             position: fixed;
             top: 0;
             right: 0;
-            /* Modificado: en lugar de left:0, usamos un ancho dinámico ligado al contenedor */
             width: 100%; 
             height: 50px;
             display: flex;
@@ -67,15 +69,13 @@
             background-color: #ffffff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             z-index: 1000;
-            transition: left 0.3s ease, width 0.3s ease;
+            transition: width 0.3s ease, right 0.3s ease;
         }
 
         .header-izq, .header-der {
             display: flex;
             align-items: center;
             gap: 15px;
-            /* Fijamos un ancho estimado a los lados para que el título del centro */
-            /* tenga una referencia real para centrarse perfectamente */
             min-width: 120px; 
         }
         
@@ -83,12 +83,11 @@
             justify-content: flex-end;
         }
 
-        /* Tu título del encabezado principal */
         header h2 {
             margin: 0;
             font-size: 1.1rem;
             text-align: center;
-            flex-grow: 1; /* Toma todo el espacio del centro */
+            flex-grow: 1;
         }
 
         .placeholder-btn {
@@ -98,43 +97,42 @@
             font-size: 0.8rem;
             border-radius: 4px;
             color: #64748b;
+            user-select: none;
         }
 
         /* ========================================== */
-        /* 4. ÁREA DE CONTENIDO (CORREGIDA)          */
+        /* 5. ÁREA DE CONTENIDO                       */
         /* ========================================== */
         main {
             padding-top: 70px; 
-            padding-left: 40px; /* Un poco de espacio respecto al borde izquierdo */
-            padding-right: 40px;
+            padding-left: 20px;
+            padding-right: 20px;
             padding-bottom: 40px;
             width: 100%;
             box-sizing: border-box;
         }
 
-        /* El encabezado de texto interno (Centrado) */
         .titulo-contenido {
             text-align: center;
             margin-bottom: 20px;
         }
 
-        /* La regla de prueba (Alineada a la izquierda) */
         .regla-prueba {
             list-style: none;
             padding: 0;
             margin: 0;
-            text-align: left; /* Alineación forzada a la izquierda */
+            text-align: left;
         }
 
         .regla-prueba li {
             padding: 12px 0;
             border-bottom: 1px dotted #cbd5e1;
             font-size: 1.1rem;
-            font-family: monospace; /* Fuente tipográfica recta para simular una regla */
+            font-family: monospace;
         }
 
         /* ========================================== */
-        /* 5. MODOS VISUALES (MANTENIDOS)             */
+        /* 6. MODOS VISUALES (MANTENIDOS)             */
         /* ========================================== */
         body.modo-oscuro {
             background-color: #121212;
@@ -159,22 +157,65 @@
         body.modo-oscuro .regla-prueba li {
             border-bottom-color: #333333;
         }
+
+        /* ========================================== */
+        /* 7. LA MAGIA: REGLAS PARA COMPUTADORA       */
+        /* ========================================== */
+        /* Todo lo que esté aquí adentro SOLO se aplica si la pantalla es grande */
+        @media (min-width: 768px) {
+            
+            /* Cuando la barra tiene la clase 'abierta', le da ancho en PC */
+            body.sidebar-abierta aside {
+                width: 250px;
+            }
+
+            /* Cuando está abierta en PC, empuja el contenedor y lo achica */
+            body.sidebar-abierta .contenedor-principal {
+                margin-left: 250px;
+                width: calc(100% - 250px);
+            }
+
+            /* Achica también el encabezado para mantener los centros perfectos */
+            body.sidebar-abierta header {
+                width: calc(100% - 250px);
+            }
+        }
+
+        /* ========================================== */
+        /* 8. LA MAGIA: REGLAS PARA CELULARES         */
+        /* ========================================== */
+        /* Todo lo que esté aquí adentro SOLO se aplica en pantallas pequeñas */
+        @media (max-width: 767px) {
+            
+            /* En celular, la barra abierta simplemente se encima cubriendo espacio */
+            body.sidebar-abierta aside {
+                width: 250px;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+            }
+            /* El contenedor principal y el encabezado NO se deforman ni se achatan */
+        }
     </style>
 </head>
 <body>
 
-    <!-- [PREPARACIÓN FASE 2] Aquí vivirá el menú que saldrá de la izquierda -->
+    <!-- BARRA LATERAL (Fase 2 Iniciada) -->
     <aside id="barra-lateral">
-        <!-- Contenido oculto de momento -->
+        <div class="contenido-sidebar">
+            <h3>Navegación</h3>
+            <p style="font-size:0.9rem; color:#64748b;">(Aquí pondremos tus secciones pronto)</p>
+            <!-- Botón discreto para cerrar dentro del menú -->
+            <button onclick="toggleSidebar()" class="placeholder-btn" style="cursor:pointer; width:100%; border-style:solid;">Cerrar Menú</button>
+        </div>
     </aside>
 
-    <!-- EL CONTENEDOR PRINCIPAL (El que se va a encoger/achatar) -->
+    <!-- EL CONTENEDOR PRINCIPAL -->
     <div class="contenedor-principal" id="contenedor-principal">
         
         <!-- ENCABEZADO -->
         <header id="encabezado-fijo">
             <div class="header-izq">
-                <span class="placeholder-btn" style="cursor:pointer;">[ ☰ ]</span>
+                <!-- Le añadimos la función de clic al botón de las 3 rayitas -->
+                <span class="placeholder-btn" onclick="toggleSidebar()" style="cursor:pointer; border-style:solid; font-weight:bold;">☰</span>
             </div>
             
             <h2>Mi Sitio Web</h2>
@@ -191,10 +232,9 @@
 
         <!-- CONTENIDO -->
         <main>
-            <!-- Encabezado de texto centrado -->
-            <h3 class="titulo-contenido">Regla de verificación de Scroll e Impacto</h3>
+            <h3 class="titulo-contenido">Verificación de Comportamiento Híbrido</h3>
+            <p style="text-align: center; font-size: 0.9rem; color: #64748b;">Prueba a abrir el menú "☰" en tu PC y luego en tu celular.</p>
             
-            <!-- Lista alineada a la izquierda -->
             <ul class="regla-prueba">
                 <li>01 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
                 <li>02 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
@@ -203,20 +243,20 @@
                 <li>05 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
                 <li>06 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
                 <li>07 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>08 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>09 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>10 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>11 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>12 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>13 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>14 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>15 ••••••••••••••••••••••••••••••••••••••••••••••••••</li>
             </ul>
         </main>
     </div>
 
-    <!-- SCRIPT DE TEMAS (INTACTO) -->
+    <!-- EL CEREBRO DE LA WEB (Actualizado) -->
     <script>
+        // --- LOGICA DE LA BARRA LATERAL ---
+        function toggleSidebar() {
+            // Le ponemos o quitamos la etiqueta 'sidebar-abierta' al cuerpo entero.
+            // Las reglas de CSS de arriba se encargarán del resto según el tamaño de pantalla.
+            document.body.classList.toggle('sidebar-abierta');
+        }
+
+        // --- LOGICA DE TEMAS (INTACTO) ---
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
 
         function aplicarTema(tema) {
