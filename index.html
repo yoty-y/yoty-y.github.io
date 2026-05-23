@@ -29,87 +29,66 @@
             --icono-sumido: rgba(0, 0, 0, 0.15);
             --sombra-general: rgba(0, 0, 0, 0.05);
             
-            /* Variable de transición global para suavizar cambios de tema */
             --transicion-tema: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         /* ========================================== */
-        /* 2. CATÁLOGO COMPLETO DE 9 TEMAS (INYECCIÓN)*/
+        /* 2. CATÁLOGO COMPLETO DE TEMAS              */
         /* ========================================== */
-        
-        /* [BASE 1/3] OSCURO */
         body.modo-oscuro {
             --bg-principal: #121212; --bg-tarjetas: #1e1e1e; --bg-sidebar: #1e293b;
             --texto-principal: #f3f4f6; --texto-secundario: #9ca3af; --borde-color: #334155;
             --btn-bg: #27272a; --btn-sombra-oscura: rgba(0, 0, 0, 0.5); --btn-sombra-clara: rgba(255, 255, 255, 0.05);
             --icono-sumido: rgba(255, 255, 255, 0.1); --sombra-general: rgba(0, 0, 0, 0.3);
         }
-
-        /* [MULTICOLOR 1/3] CYBERPUNK */
         body.tema-cyberpunk {
             --bg-principal: #05050a; --bg-tarjetas: #0d0e15; --bg-sidebar: #1a0033;
             --texto-principal: #fffb00; --texto-secundario: #ff007f; --borde-color: #ff007f;
             --btn-bg: #121324; --btn-sombra-oscura: rgba(255, 0, 127, 0.2); --btn-sombra-clara: rgba(255, 251, 0, 0.1);
             --icono-sumido: rgba(255, 251, 0, 0.3); --sombra-general: rgba(255, 0, 127, 0.15);
         }
-
-        /* [MULTICOLOR 2/3] ESPECTRO RGB */
         body.tema-rgb {
             --bg-principal: #090d16; --bg-tarjetas: #111726; --bg-sidebar: #171e30;
             --texto-principal: #00ff66; --texto-secundario: #00ffff; --borde-color: #3b82f6;
             --btn-bg: #1e293b; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(0,255,102,0.1);
             --icono-sumido: rgba(0, 255, 102, 0.2); --sombra-general: rgba(59, 130, 246, 0.2);
         }
-
-        /* [MULTICOLOR 3/3] FUEGO NEÓN */
         body.tema-fuego {
             --bg-principal: #0f0f12; --bg-tarjetas: #18181c; --bg-sidebar: #241414;
             --texto-principal: #ff4d00; --texto-secundario: #ff9e00; --borde-color: #ff3c00;
             --btn-bg: #212126; --btn-sombra-oscura: rgba(0, 0, 0, 0.6); --btn-sombra-clara: rgba(255, 77, 0, 0.05);
             --icono-sumido: rgba(255, 77, 0, 0.2); --sombra-general: rgba(0, 0, 0, 0.5);
         }
-
-        /* [ORGÁNICO 1/3] BOSQUE MÍSTICO */
         body.tema-bosque {
             --bg-principal: #1b2620; --bg-tarjetas: #233229; --bg-sidebar: #131c17;
             --texto-principal: #e1efe6; --texto-secundario: #a3b899; --borde-color: #3b5345;
             --btn-bg: #2a3d32; --btn-sombra-oscura: rgba(0,0,0,0.4); --btn-sombra-clara: rgba(255,255,255,0.05);
             --icono-sumido: rgba(0,0,0,0.2); --sombra-general: rgba(0,0,0,0.25);
         }
-
-        /* [ORGÁNICO 2/3] AKI-RETRO */
         body.tema-retro {
             --bg-principal: #f5ebe0; --bg-tarjetas: #f2e8cf; --bg-sidebar: #e6ccb2;
             --texto-principal: #6b2d5c; --texto-secundario: #bc4749; --borde-color: #ddb892;
             --btn-bg: #ede0d4; --btn-sombra-oscura: rgba(107, 45, 92, 0.15); --btn-sombra-clara: rgba(255, 255, 255, 0.9);
             --icono-sumido: rgba(0,0,0,0.08); --sombra-general: rgba(107, 45, 92, 0.05);
         }
-
-        /* [ORGÁNICO 3/3] DESIERTO CÁLIDO */
         body.tema-desierto {
             --bg-principal: #dfd3c3; --bg-tarjetas: #f4eee5; --bg-sidebar: #c7b198;
             --texto-principal: #7d5a50; --texto-secundario: #b4846c; --borde-color: #c7b198;
             --btn-bg: #f4eee5; --btn-sombra-oscura: rgba(125,90,80,0.15); --btn-sombra-clara: rgba(255,255,255,0.8);
             --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.03);
         }
-
-        /* [FRÍO 1/3] OCÉANO PROFUNDO */
         body.tema-oceano {
             --bg-principal: #030712; --bg-tarjetas: #111827; --bg-sidebar: #0f172a;
             --texto-principal: #06b6d4; --texto-secundario: #38bdf8; --borde-color: #1e293b;
             --btn-bg: #1f2937; --btn-sombra-oscura: rgba(0, 0, 0, 0.7); --btn-sombra-clara: rgba(6, 182, 212, 0.1);
             --icono-sumido: rgba(6, 182, 212, 0.25); --sombra-general: rgba(6, 182, 212, 0.08);
         }
-
-        /* [FRÍO 2/3] ÁRTICO MINIMAL */
         body.tema-artico {
             --bg-principal: #eef2f7; --bg-tarjetas: #ffffff; --bg-sidebar: #dbe2ef;
             --texto-principal: #3f72af; --texto-secundario: #112d4e; --borde-color: #dbe2ef;
             --btn-bg: #f9f7f7; --btn-sombra-oscura: rgba(63,114,175,0.15); --btn-sombra-clara: rgba(255,255,255,0.9);
             --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.02);
         }
-
-        /* [FRÍO 3/3] NOCHE AURORA */
         body.tema-aurora {
             --bg-principal: #0b071e; --bg-tarjetas: #140e2d; --bg-sidebar: #191238;
             --texto-principal: #a855f7; --texto-secundario: #2dd4bf; --borde-color: #2e1f5e;
@@ -155,11 +134,14 @@
         .btn-interactivo span { font-size: 1.15rem; font-weight: bold; color: var(--texto-principal); opacity: 0.85; transition: color 0.3s ease; }
         .btn-interactivo:active { box-shadow: inset -1px -1px 3px var(--btn-sombra-clara), inset 1px 1px 3px var(--btn-sombra-oscura); transform: scale(0.96); }
 
+        /* Contenedor relativo para posicionar los menús desplegables */
+        .posicion-menu-relativo { position: relative; display: inline-block; }
+
         /* ========================================== */
         /* 4. BOTÓN RECTANGULAR DIVIDIDO (SPLIT)       */
         /* ========================================== */
         .contenedor-split-button {
-            position: relative; display: flex; align-items: center; background-color: var(--btn-bg);
+            display: flex; align-items: center; background-color: var(--btn-bg);
             border: 1px solid var(--borde-color); height: 38px; width: 82px; border-radius: 10px;
             transition: var(--transicion-tema);
             box-shadow: -1px -1px 4px var(--btn-sombra-clara), 1px 1px 4px var(--btn-sombra-oscura);
@@ -172,9 +154,9 @@
         .split-flecha span { color: var(--texto-principal); transition: color 0.3s; }
 
         /* ========================================== */
-        /* 5. MENÚ FLOTANTE ULTRA-ESTRUCTURADO        */
+        /* 5. MENÚS FLOTANTES (ESTRUCTURA DE CASCADA) */
         /* ========================================== */
-        .menu-temas-flotante {
+        .menu-temas-flotante, .menu-opciones-flotante {
             position: absolute; top: 46px; right: 0; background-color: var(--bg-tarjetas);
             border: 1px solid var(--borde-color); border-radius: 14px; box-shadow: 0 10px 30px var(--sombra-general);
             width: 220px; padding: 6px; display: flex; flex-direction: column; gap: 2px; z-index: 3000;
@@ -182,22 +164,25 @@
             transition: opacity 0.2s ease, transform 0.2s ease, var(--transicion-tema);
             max-height: 420px; overflow-y: auto;
         }
-        .menu-temas-flotante.activo { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+        .menu-temas-flotante.activo, .menu-opciones-flotante.activo { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
         
         .menu-divisor-linea { height: 1px; background-color: var(--borde-color); margin: 6px 4px; pointer-events: none; transition: var(--transicion-tema); }
 
-        /* Estilo de Opciones de Tema */
+        /* Opciones Internas de los Desplegables */
         .item-tema-opcion {
-            display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 8px;
             cursor: pointer; font-size: 0.85rem; font-weight: 500; color: var(--texto-principal); transition: all 0.15s ease, color 0.3s ease;
         }
         .item-tema-opcion:hover { background-color: var(--btn-bg); transform: translateX(3px); }
+        .item-flex-izq { display: flex; align-items: center; gap: 10px; }
         .item-tema-opcion .circulo-color { width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.15); flex-shrink: 0; }
+        
+        /* Indicador Check de Selección Activa */
+        .item-tema-opcion .check-seleccionado { font-size: 0.75rem; color: var(--texto-secundario); font-weight: bold; display: none; }
+        .item-tema-opcion.seleccionado .check-seleccionado { display: block; }
 
         /* Estilo Carpetas / Categorías Acordeón */
-        .carpeta-categoria {
-            display: flex; flex-direction: column; border-radius: 8px; overflow: hidden;
-        }
+        .carpeta-categoria { display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; }
         .carpeta-cabecera {
             display: flex; justify-content: space-between; align-items: center; padding: 9px 12px;
             cursor: pointer; font-size: 0.82rem; font-weight: 700; color: var(--texto-secundario);
@@ -206,29 +191,42 @@
         .carpeta-cabecera:hover { background-color: var(--btn-bg); }
         .carpeta-cabecera .indicador-flecha { font-size: 0.55rem; color: var(--texto-secundario); transition: transform 0.25s ease; }
         
-        /* Contenedor Elástico Soportado para Evitar Cortes */
         .carpeta-contenido {
             max-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 2px;
             padding-left: 8px; background-color: rgba(0,0,0,0.02);
             transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
         }
         body.modo-oscuro .carpeta-contenido { background-color: rgba(255,255,255,0.02); }
-
-        /* Estado Abierto (Cambiado a 300px para total seguridad de contenido) */
         .carpeta-categoria.abierta .carpeta-contenido { max-height: 300px; }
         .carpeta-categoria.abierta .indicador-flecha { transform: rotate(180deg); }
 
         /* ========================================== */
-        /* 6. ÁREA DE TRABAJO (MAIN)                  */
+        /* 6. ÁREA DE TRABAJO DINÁMICA (MAIN)         */
         /* ========================================== */
         main { padding: 20px; width: 100%; flex-grow: 1; transition: var(--transicion-tema); }
-        .titulo-contenido { text-align: center; margin-bottom: 25px; font-size: 1.2rem; }
-        .regla-prueba { list-style: none; }
+        
+        /* Bloques de contenido modular adaptable */
+        .bloque-lectura {
+            background-color: var(--bg-tarjetas); border: 1px solid var(--borde-color);
+            padding: 20px; border-radius: 14px; box-shadow: 0 4px 12px var(--sombra-general);
+            max-width: 650px; margin: 20px auto; transition: var(--transicion-tema);
+        }
+        .bloque-lectura h4 { margin-bottom: 10px; font-size: 1.1rem; color: var(--texto-principal); }
+        
+        /* Controlador de visibilidad condicional según el modo de lectura */
+        body.lectura-detallada .txt-resumido { display: none !important; }
+        body.lectura-resumida .txt-detallado { display: none !important; }
+        
+        .txt-detallado { line-height: 1.6; font-size: 0.95rem; color: var(--texto-principal); }
+        .txt-resumido { line-height: 1.4; font-size: 0.95rem; font-weight: 600; color: var(--texto-principal); border-left: 3px solid var(--borde-color); padding-left: 10px; }
+
+        .titulo-contenido { text-align: center; margin-bottom: 10px; font-size: 1.2rem; }
+        .regla-prueba { list-style: none; max-width: 650px; margin: 20px auto; }
         .regla-prueba li { display: flex; align-items: center; padding: 14px 0; font-family: monospace; font-size: 1rem; }
         .regla-prueba li::after { content: ""; flex-grow: 1; margin-left: 10px; border-bottom: 3px dotted var(--borde-color); height: 1px; transition: border-color 0.3s; }
         .overlay-fondo { display: none; }
 
-        @media (min-width: 768px) { main { padding: 40px; } header h2 { font-size: 1.1rem; } }
+        @media (min-width: 768px) { main { padding: 40px; } }
         @media (max-width: 767px) {
             .btn-menu-movil { display: flex !important; }
             aside { position: fixed; top: 0; left: 0; transform: translateX(-100%); width: var(--ancho-sidebar-total) !important; }
@@ -238,7 +236,7 @@
         }
     </style>
 </head>
-<body>
+<body class="lectura-detallada"> <!-- Valor por defecto en lo que lee Script -->
 
     <div class="layout-global">
         <div class="overlay-fondo" onclick="toggleSidebar()"></div>
@@ -268,122 +266,170 @@
                 </div>
                 
                 <div class="header-der">
-                    <!-- SPLIT BUTTON RECTANGULAR -->
-                    <div class="contenedor-split-button">
-                        <div class="split-accion-principal" onclick="rotarTemaBase()" title="Rotar Tema Base">
-                            <span id="icono-tema" style="font-weight: bold; color: var(--texto-principal); font-size: 1.1rem;">A</span>
-                        </div>
-                        <div class="split-divisor"></div>
-                        <div class="split-flecha" onclick="toggleMenuTemas(event)" title="Más Temas">
-                            <span>▼</span>
-                        </div>
+                    <!-- DESPLEGABLE 1: SELECTOR DE TEMAS (SPLIT BUTTON) -->
+                    <div class="posicion-menu-relativo">
+                        <div class="contenedor-split-button">
+                            <div class="split-accion-principal" onclick="rotarTemaBase()" title="Rotar Tema Base">
+                                <span id="icono-tema" style="font-weight: bold; color: var(--texto-principal); font-size: 1.1rem;">A</span>
+                            </div>
+                            <div class="split-divisor"></div>
+                            <div class="split-flecha" onclick="toggleMenuTemas(event)" title="Más Temas">
+                                <span>▼</span>
+                            </div>
 
-                        <!-- MENÚ FLOTANTE MULTI-ACORDEÓN ANIDADO -->
-                        <div class="menu-temas-flotante" id="menu-flotante" onclick="event.stopPropagation()">
-                            
-                            <!-- SECCIÓN ACCESO DIRECTO FIJO -->
-                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('auto')">
-                                <div class="circulo-color" style="background-color: #a1a1aa;"></div>
-                                <span>A &nbsp;Automático</span>
+                            <div class="menu-temas-flotante" id="menu-flotante" onclick="event.stopPropagation()">
+                                <div class="item-tema-opcion" id="opt-tema-auto" onclick="seleccionarTemaDirecto('auto')">
+                                    <div class="item-flex-izq"><div class="circulo-color" style="background-color: #a1a1aa;"></div><span>A &nbsp;Automático</span></div>
+                                    <span class="check-seleccionado">✓</span>
+                                </div>
+                                <div class="item-tema-opcion" id="opt-tema-light" onclick="seleccionarTemaDirecto('light')">
+                                    <div class="item-flex-izq"><div class="circulo-color" style="background-color: #ffffff; border: 1px solid #cbd5e1;"></div><span>☼ Claro</span></div>
+                                    <span class="check-seleccionado">✓</span>
+                                </div>
+                                <div class="item-tema-opcion" id="opt-tema-dark" onclick="seleccionarTemaDirecto('dark')">
+                                    <div class="item-flex-izq"><div class="circulo-color" style="background-color: #1e1e1e;"></div><span>☽ Oscuro</span></div>
+                                    <span class="check-seleccionado">✓</span>
+                                </div>
+                                
+                                <div class="menu-divisor-linea"></div>
+                                
+                                <div class="carpeta-categoria">
+                                    <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
+                                        <span>🌈 MULTICOLOR & NEÓN</span>
+                                        <span class="indicador-flecha">▼</span>
+                                    </div>
+                                    <div class="carpeta-contenido">
+                                        <div class="item-tema-opcion" id="opt-tema-cyberpunk" onclick="seleccionarTemaDirecto('cyberpunk')">
+                                            <div class="item-flex-izq"><div class="circulo-color" style="background-color: #ff007f;"></div><span>⚡ Cyberpunk</span></div>
+                                            <span class="check-seleccionado">✓</span>
+                                        </div>
+                                        <div class="item-tema-opcion" id="opt-tema-rgb" onclick="seleccionarTemaDirecto('rgb')">
+                                            <div class="item-flex-izq"><div class="circulo-color" style="background-color: #00ff66;"></div><span>🎮 Espectro RGB</span></div>
+                                            <span class="check-seleccionado">✓</span>
+                                        </div>
+                                        <div class="item-tema-opcion" id="opt-tema-fuego" onclick="seleccionarTemaDirecto('fuego')">
+                                            <div class="item-flex-izq"><div class="circulo-color" style="background-color: #ff4d00;"></div><span>🔥 Fuego Neón</span></div>
+                                            <span class="check-seleccionado">✓</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="carpeta-categoria">
+                                    <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
+                                        <span>🌿 TONOS ORGÁNICOS</span>
+                                        <span class="indicador-flecha">▼</span>
+                                    </div>
+                                    <div class="carpeta-contenido">
+                                        <div class="item-tema-opcion" id="opt-tema-bosque" onclick="seleccionarTemaDirecto('bosque')">
+                                            <div class="item-flex-izq"><div class="circulo-color" style="background-color: #2a3d32;"></div><span>🌲 Bosque Místico</span></div>
+                                            <span class="check-seleccionado">✓</span>
+                                        </div>
+                                        <div class="item-tema-opcion" id="opt-tema-retro" onclick="seleccionarTemaDirecto('retro')">
+                                            <div class="item-flex-izq"><div class="circulo-color" style="background-color: #bc4749;"></div><span>🌸 Aki-Retro</span></div>
+                                            <span class="check-seleccionado">✓</span>
+                                        </div>
+                                        <div class="item-tema-opcion" id="opt-tema-desierto" onclick="seleccionarTemaDirecto('desierto')">
+                                            <div class="item-flex-izq"><div class="circulo-color" style="background-color: #7d5a50;"></div><span>🏜️ Desierto Cálido</span></div>
+                                            <span class="check-seleccionado">✓</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="carpeta-categoria">
+                                    <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
+                                        <span>🌊 TONOS FRÍOS</span>
+                                        <span class="indicador-flecha">▼</span>
+                                    </div>
+                                    <div class="carpeta-contenido">
+                                        <div class="item-tema-opcion" id="opt-tema-oceano" onclick="seleccionarTemaDirecto('oceano')">
+                                            <div class="item-flex-izq"><div class="circulo-color" style="background-color: #06b6d4;"></div><span>🌊 Océano Profundo</span></div>
+                                            <span class="check-seleccionado">✓</span>
+                                        </div>
+                                        <div class="item-tema-opcion" id="opt-tema-artico" onclick="seleccionarTemaDirecto('artico')">
+                                            <div class="item-flex-izq"><div class="circulo-color" style="background-color: #3f72af;"></div><span>❄️ Ártico Minimal</span></div>
+                                            <span class="check-seleccionado">✓</span>
+                                        </div>
+                                        <div class="item-tema-opcion" id="opt-tema-aurora" onclick="seleccionarTemaDirecto('aurora')">
+                                            <div class="item-flex-izq"><div class="circulo-color" style="background-color: #a855f7;"></div><span>🌌 Noche Aurora</span></div>
+                                            <span class="check-seleccionado">✓</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('light')">
-                                <div class="circulo-color" style="background-color: #ffffff; border: 1px solid #cbd5e1;"></div>
-                                <span>☼ Claro</span>
-                            </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('dark')">
-                                <div class="circulo-color" style="background-color: #1e1e1e;"></div>
-                                <span>☽ Oscuro</span>
+                        </div>
+                    </div>
+                    
+                    <!-- DESPLEGABLE 2: NUEVO MENÚ DE TRES PUNTOS (OPCIONES DE CONFIGURACIÓN) -->
+                    <div class="posicion-menu-relativo">
+                        <button class="btn-interactivo" onclick="toggleMenuOpciones(event)" title="Configuraciones de Pantalla"><span>⋮</span></button>
+                        
+                        <div class="menu-opciones-flotante" id="menu-opciones" onclick="event.stopPropagation()">
+                            <!-- Acordeón de Modos de Lectura -->
+                            <div class="carpeta-categoria abierta"> <!-- Viene abierta por defecto para comodidad -->
+                                <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
+                                    <span>📖 MODOS DE LECTURA</span>
+                                    <span class="indicador-flecha">▼</span>
+                                </div>
+                                <div class="carpeta-contenido">
+                                    <div class="item-tema-opcion" id="opt-lectura-detallada" onclick="cambiarModoLectura('detallada')">
+                                        <div class="item-flex-izq"><span>📚 Modo Detallado</span></div>
+                                        <span class="check-seleccionado">✓</span>
+                                    </div>
+                                    <div class="item-tema-opcion" id="opt-lectura-resumida" onclick="cambiarModoLectura('resumida')">
+                                        <div class="item-flex-izq"><span>⚡ Modo Sintético</span></div>
+                                        <span class="check-seleccionado">✓</span>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="menu-divisor-linea"></div>
                             
-                            <!-- APARTADO 1: MULTICOLOR -->
-                            <div class="carpeta-categoria">
-                                <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
-                                    <span>🌈 MULTICOLOR & NEÓN</span>
-                                    <span class="indicador-flecha">▼</span>
-                                </div>
-                                <div class="carpeta-contenido">
-                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('cyberpunk')">
-                                        <div class="circulo-color" style="background-color: #ff007f;"></div>
-                                        <span>⚡ Cyberpunk</span>
-                                    </div>
-                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('rgb')">
-                                        <div class="circulo-color" style="background-color: #00ff66;"></div>
-                                        <span>🎮 Espectro RGB</span>
-                                    </div>
-                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('fuego')">
-                                        <div class="circulo-color" style="background-color: #ff4d00;"></div>
-                                        <span>🔥 Fuego Neón</span>
-                                    </div>
-                                </div>
+                            <!-- Opción Extra Útil: Restablecer todo -->
+                            <div class="item-tema-opcion" onclick="restablecerTodo el Sistema()" style="color: var(--texto-secundario); font-size: 0.8rem;">
+                                <span>🔄 Restablecer Todo</span>
                             </div>
-
-                            <!-- APARTADO 2: ORGÁNICOS -->
-                            <div class="carpeta-categoria">
-                                <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
-                                    <span>🌿 TONOS ORGÁNICOS</span>
-                                    <span class="indicador-flecha">▼</span>
-                                </div>
-                                <div class="carpeta-contenido">
-                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('bosque')">
-                                        <div class="circulo-color" style="background-color: #2a3d32;"></div>
-                                        <span>🌲 Bosque Místico</span>
-                                    </div>
-                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('retro')">
-                                        <div class="circulo-color" style="background-color: #bc4749;"></div>
-                                        <span>🌸 Aki-Retro</span>
-                                    </div>
-                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('desierto')">
-                                        <div class="circulo-color" style="background-color: #7d5a50;"></div>
-                                        <span>🏜️ Desierto Cálido</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- APARTADO 3: FRÍOS -->
-                            <div class="carpeta-categoria">
-                                <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
-                                    <span>🌊 TONOS FRÍOS</span>
-                                    <span class="indicador-flecha">▼</span>
-                                </div>
-                                <div class="carpeta-contenido">
-                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('oceano')">
-                                        <div class="circulo-color" style="background-color: #06b6d4;"></div>
-                                        <span>🌊 Océano Profundo</span>
-                                    </div>
-                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('artico')">
-                                        <div class="circulo-color" style="background-color: #3f72af;"></div>
-                                        <span>❄️ Ártico Minimal</span>
-                                    </div>
-                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('aurora')">
-                                        <div class="circulo-color" style="background-color: #a855f7;"></div>
-                                        <span>🌌 Noche Aurora</span>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
-                    
-                    <!-- Botón de tres puntos configurado para limpiar almacenamiento local si se desea -->
-                    <button class="btn-interactivo" onclick="restablecerPredeterminado()" title="Restablecer Tema"><span>⋮</span></button>
+
                 </div>
             </header>
 
             <main>
-                <h3 class="titulo-contenido">Biblioteca de Temas Desplegables</h3>
-                <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
-                    Haz clic en la flecha pequeña del botón. Verás las carpetas colapsables estructuradas de forma limpia. Abre una categoría y selecciona cualquiera de las 9 experiencias de color únicas.
+                <h3 class="titulo-contenido">Contenido Dinámico Adaptable</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 10px;">
+                    Cambia el modo de lectura en el botón de los tres puntos (`⋮`) para alternar la densidad informativa de las tarjetas de abajo.
                 </p>
-                <ul class="regla-prueba"><li>01</li><li>02</li><li>03</li><li>04</li></ul>
+
+                <!-- EJEMPLO TARJETA 1 -->
+                <div class="bloque-lectura">
+                    <h4>🚀 El Futuro del Desarrollo Web</h4>
+                    <div class="txt-detallado">
+                        El diseño web moderno ha evolucionado hacia arquitecturas sumamente dinámicas. La inyección de variables personalizadas desde hojas de estilo CSS combinadas con la interactividad en tiempo real de JavaScript nos permite crear interfaces altamente responsivas sin la necesidad de recargar componentes pesados, mejorando drásticamente el rendimiento técnico del lado del cliente y optimizando los tiempos de respuesta.
+                    </div>
+                    <div class="txt-resumido">
+                        El desarrollo web actual usa CSS Variables + JS para crear páginas rápidas, ultra-interactivas y fluidas sin recargar el navegador. ¡Eficiencia pura! ⚡
+                    </div>
+                </div>
+
+                <!-- EJEMPLO TARJETA 2 -->
+                <div class="bloque-lectura">
+                    <h4>🧠 Retención y Microlearning</h4>
+                    <div class="txt-detallado">
+                        Los hábitos de consumo digital han cambiado de forma drástica en la última década. El auge del contenido en formatos de video vertical de corta duración ha provocado que las interfaces requieran esquemas adaptables. Ofrecer resúmenes concisos permite capturar la atención inmediata del usuario, mientras que mantener la opción detallada satisface a quienes buscan profundizar en la materia.
+                    </div>
+                    <div class="txt-resumido">
+                        ¿Poca retención? El formato tipo TikTok manda. El contenido directo al grano engancha rápido, pero siempre es bueno dejar el texto completo para el que quiera estudiar a fondo. 📖
+                    </div>
+                </div>
+
+                <ul class="regla-prueba"><li>01</li><li>02</li><li>03</li></ul>
             </main>
         </div>
     </div>
 
     <!-- SCRIPT DE MANEJO DE INTERFACES ANIDADAS -->
     <script>
-        // Mapeo Maestro de los 9 Temas Integrados
+        // Mapeo Maestro de Temas
         const diccionarioTemas = {
             'auto':      { icono: 'A', clase: '' },
             'light':     { icono: '☼', clase: '' },
@@ -402,15 +448,25 @@
         const carruselBase = ['auto', 'light', 'dark'];
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
         const menuFlotante = document.getElementById('menu-flotante');
+        const menuOpciones = document.getElementById('menu-opciones');
 
-        // [OPTIMIZACIÓN] Inicialización ultra-temprana del tema guardado para erradicar el parpadeo blanco
+        // [EJECUCIÓN INMEDIATA] Evitamos parpadeos de color y estructuras leyendo memoria antes del renderizado masivo
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
+        const lecturaInicial = localStorage.getItem('modo-lectura-guardado') || 'detallada';
         aplicarTema(temaInicial);
+        aplicarModoLectura(lecturaInicial);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            marcarChecksActivos();
+        });
 
         function toggleSidebar() { 
             document.body.classList.toggle('sidebar-abierta'); 
         }
 
+        /* ========================================== */
+        /* LOGICA DE SISTEMA DE TEMAS                 */
+        /* ========================================== */
         function limpiarClasesDeTema() {
             document.body.classList.remove(
                 'modo-oscuro', 'tema-cyberpunk', 'tema-rgb', 'tema-fuego', 
@@ -429,19 +485,10 @@
                 document.body.classList.add('modo-oscuro');
             }
             
-            // Verificamos de forma segura si el DOM ya se cargó para actualizar el icono
             const elIcono = document.getElementById('icono-tema');
             if (elIcono) elIcono.textContent = config.icono;
         }
 
-        // Asegurar que al cargar la estructura HTML completa el icono sea el adecuado
-        document.addEventListener('DOMContentLoaded', () => {
-            const temaAlCargar = localStorage.getItem('tema-guardado') || 'auto';
-            const config = diccionarioTemas[temaAlCargar] || diccionarioTemas['auto'];
-            document.getElementById('icono-tema').textContent = config.icono;
-        });
-
-        // Clic Principal Izquierdo (Rotación estándar)
         function rotarTemaBase() {
             let temaActual = localStorage.getItem('tema-guardado') || 'auto';
             let index = carruselBase.indexOf(temaActual);
@@ -451,21 +498,58 @@
             const proximoTema = carruselBase[index];
             localStorage.setItem('tema-guardado', proximoTema);
             aplicarTema(proximoTema);
-            cerrarTodoElMenu();
+            marcarChecksActivos();
+            cerrarTodosLosMenus();
         }
 
-        // Desplegar Menú Principal
+        function seleccionarTemaDirecto(nombreTema) {
+            localStorage.setItem('tema-guardado', nombreTema);
+            aplicarTema(nombreTema);
+            marcarChecksActivos();
+            cerrarTodosLosMenus();
+        }
+
+        /* ========================================== */
+        /* LÓGICA DE MODOS DE LECTURA CON MEMORIA     */
+        /* ========================================== */
+        function aplicarModoLectura(modo) {
+            if (modo === 'resumida') {
+                document.body.classList.remove('lectura-detallada');
+                document.body.classList.add('lectura-resumida');
+            } else {
+                document.body.classList.remove('lectura-resumida');
+                document.body.classList.add('lectura-detallada');
+            }
+        }
+
+        function cambiarModoLectura(modo) {
+            localStorage.setItem('modo-lectura-guardado', modo);
+            aplicarModoLectura(modo);
+            marcarChecksActivos();
+            cerrarTodosLosMenus();
+        }
+
+        /* ========================================== */
+        /* GESTIÓN DE COMPONENTES INTERACTIVOS        */
+        /* ========================================== */
         function toggleMenuTemas(event) {
             event.stopPropagation();
+            menuOpciones.classList.remove('activo'); // Cierra el otro menú
             menuFlotante.classList.toggle('activo');
         }
 
-        // Control Manejo de Carpetas Acordeón (Cierra las demás de manera limpia)
+        function toggleMenuOpciones(event) {
+            event.stopPropagation();
+            menuFlotante.classList.remove('activo'); // Cierra el otro menú
+            menuOpciones.classList.toggle('activo');
+        }
+
         function toggleCarpeta(cabeceraElemento) {
             const carpetaPadre = cabeceraElemento.parentElement;
             const estaAbierta = carpetaPadre.classList.contains('abierta');
             
-            document.querySelectorAll('.carpeta-categoria').forEach(folder => {
+            // Colapsa hermanos del mismo contenedor contenedor padre
+            carpetaPadre.parentElement.querySelectorAll('.carpeta-categoria').forEach(folder => {
                 folder.classList.remove('abierta');
             });
 
@@ -474,32 +558,47 @@
             }
         }
 
-        // Seleccionar Tema desde cualquier lista
-        function seleccionarTemaDirecto(nombreTema) {
-            localStorage.setItem('tema-guardado', nombreTema);
-            aplicarTema(nombreTema);
-            cerrarTodoElMenu();
+        function marcarChecksActivos() {
+            const temaActual = localStorage.getItem('tema-guardado') || 'auto';
+            const lecturaActual = localStorage.getItem('modo-lectura-guardado') || 'detallada';
+
+            // Remover marcas previas
+            document.querySelectorAll('.menu-temas-flotante .item-tema-opcion').forEach(el => el.classList.remove('seleccionado'));
+            document.querySelectorAll('.menu-opciones-flotante .item-tema-opcion').forEach(el => el.classList.remove('seleccionado'));
+
+            // Marcar tema activo
+            const nodoTema = document.getElementById(`opt-tema-${temaActual}`);
+            if (nodoTema) nodoTema.classList.add('seleccionado');
+
+            // Marcar lectura activa
+            const nodoLectura = document.getElementById(`opt-lectura-${lecturaActual}`);
+            if (nodoLectura) nodoLectura.classList.add('seleccionado');
         }
 
-        function cerrarTodoElMenu() {
+        function cerrarTodosLosMenus() {
             menuFlotante.classList.remove('activo');
+            menuOpciones.classList.remove('activo');
             document.querySelectorAll('.carpeta-categoria').forEach(folder => {
                 folder.classList.remove('abierta');
             });
+            // Mantener la carpeta de opciones de lectura abierta para el re-ingreso cómodo
+            const carpetaLectura = document.querySelector('#menu-opciones .carpeta-categoria');
+            if (carpetaLectura) carpetaLectura.classList.add('abierta');
         }
 
-        function restablecerPredeterminado() {
+        function restablecerTodo() {
             localStorage.setItem('tema-guardado', 'auto');
+            localStorage.setItem('modo-lectura-guardado', 'detallada');
             aplicarTema('auto');
-            cerrarTodoElMenu();
+            aplicarModoLectura('detallada');
+            marcarChecksActivos();
+            cerrarTodosLosMenus();
         }
 
-        // Cerrar menús al clickear en zonas vacías externas
         document.addEventListener('click', () => {
-            cerrarTodoElMenu();
+            cerrarTodosLosMenus();
         });
 
-        // Escucha activa de cambios en las preferencias del sistema del usuario
         detectorSistema.addEventListener('change', () => {
             if (localStorage.getItem('tema-guardado') === 'auto') aplicarTema('auto');
         });
