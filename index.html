@@ -60,22 +60,92 @@
             transition: background-color 0.2s, color 0.2s;
             min-height: 100vh;
             overflow-x: hidden;
-            width: 100%;
         }
 
         /* ========================================== */
-        /* 2. CONTENEDOR DE LA INTERFAZ               */
+        /* 2. CONTENEDOR MAESTRO (ELÁSTICO HORIZONTAL)*/
         /* ========================================== */
-        .contenido-interfaz {
-            width: 100%;
+        .layout-global {
+            display: flex;
+            width: 100vw;
             min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ========================================== */
+        /* 3. BARRA LATERAL (ESTILO DOCK PERMANENTE)  */
+        /* ========================================== */
+        aside {
+            width: var(--ancho-sidebar-mini); 
+            height: 100vh;
+            background-color: var(--bg-sidebar);
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            align-items: flex-start;
+            padding: 9px 13px; 
+            gap: 20px;
+            flex-shrink: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            z-index: 2000;
+            /* Curva de aceleración ultra-fluida sincronizada */
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .opcion-navegacion {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            gap: 15px;
+        }
+
+        .texto-opcion {
+            font-size: 0.95rem;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0; 
+            transform: translateX(-10px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+            pointer-events: none;
+        }
+
+        /* CONFIGURACIÓN EXPANSIÓN EN PC */
+        body.sidebar-abierta aside {
+            width: var(--ancho-sidebar-total);
+        }
+
+        body.sidebar-abierta .texto-opcion {
+            opacity: 1; 
+            transform: translateX(0);
+            pointer-events: auto;
+            transition-delay: 0.05s; /* Espera un milisegundo para mostrar el texto de forma orgánica */
+        }
+
+        .divisor-sidebar {
+            width: 100%;
+            border-bottom: 1px solid var(--borde-color);
+            padding-bottom: 5px;
+            margin-bottom: -5px;
         }
 
         /* ========================================== */
-        /* 3. ENCABEZADO (HEADER STICKY)              */
+        /* 4. BLOQUE DERECHO (SE ADAPTA DE FORMA FLUIDA) */
+        /* ========================================== */
+        .contenido-interfaz {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            min-width: 0; /* Evita que el contenido rompa el layout */
+            /* Esta línea es la magia que elimina el efecto flash de recorte */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ========================================== */
+        /* 5. ENCABEZADO (HEADER ADAPTATIVO SIN SALTOS)*/
         /* ========================================== */
         header {
             position: sticky;
@@ -98,9 +168,9 @@
             gap: 12px;
         }
 
-        /* Oculto por defecto en PC para evitar duplicados */
+        /* BLOQUEO ABSOLUTO EN PC: Aquí se elimina selectivamente de la computadora */
         .btn-menu-movil {
-            display: none;
+            display: none !important;
         }
 
         header h2 {
@@ -111,7 +181,7 @@
         }
 
         /* ========================================== */
-        /* 4. BOTONES INTERACTIVOS (MISMO MATERIAL)   */
+        /* 6. MATERIAL DE BOTONES UNIFICADO           */
         /* ========================================== */
         .btn-interactivo {
             background-color: var(--btn-bg);
@@ -150,70 +220,11 @@
         }
 
         /* ========================================== */
-        /* 5. BARRA LATERAL (SIDEBAR DOCK)            */
-        /* ========================================== */
-        aside {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: var(--ancho-sidebar-mini); 
-            background-color: var(--bg-sidebar);
-            z-index: 2000;
-            overflow-x: hidden;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 9px 13px; 
-            gap: 20px;
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .opcion-navegacion {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-            gap: 15px;
-        }
-
-        .texto-opcion {
-            font-size: 0.95rem;
-            font-weight: 500;
-            white-space: nowrap;
-            opacity: 0; 
-            transform: translateX(-10px);
-            transition: opacity 0.2s ease, transform 0.2s ease;
-            pointer-events: none;
-        }
-
-        body.sidebar-abierta aside {
-            width: var(--ancho-sidebar-total);
-        }
-
-        body.sidebar-abierta .texto-opcion {
-            opacity: 1; 
-            transform: translateX(0);
-            pointer-events: auto;
-        }
-
-        .divisor-sidebar {
-            width: 100%;
-            border-bottom: 1px solid var(--borde-color);
-            padding-bottom: 5px;
-            margin-bottom: -5px;
-        }
-
-        /* ========================================== */
-        /* 6. ÁREA DE CONTENIDO (MAIN)                */
+        /* 7. ÁREA DE CONTENIDO (MAIN)                */
         /* ========================================== */
         main {
             padding: 20px;
             width: 100%;
-            max-width: 100%;
             flex-grow: 1;
         }
 
@@ -245,28 +256,12 @@
 
         .overlay-fondo {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.4);
-            z-index: 1500;
         }
 
         /* ========================================== */
-        /* 7. COMPORTAMIENTO COMPUTADORA (PC)         */
+        /* 8. AJUSTES EXCLUSIVOS PARA PC              */
         /* ========================================== */
         @media (min-width: 768px) {
-            .contenido-interfaz {
-                padding-left: var(--ancho-sidebar-mini);
-            }
-            
-            body.sidebar-abierta .contenido-interfaz {
-                transform: translateX(calc(var(--ancho-sidebar-total) - var(--ancho-sidebar-mini)));
-                width: calc(100% - (var(--ancho-sidebar-total) - var(--ancho-sidebar-mini)));
-            }
-            
             main {
                 padding: 40px;
             }
@@ -276,15 +271,19 @@
         }
 
         /* ========================================== */
-        /* 8. COMPORTAMIENTO CELULARES                */
+        /* 9. AJUSTES EXCLUSIVOS PARA CELULARES       */
         /* ========================================== */
         @media (max-width: 767px) {
-            /* El botón del menú reaparece únicamente en la barra superior móvil */
+            /* Activamos el botón del menú ÚNICAMENTE en la pantalla móvil */
             .btn-menu-movil {
-                display: flex;
+                display: flex !important;
             }
 
+            /* Modificamos la barra lateral para que flote en el teléfono */
             aside {
+                position: fixed;
+                top: 0;
+                left: 0;
                 transform: translateX(-100%);
                 width: var(--ancho-sidebar-total) !important; 
             }
@@ -299,101 +298,114 @@
                 transform: translateX(0);
             }
             
+            /* Fondo traslúcido reactivo para móvil */
             body.sidebar-abierta .overlay-fondo {
-                display: block; 
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0,0,0,0.4);
+                z-index: 1500;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- CAPA OSCURA PARA CELULARES -->
-    <div class="overlay-fondo" onclick="toggleSidebar()"></div>
+    <!-- CONTENEDOR ELÁSTICO MAESTRO -->
+    <div class="layout-global">
 
-    <!-- BARRA LATERAL INTERACTIVA (DOCK) -->
-    <aside id="barra-lateral">
-        <!-- Interruptor Máster Único (Visible en PC para expandir y en celular para regresar) -->
-        <div class="opcion-navegacion divisor-sidebar" onclick="toggleSidebar()">
-            <button class="btn-interactivo" style="flex-shrink: 0;">
-                <span>☰</span>
-            </button>
-            <span class="texto-opcion" style="font-weight: bold; color: var(--texto-secundario);">Menú Lateral</span>
-        </div>
+        <!-- CAPA OSCURA PARA CELULARES -->
+        <div class="overlay-fondo" onclick="toggleSidebar()"></div>
 
-        <!-- Opción A -->
-        <div class="opcion-navegacion">
-            <button class="btn-interactivo" style="flex-shrink: 0;">
-                <span>A</span>
-            </button>
-            <span class="texto-opcion">Texto Uno</span>
-        </div>
-
-        <!-- Opción B -->
-        <div class="opcion-navegacion">
-            <button class="btn-interactivo" style="flex-shrink: 0;">
-                <span>B</span>
-            </button>
-            <span class="texto-opcion">Texto Dos</span>
-        </div>
-
-        <!-- Opción C -->
-        <div class="opcion-navegacion">
-            <button class="btn-interactivo" style="flex-shrink: 0;">
-                <span>C</span>
-            </button>
-            <span class="texto-opcion">Texto Tres</span>
-        </div>
-
-        <!-- Opción D -->
-        <div class="opcion-navegacion">
-            <button class="btn-interactivo" style="flex-shrink: 0;">
-                <span>D</span>
-            </button>
-            <span class="texto-opcion">Texto Cuatro</span>
-        </div>
-    </aside>
-
-    <!-- CONTENEDOR INTEGRADO (HEADER + MAIN) -->
-    <div class="contenido-interfaz" id="contenido-interfaz">
-        
-        <!-- ENCABEZADO CON DISPARADOR MÓVIL INTELIGENTE -->
-        <header id="encabezado-fijo">
-            <div class="header-izq">
-                <!-- Este botón SOLO aparece si estás navegando desde un celular -->
-                <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()" title="Abrir Menú">
+        <!-- BARRA LATERAL (DOCK INTEGRADO) -->
+        <aside id="barra-lateral">
+            <!-- Interruptor Máster Único -->
+            <div class="opcion-navegacion divisor-sidebar" onclick="toggleSidebar()">
+                <button class="btn-interactivo" style="flex-shrink: 0;">
                     <span>☰</span>
                 </button>
-                <h2>Mi Sitio Web</h2>
+                <span class="texto-opcion" style="font-weight: bold; color: var(--texto-secundario);">Menú Lateral</span>
             </div>
-            
-            <div class="header-der">
-                <!-- Botón de Tema Cíclico -->
-                <button id="btn-tema" class="btn-interactivo" onclick="rotarTema()" title="Cambiar Tema">
-                    <span id="icono-tema">A</span>
-                </button>
-                
-                <!-- Botón de Opciones -->
-                <button class="btn-interactivo" title="Opciones">
-                    <span>⋮</span>
-                </button>
-            </div>
-        </header>
 
-        <!-- CUERPO DE LA PÁGINA (CORAZÓN INTERCAMBIABLE) -->
-        <main>
-            <h3 class="titulo-contenido">Comportamiento Híbrido Corregido</h3>
-            <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
-                Estructura 100% responsiva. En PC el menú se maneja desde el riel izquierdo; en móvil, se despliega y regresa usando el control unificado.
-            </p>
+            <!-- Opción A -->
+            <div class="opcion-navegacion">
+                <button class="btn-interactivo" style="flex-shrink: 0;">
+                    <span>A</span>
+                </button>
+                <span class="texto-opcion">Texto Uno</span>
+            </div>
+
+            <!-- Opción B -->
+            <div class="opcion-navegacion">
+                <button class="btn-interactivo" style="flex-shrink: 0;">
+                    <span>B</span>
+                </button>
+                <span class="texto-opcion">Texto Dos</span>
+            </div>
+
+            <!-- Opción C -->
+            <div class="opcion-navegacion">
+                <button class="btn-interactivo" style="flex-shrink: 0;">
+                    <span>C</span>
+                </button>
+                <span class="texto-opcion">Texto Tres</span>
+            </div>
+
+            <!-- Opción D -->
+            <div class="opcion-navegacion">
+                <button class="btn-interactivo" style="flex-shrink: 0;">
+                    <span>D</span>
+                </button>
+                <span class="texto-opcion">Texto Cuatro</span>
+            </div>
+        </aside>
+
+        <!-- CONTENEDOR DE LA INTERFAZ FLEXIBLE (SE ENCOGE/ESTIRA SIN FLASHES) -->
+        <div class="contenido-interfaz" id="contenido-interfaz">
             
-            <ul class="regla-prueba">
-                <li>01</li>
-                <li>02</li>
-                <li>03</li>
-                <li>04</li>
-                <li>05</li>
-            </ul>
-        </main>
+            <!-- ENCABEZADO ASILADO -->
+            <header id="encabezado-fijo">
+                <div class="header-izq">
+                    <!-- Botón Condicional: Protegido físicamente por el CSS de PC -->
+                    <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()" title="Abrir Menú">
+                        <span>☰</span>
+                    </button>
+                    <h2>Mi Sitio Web</h2>
+                </div>
+                
+                <div class="header-der">
+                    <!-- Botón de Tema Cíclico -->
+                    <button id="btn-tema" class="btn-interactivo" onclick="rotarTema()" title="Cambiar Tema">
+                        <span id="icono-tema">A</span>
+                    </button>
+                    
+                    <!-- Botón de Opciones -->
+                    <button class="btn-interactivo" title="Opciones">
+                        <span>⋮</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- CUERPO DE LA PÁGINA (CORAZÓN INTERCAMBIABLE) -->
+            <main>
+                <h3 class="titulo-contenido">Animación Elástica Sincronizada</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
+                    Prueba a abrir y cerrar el menú en tu computadora. Notarás cómo la barra superior y las tarjetas inferiores acompañan el movimiento en un deslizamiento perfecto, sin cortes instantáneos a la derecha.
+                </p>
+                
+                <ul class="regla-prueba">
+                    <li>01</li>
+                    <li>02</li>
+                    <li>03</li>
+                    <li>04</li>
+                    <li>05</li>
+                </ul>
+            </main>
+        </div>
+
     </div>
 
     <!-- SCRIPT DE CONTROL REACTIVO -->
