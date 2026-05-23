@@ -28,6 +28,9 @@
             --btn-sombra-clara: rgba(255, 255, 255, 0.8);
             --icono-sumido: rgba(0, 0, 0, 0.15);
             --sombra-general: rgba(0, 0, 0, 0.05);
+            
+            /* Variable de transición global para suavizar cambios de tema */
+            --transicion-tema: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         /* ========================================== */
@@ -119,8 +122,9 @@
         /* ========================================== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: sans-serif; background-color: var(--bg-principal); color: var(--texto-principal);
-            transition: background-color 0.2s, color 0.2s; min-height: 100vh; overflow-x: hidden;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background-color: var(--bg-principal); color: var(--texto-principal);
+            transition: var(--transicion-tema); min-height: 100vh; overflow-x: hidden;
         }
         .layout-global { display: flex; width: 100vw; min-height: 100vh; overflow: hidden; }
 
@@ -128,26 +132,27 @@
             width: var(--ancho-sidebar-mini); height: 100vh; background-color: var(--bg-sidebar);
             display: flex; flex-direction: column; align-items: flex-start; padding: 9px 13px; gap: 20px; flex-shrink: 0;
             overflow-x: hidden; overflow-y: auto; z-index: 2000;
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), var(--transicion-tema);
         }
         .opcion-navegacion { display: flex; align-items: center; width: 100%; text-decoration: none; color: inherit; cursor: pointer; gap: 15px; }
-        .texto-opcion { font-size: 0.95rem; font-weight: 500; white-space: nowrap; opacity: 0; transform: translateX(-10px); transition: opacity 0.15s ease, transform 0.15s ease; pointer-events: none; }
+        .texto-opcion { font-size: 0.95rem; font-weight: 500; white-space: nowrap; opacity: 0; transform: translateX(-10px); transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: none; }
         body.sidebar-abierta aside { width: var(--ancho-sidebar-total); }
         body.sidebar-abierta .texto-opcion { opacity: 1; transform: translateX(0); pointer-events: auto; transition-delay: 0.05s; }
         .divisor-sidebar { width: 100%; border-bottom: 1px solid var(--borde-color); padding-bottom: 5px; margin-bottom: -5px; }
 
-        .contenido-interfaz { flex-grow: 1; display: flex; flex-direction: column; min-height: 100vh; min-width: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        header { position: sticky; top: 0; width: 100%; height: var(--alto-header); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; background-color: var(--bg-tarjetas); box-shadow: 0 2px 8px var(--sombra-general); z-index: 1000; transition: background-color 0.2s, box-shadow 0.2s; }
+        .contenido-interfaz { flex-grow: 1; display: flex; flex-direction: column; min-height: 100vh; min-width: 0; transition: var(--transicion-tema); }
+        header { position: sticky; top: 0; width: 100%; height: var(--alto-header); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; background-color: var(--bg-tarjetas); box-shadow: 0 2px 8px var(--sombra-general); z-index: 1000; transition: var(--transicion-tema); }
         .header-izq, .header-der { display: flex; align-items: center; gap: 12px; }
         .btn-menu-movil { display: none !important; }
         header h2 { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .btn-interactivo {
             background-color: var(--btn-bg); border: 1px solid var(--borde-color); width: 38px; height: 38px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; outline: none; transition: all 0.2s ease;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; outline: none; 
+            transition: all 0.2s ease, var(--transicion-tema);
             box-shadow: -1px -1px 4px var(--btn-sombra-clara), 1px 1px 4px var(--btn-sombra-oscura);
         }
-        .btn-interactivo span { font-size: 1.15rem; font-weight: bold; color: var(--texto-principal); opacity: 0.85; }
+        .btn-interactivo span { font-size: 1.15rem; font-weight: bold; color: var(--texto-principal); opacity: 0.85; transition: color 0.3s ease; }
         .btn-interactivo:active { box-shadow: inset -1px -1px 3px var(--btn-sombra-clara), inset 1px 1px 3px var(--btn-sombra-oscura); transform: scale(0.96); }
 
         /* ========================================== */
@@ -156,11 +161,15 @@
         .contenedor-split-button {
             position: relative; display: flex; align-items: center; background-color: var(--btn-bg);
             border: 1px solid var(--borde-color); height: 38px; width: 82px; border-radius: 10px;
+            transition: var(--transicion-tema);
             box-shadow: -1px -1px 4px var(--btn-sombra-clara), 1px 1px 4px var(--btn-sombra-oscura);
         }
-        .split-accion-principal { flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border-top-left-radius: 9px; border-bottom-left-radius: 9px; }
-        .split-divisor { width: 1px; height: 60%; background-color: var(--borde-color); }
-        .split-flecha { width: 32px; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; font-size: 0.65rem; border-top-right-radius: 9px; border-bottom-right-radius: 9px; }
+        .split-accion-principal { flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border-top-left-radius: 9px; border-bottom-left-radius: 9px; transition: background-color 0.2s; }
+        .split-accion-principal:active { background-color: var(--icono-sumido); }
+        .split-divisor { width: 1px; height: 60%; background-color: var(--borde-color); transition: var(--transicion-tema); }
+        .split-flecha { width: 32px; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; font-size: 0.65rem; border-top-right-radius: 9px; border-bottom-right-radius: 9px; transition: background-color 0.2s; }
+        .split-flecha:active { background-color: var(--icono-sumido); }
+        .split-flecha span { color: var(--texto-principal); transition: color 0.3s; }
 
         /* ========================================== */
         /* 5. MENÚ FLOTANTE ULTRA-ESTRUCTURADO        */
@@ -170,20 +179,20 @@
             border: 1px solid var(--borde-color); border-radius: 14px; box-shadow: 0 10px 30px var(--sombra-general);
             width: 220px; padding: 6px; display: flex; flex-direction: column; gap: 2px; z-index: 3000;
             opacity: 0; pointer-events: none; transform: translateY(-8px) scale(0.95);
-            transition: opacity 0.2s ease, transform 0.2s ease;
+            transition: opacity 0.2s ease, transform 0.2s ease, var(--transicion-tema);
             max-height: 420px; overflow-y: auto;
         }
         .menu-temas-flotante.activo { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
         
-        .menu-divisor-linea { height: 1px; background-color: var(--borde-color); margin: 6px 4px; pointer-events: none; }
+        .menu-divisor-linea { height: 1px; background-color: var(--borde-color); margin: 6px 4px; pointer-events: none; transition: var(--transicion-tema); }
 
         /* Estilo de Opciones de Tema */
         .item-tema-opcion {
             display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px;
-            cursor: pointer; font-size: 0.85rem; font-weight: 500; color: var(--texto-principal); transition: all 0.15s ease;
+            cursor: pointer; font-size: 0.85rem; font-weight: 500; color: var(--texto-principal); transition: all 0.15s ease, color 0.3s ease;
         }
         .item-tema-opcion:hover { background-color: var(--btn-bg); transform: translateX(3px); }
-        .item-tema-opcion .circulo-color { width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); }
+        .item-tema-opcion .circulo-color { width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.15); flex-shrink: 0; }
 
         /* Estilo Carpetas / Categorías Acordeón */
         .carpeta-categoria {
@@ -192,31 +201,31 @@
         .carpeta-cabecera {
             display: flex; justify-content: space-between; align-items: center; padding: 9px 12px;
             cursor: pointer; font-size: 0.82rem; font-weight: 700; color: var(--texto-secundario);
-            user-select: none; transition: background-color 0.2s;
+            user-select: none; transition: background-color 0.2s, color 0.3s;
         }
         .carpeta-cabecera:hover { background-color: var(--btn-bg); }
-        .carpeta-cabecera .indicador-flecha { font-size: 0.55rem; transition: transform 0.25s ease; }
+        .carpeta-cabecera .indicador-flecha { font-size: 0.55rem; color: var(--texto-secundario); transition: transform 0.25s ease; }
         
-        /* Contenedor Elástico de Sub-elementos */
+        /* Contenedor Elástico Soportado para Evitar Cortes */
         .carpeta-contenido {
             max-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 2px;
-            padding-left: 8px; background-color: rgba(0,0,0,0.01);
-            transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-left: 8px; background-color: rgba(0,0,0,0.02);
+            transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
         }
-        body.modo-oscuro .carpeta-contenido { background-color: rgba(255,255,255,0.01); }
+        body.modo-oscuro .carpeta-contenido { background-color: rgba(255,255,255,0.02); }
 
-        /* Estados Abiertos mediante JS */
-        .carpeta-categoria.abierta .carpeta-contenido { max-height: 150px; /* Suficiente para albergar los subtemas */ }
+        /* Estado Abierto (Cambiado a 300px para total seguridad de contenido) */
+        .carpeta-categoria.abierta .carpeta-contenido { max-height: 300px; }
         .carpeta-categoria.abierta .indicador-flecha { transform: rotate(180deg); }
 
         /* ========================================== */
         /* 6. ÁREA DE TRABAJO (MAIN)                  */
         /* ========================================== */
-        main { padding: 20px; width: 100%; flex-grow: 1; }
+        main { padding: 20px; width: 100%; flex-grow: 1; transition: var(--transicion-tema); }
         .titulo-contenido { text-align: center; margin-bottom: 25px; font-size: 1.2rem; }
         .regla-prueba { list-style: none; }
         .regla-prueba li { display: flex; align-items: center; padding: 14px 0; font-family: monospace; font-size: 1rem; }
-        .regla-prueba li::after { content: ""; flex-grow: 1; margin-left: 10px; border-bottom: 3px dotted var(--borde-color); height: 1px; }
+        .regla-prueba li::after { content: ""; flex-grow: 1; margin-left: 10px; border-bottom: 3px dotted var(--borde-color); height: 1px; transition: border-color 0.3s; }
         .overlay-fondo { display: none; }
 
         @media (min-width: 768px) { main { padding: 40px; } header h2 { font-size: 1.1rem; } }
@@ -237,7 +246,7 @@
         <!-- BARRA LATERAL -->
         <aside id="barra-lateral">
             <div class="opcion-navegacion divisor-sidebar" onclick="toggleSidebar()">
-                <button class="btn-interactivo" style="flex-shrink: 0;"><span>☰</span></button>
+                <button class="btn-interactivo" style="flex-shrink: 0;" aria-label="Cerrar Menú"><span>☰</span></button>
                 <span class="texto-opcion" style="font-weight: bold; color: var(--texto-secundario);">Menú Lateral</span>
             </div>
             <div class="opcion-navegacion">
@@ -254,7 +263,7 @@
         <div class="contenido-interfaz" id="contenido-interfaz">
             <header id="encabezado-fijo">
                 <div class="header-izq">
-                    <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()"><span>☰</span></button>
+                    <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()" aria-label="Abrir Menú"><span>☰</span></button>
                     <h2>Mi Sitio Web</h2>
                 </div>
                 
@@ -357,7 +366,8 @@
                         </div>
                     </div>
                     
-                    <button class="btn-interactivo"><span>⋮</span></button>
+                    <!-- Botón de tres puntos configurado para limpiar almacenamiento local si se desea -->
+                    <button class="btn-interactivo" onclick="restablecerPredeterminado()" title="Restablecer Tema"><span>⋮</span></button>
                 </div>
             </header>
 
@@ -373,11 +383,6 @@
 
     <!-- SCRIPT DE MANEJO DE INTERFACES ANIDADAS -->
     <script>
-        function toggleSidebar() { document.body.classList.toggle('sidebar-abierta'); }
-
-        const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
-        const menuFlotante = document.getElementById('menu-flotante');
-        
         // Mapeo Maestro de los 9 Temas Integrados
         const diccionarioTemas = {
             'auto':      { icono: 'A', clase: '' },
@@ -395,6 +400,16 @@
         };
 
         const carruselBase = ['auto', 'light', 'dark'];
+        const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
+        const menuFlotante = document.getElementById('menu-flotante');
+
+        // [OPTIMIZACIÓN] Inicialización ultra-temprana del tema guardado para erradicar el parpadeo blanco
+        const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
+        aplicarTema(temaInicial);
+
+        function toggleSidebar() { 
+            document.body.classList.toggle('sidebar-abierta'); 
+        }
 
         function limpiarClasesDeTema() {
             document.body.classList.remove(
@@ -413,12 +428,20 @@
             } else if (tema === 'auto' && detectorSistema.matches) {
                 document.body.classList.add('modo-oscuro');
             }
-            document.getElementById('icono-tema').textContent = config.icono;
+            
+            // Verificamos de forma segura si el DOM ya se cargó para actualizar el icono
+            const elIcono = document.getElementById('icono-tema');
+            if (elIcono) elIcono.textContent = config.icono;
         }
 
-        // CONTROLADORES DE EVENTOS
-        
-        // Clic Principal Izquierdo
+        // Asegurar que al cargar la estructura HTML completa el icono sea el adecuado
+        document.addEventListener('DOMContentLoaded', () => {
+            const temaAlCargar = localStorage.getItem('tema-guardado') || 'auto';
+            const config = diccionarioTemas[temaAlCargar] || diccionarioTemas['auto'];
+            document.getElementById('icono-tema').textContent = config.icono;
+        });
+
+        // Clic Principal Izquierdo (Rotación estándar)
         function rotarTemaBase() {
             let temaActual = localStorage.getItem('tema-guardado') || 'auto';
             let index = carruselBase.indexOf(temaActual);
@@ -437,23 +460,21 @@
             menuFlotante.classList.toggle('activo');
         }
 
-        // Control Manejo de Carpetas Acordeón (Cierra las demás al abrir una nueva)
+        // Control Manejo de Carpetas Acordeón (Cierra las demás de manera limpia)
         function toggleCarpeta(cabeceraElemento) {
             const carpetaPadre = cabeceraElemento.parentElement;
             const estaAbierta = carpetaPadre.classList.contains('abierta');
             
-            // Cerrar todas las demás carpetas primero para mantener el orden
             document.querySelectorAll('.carpeta-categoria').forEach(folder => {
                 folder.classList.remove('abierta');
             });
 
-            // Si no estaba abierta, la abrimos
             if (!estaAbierta) {
                 carpetaPadre.classList.add('abierta');
             }
         }
 
-        // Seleccionar Tema de cualquier fila
+        // Seleccionar Tema desde cualquier lista
         function seleccionarTemaDirecto(nombreTema) {
             localStorage.setItem('tema-guardado', nombreTema);
             aplicarTema(nombreTema);
@@ -467,15 +488,18 @@
             });
         }
 
-        // Cerrar al clickear fuera de la caja
+        function restablecerPredeterminado() {
+            localStorage.setItem('tema-guardado', 'auto');
+            aplicarTema('auto');
+            cerrarTodoElMenu();
+        }
+
+        // Cerrar menús al clickear en zonas vacías externas
         document.addEventListener('click', () => {
             cerrarTodoElMenu();
         });
 
-        // Inicializador
-        const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
-        aplicarTema(temaInicial);
-
+        // Escucha activa de cambios en las preferencias del sistema del usuario
         detectorSistema.addEventListener('change', () => {
             if (localStorage.getItem('tema-guardado') === 'auto') aplicarTema('auto');
         });
