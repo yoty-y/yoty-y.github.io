@@ -6,24 +6,23 @@
     <title>La web de Yoty-y</title>
     
     <style>
-        /* Estilos base para el cuerpo de la página */
+        /* 1. CONFIGURACIÓN DE COLORES POR DEFECTO (TEMA CLARO) */
         body {
             margin: 0;
             padding: 0;
             font-family: sans-serif;
-            background-color: #f4f4f9; /* Fondo claro por defecto */
+            background-color: #f4f4f9;
             color: #1a1a1a;
-            transition: background-color 0.2s, color 0.2s; /* Cambio rápido y ligero */
+            transition: background-color 0.2s, color 0.2s;
         }
 
-        /* El encabezado (rectángulo con contraste) */
         header {
-            background-color: #ffffff; /* Contraste con el fondo */
+            background-color: #ffffff;
             padding: 10px 20px;
             display: flex;
-            justify-content: space-between; /* Alinea el título a la izquierda y el botón a la derecha */
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra ligera para notar el relieve */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         header h2 {
@@ -31,24 +30,25 @@
             font-size: 1.2rem;
         }
 
-        /* Botón pequeño y discreto */
-        .btn-tema {
+        /* La lista desplegable discreta */
+        .selector-tema {
             background: #e2e8f0;
-            border: none;
-            padding: 6px 12px;
+            border: 1px solid #cbd5e1;
+            padding: 5px 10px;
             font-size: 0.85rem;
-            cursor: pointer;
             border-radius: 4px;
+            cursor: pointer;
             color: #1a1a1a;
+            outline: none;
         }
 
-        /* Contenido principal */
         main {
             padding: 20px;
             text-align: center;
         }
 
-        /* CLASES PARA EL MODO OSCURO (Se activan con el botón) */
+        /* 2. REGLAS PARA EL MODO OSCURO */
+        /* Se aplicarán si el usuario elige "Oscuro" manualmente, O si elige "Auto" y su sistema es oscuro */
         body.modo-oscuro {
             background-color: #121212;
             color: #f3f4f6;
@@ -59,34 +59,73 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        body.modo-oscuro .btn-tema {
+        body.modo-oscuro .selector-tema {
             background: #333333;
+            border-color: #444444;
             color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-    <!-- El encabezado contrastado -->
     <header>
         <h2>Mi Sitio Web</h2>
-        <!-- Botón discreto -->
-        <button class="btn-tema" onclick="cambiarTema()">Tema</button>
+        
+        <!-- Lista desplegable discreta en lugar del botón -->
+        <select id="selector-tema" class="selector-tema" onchange="seleccionarTema(this.value)">
+            <option value="auto">Auto</option>
+            <option value="light">Claro</option>
+            <option value="dark">Oscuro</option>
+        </select>
     </header>
 
-    <!-- Contenido de la página -->
     <main>
-        <h1>¡Bienvenido de nuevo!</h1>
-        <p>Este es el nuevo inicio de la página con el encabezado superior.</p>
+        <h1>¡Bienvenido a tu Web Dinámica!</h1>
+        <p>El tema elegido se guardará en la memoria de tu navegador.</p>
     </main>
 
-    <!-- El interruptor del color -->
     <script>
-        function cambiarTema() {
-            // "toggle" añade la clase si no está, y la quita si ya está. 
-            // Así funciona picando una y otra vez.
-            document.body.classList.toggle('modo-oscuro');
+        // Guardamos en una variable el detector del sistema operativo
+        const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Esta es la función que decide si poner la pantalla clara u oscura
+        function aplicarTema(tema) {
+            if (tema === 'dark') {
+                document.body.classList.add('modo-oscuro');
+            } else if (tema === 'light') {
+                document.body.classList.remove('modo-oscuro');
+            } else if (tema === 'auto') {
+                // Si es auto, revisamos qué prefiere el sistema en ese instante
+                if (detectorSistema.matches) {
+                    document.body.classList.add('modo-oscuro');
+                } else {
+                    document.body.classList.remove('modo-oscuro');
+                }
+            }
         }
+
+        // Esta función se ejecuta cuando el usuario cambia la opción en la lista desplegable
+        function seleccionarTema(tema) {
+            localStorage.setItem('tema-guardado', tema); // Guarda la elección en la memoria del navegador
+            aplicarTema(tema);
+        }
+
+        // --- AL CARGAR LA PÁGINA POR PRIMERA VEZ ---
+        // 1. Buscamos si ya hay un tema guardado en la memoria. Si no hay nada, por defecto será 'auto'.
+        const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
+        
+        // 2. Hacemos que la lista desplegable muestre visualmente la opción que está activa
+        document.getElementById('selector-tema').value = temaInicial;
+        
+        // 3. Aplicamos el tema correspondiente
+        aplicarTema(temaInicial);
+
+        // 4. Si el usuario lo dejó en 'auto' y cambia el tema de Bodhi Linux mientras la web está abierta, reacciona al instante
+        detectorSistema.addEventListener('change', () => {
+            if (localStorage.getItem('tema-guardado') === 'auto' || !localStorage.getItem('tema-guardado')) {
+                aplicarTema('auto');
+            }
+        });
     </script>
 
 </body>
