@@ -282,21 +282,20 @@
         }
 
         /* ========================================== */
-        /* 5. NUEVO BOTÓN RECTANGULAR DIVIDIDO (SPLIT)*/
+        /* 5. BOTÓN RECTANGULAR DIVIDIO (SPLIT)       */
         /* ========================================== */
         .contenedor-split-button {
-            position: relative; /* Ancla el menú flotante aquí */
+            position: relative; 
             display: flex;
             align-items: center;
             background-color: var(--btn-bg);
             border: 1px solid var(--borde-color);
             height: 38px;
-            width: 82px; /* Rectangular extendido */
+            width: 82px; 
             border-radius: 10px;
             box-shadow: 
                 -1px -1px 4px var(--btn-sombra-clara),
                 1px 1px 4px var(--btn-sombra-oscura);
-            overflow: hidden;
         }
 
         .split-accion-principal {
@@ -307,6 +306,8 @@
             justify-content: center;
             cursor: pointer;
             user-select: none;
+            border-top-left-radius: 9px;
+            border-bottom-left-radius: 9px;
             transition: background-color 0.2s;
         }
         
@@ -332,6 +333,8 @@
             cursor: pointer;
             user-select: none;
             font-size: 0.65rem;
+            border-top-right-radius: 9px;
+            border-bottom-right-radius: 9px;
             transition: background-color 0.2s;
         }
 
@@ -340,7 +343,7 @@
         }
 
         /* ========================================== */
-        /* 6. MENÚ FLOTANTE DE TEMAS EXTENDIDOS       */
+        /* 6. MENÚ FLOTANTE DE TEMAS CORREGIDO        */
         /* ========================================== */
         .menu-temas-flotante {
             position: absolute;
@@ -352,16 +355,24 @@
             box-shadow: 0 10px 25px var(--sombra-general);
             width: 170px;
             padding: 6px;
-            display: none; /* Se activa con JS */
+            
+            /* Cambiado a flex, controlado estrictamente por opacidad e interactividad */
+            display: flex;
             flex-direction: column;
             gap: 4px;
             z-index: 3000;
-            animation: entradaMenu 0.2s ease-out;
+            
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-8px) scale(0.95);
+            transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
-        @keyframes entradaMenu {
-            from { opacity: 0; transform: translateY(-8px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        /* Clase activadora controlada por JavaScript */
+        .menu-temas-flotante.activo {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
         }
 
         .item-tema-opcion {
@@ -373,6 +384,7 @@
             cursor: pointer;
             font-size: 0.85rem;
             font-weight: 500;
+            color: var(--texto-principal);
             transition: all 0.15s ease;
         }
 
@@ -459,10 +471,8 @@
 
     <div class="layout-global">
 
-        <!-- CAPA OSCURA PARA CELULARES -->
         <div class="overlay-fondo" onclick="toggleSidebar()"></div>
 
-        <!-- BARRA LATERAL (DOCK INTEGRADO) -->
         <aside id="barra-lateral">
             <div class="opcion-navegacion divisor-sidebar" onclick="toggleSidebar()">
                 <button class="btn-interactivo" style="flex-shrink: 0;">
@@ -485,7 +495,6 @@
             </div>
         </aside>
 
-        <!-- CONTENEDOR DE LA INTERFAZ -->
         <div class="contenido-interfaz" id="contenido-interfaz">
             
             <header id="encabezado-fijo">
@@ -498,22 +507,17 @@
                 
                 <div class="header-der">
                     
-                    <!-- NUEVO SPLIT BUTTON RECTANGULAR -->
                     <div class="contenedor-split-button">
-                        <!-- Lado Izquierdo: Acción Principal (Cambio Cíclico Base) -->
                         <div class="split-accion-principal" onclick="rotarTemaBase()" title="Rotar Tema Base">
                             <span id="icono-tema" style="font-weight: bold; color: var(--texto-principal); font-size: 1.1rem;">A</span>
                         </div>
                         
-                        <!-- Separador Físico Minimalista -->
                         <div class="split-divisor"></div>
                         
-                        <!-- Lado Derecho: Flecha Desplegable para Temas Premium -->
                         <div class="split-flecha" onclick="toggleMenuTemas(event)" title="Más Temas">
                             <span style="color: var(--texto-principal);">▼</span>
                         </div>
 
-                        <!-- MENÚ FLOTANTE INTERNO -->
                         <div class="menu-temas-flotante" id="menu-flotante">
                             <div class="item-tema-opcion" onclick="seleccionarTemaPremium('cyberpunk')">
                                 <div class="circulo-color" style="background-color: #ff007f;"></div>
@@ -545,7 +549,7 @@
             </header>
 
             <main>
-                <h3 class="titulo-contenido">Estilos Premium Expandidos</h3>
+                <h3 class="titulo-contenido">Estilos Premium Desplegables</h3>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
                     Usa el nuevo botón dividido. Haz clic en el icono para alternar entre Auto, Claro y Oscuro. Haz clic en la pequeña flecha para desatar la locura visual.
                 </p>
@@ -562,7 +566,6 @@
 
     </div>
 
-    <!-- SCRIPT DE CONTROL TOTAL DE TEMAS -->
     <script>
         function toggleSidebar() {
             document.body.classList.toggle('sidebar-abierta');
@@ -571,14 +574,12 @@
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
         const menuFlotante = document.getElementById('menu-flotante');
         
-        // Mapeo unificado de iconos y estados base
         const mapasTemasBase = {
             'auto': { siguiente: 'light', icono: 'A' },
             'light': { siguiente: 'dark', icono: '☼' },
             'dark': { siguiente: 'auto', icono: '☽' }
         };
 
-        // Iconos estáticos para identificar los temas locos en el botón principal si están activos
         const iconosPremium = {
             'cyberpunk': '⚡',
             'bosque': '🌲',
@@ -587,7 +588,6 @@
             'fuego': '🔥'
         };
 
-        // Elimina de golpe cualquier configuración de tema previa del body
         function limpiarClasesDeTema() {
             document.body.classList.remove('modo-oscuro', 'tema-cyberpunk', 'tema-bosque', 'tema-retro', 'tema-oceano', 'tema-fuego');
         }
@@ -595,9 +595,7 @@
         function aplicarTema(tema) {
             limpiarClasesDeTema();
             
-            // Verificación y ejecución
             if (mapasTemasBase[tema]) {
-                // Es un tema base
                 if (tema === 'dark') {
                     document.body.classList.add('modo-oscuro');
                 } else if (tema === 'auto' && detectorSistema.matches) {
@@ -605,19 +603,15 @@
                 }
                 document.getElementById('icono-tema').textContent = mapasTemasBase[tema].icono;
             } else if (iconosPremium[tema]) {
-                // Es un tema loco de la flecha
                 document.body.classList.add(`tema-${tema}`);
                 document.getElementById('icono-tema').textContent = iconosPremium[tema];
             }
         }
 
-        // CONTROL CLICKS
-
-        // 1. Click Izquierdo: Carrusel de los 3 básicos
+        // 1. Click Izquierdo: Ciclo Base
         function rotarTemaBase() {
             let temaActual = localStorage.getItem('tema-guardado') || 'auto';
             
-            // Si venimos de un tema premium loco, forzamos regresar al ciclo desde 'auto'
             if (!mapasTemasBase[temaActual]) {
                 temaActual = 'auto';
             }
@@ -625,35 +619,35 @@
             const proximoTema = mapasTemasBase[temaActual].siguiente;
             localStorage.setItem('tema-guardado', proximoTema);
             aplicarTema(proximoTema);
-            menuFlotante.style.display = 'none'; // Cierra menú por si acaso
+            menuFlotante.classList.remove('activo'); // Cierra el menú al cambiar de tema
         }
 
-        // 2. Click Derecho: Lanzar la caja de sorpresas
+        // 2. Click Derecho: Lanzar Menú (CORREGIDO USANDO CLASSLIST)
         function toggleMenuTemas(event) {
-            event.stopPropagation(); // Evita que se cierre inmediatamente
-            const estaVisible = menuFlotante.style.display === 'flex';
-            menuFlotante.style.display = estaVisible ? 'none' : 'flex';
+            event.stopPropagation(); // Detiene el cierre global
+            menuFlotante.classList.toggle('activo');
         }
 
-        // 3. Click en una opción loca del menú
+        // 3. Click Opcion Premium
         function seleccionarTemaPremium(nombreTema) {
             localStorage.setItem('tema-guardado', nombreTema);
             aplicarTema(nombreTema);
-            menuFlotante.style.display = 'none';
+            menuFlotante.classList.remove('activo');
         }
 
-        // Cierre automático del menú si haces click en cualquier otra parte
-        document.addEventListener('click', () => {
-            menuFlotante.style.display = 'none';
+        // Cerrar el menú automáticamente si se hace click fuera de él
+        document.addEventListener('click', (event) => {
+            if (!menuFlotante.contains(event.target)) {
+                menuFlotante.classList.remove('activo');
+            }
         });
 
-        // Inicializador del sistema
+        // Inicializador
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
         aplicarTema(temaInicial);
 
-        // Escucha cambios del sistema en tiempo real
         detectorSistema.addEventListener('change', () => {
-            const temaActual = localStorage.getItem('tema-guardaged') || 'auto';
+            const temaActual = localStorage.getItem('tema-guardado') || 'auto';
             if (temaActual === 'auto') {
                 aplicarTema('auto');
             }
