@@ -92,19 +92,19 @@
             --sombra-general: rgba(107, 45, 92, 0.05);
         }
 
-        /* 5. OCÉANO PROFUNDO */
+        /* 5. OCÉANO PROFUNDO (REDISEÑADO CON ALTO CONTRASTE) */
         body.tema-oceano {
-            --bg-principal: #0b132b;
-            --bg-tarjetas: #1c2541;
-            --bg-sidebar: #111a33;
-            --texto-principal: #48cae4;
-            --texto-secundario: #00b4d8;
-            --borde-color: #3a506b;
-            --btn-bg: #22305c;
-            --btn-sombra-oscura: rgba(0,0,0,0.5);
-            --btn-sombra-clara: rgba(255,255,255,0.08);
-            --icono-sumido: rgba(0,0,0,0.3);
-            --sombra-general: rgba(0,0,0,0.4);
+            --bg-principal: #030712; /* Azul abisal ultra oscuro */
+            --bg-tarjetas: #111827; /* Tarjetas oscuras contrastantes */
+            --bg-sidebar: #0f172a;
+            --texto-principal: #06b6d4; /* Cian eléctrico de alta visibilidad */
+            --texto-secundario: #38bdf8; /* Azul cielo brillante */
+            --borde-color: #1e293b;
+            --btn-bg: #1f2937;
+            --btn-sombra-oscura: rgba(0, 0, 0, 0.7);
+            --btn-sombra-clara: rgba(6, 182, 212, 0.1); /* Brillo cian sutil */
+            --icono-sumido: rgba(6, 182, 212, 0.25);
+            --sombra-general: rgba(6, 182, 212, 0.08);
         }
 
         /* 6. FUEGO NEÓN */
@@ -282,7 +282,7 @@
         }
 
         /* ========================================== */
-        /* 5. BOTÓN RECTANGULAR DIVIDIO (SPLIT)       */
+        /* 5. BOTÓN RECTANGULAR DIVIDIDO (SPLIT)       */
         /* ========================================== */
         .contenedor-split-button {
             position: relative; 
@@ -343,7 +343,7 @@
         }
 
         /* ========================================== */
-        /* 6. MENÚ FLOTANTE DE TEMAS CORREGIDO        */
+        /* 6. MENÚ FLOTANTE MEJORADO CON DIVISIONES   */
         /* ========================================== */
         .menu-temas-flotante {
             position: absolute;
@@ -353,10 +353,8 @@
             border: 1px solid var(--borde-color);
             border-radius: 12px;
             box-shadow: 0 10px 25px var(--sombra-general);
-            width: 170px;
+            width: 185px;
             padding: 6px;
-            
-            /* Cambiado a flex, controlado estrictamente por opacidad e interactividad */
             display: flex;
             flex-direction: column;
             gap: 4px;
@@ -368,7 +366,6 @@
             transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
-        /* Clase activadora controlada por JavaScript */
         .menu-temas-flotante.activo {
             opacity: 1;
             pointer-events: auto;
@@ -391,6 +388,14 @@
         .item-tema-opcion:hover {
             background-color: var(--btn-bg);
             transform: translateX(3px);
+        }
+
+        /* Línea Divisoria Flotante Estética */
+        .menu-divisor-linea {
+            height: 1px;
+            background-color: var(--borde-color);
+            margin: 4px 6px;
+            pointer-events: none; /* No interactiva */
         }
 
         .item-tema-opcion .circulo-color {
@@ -471,8 +476,10 @@
 
     <div class="layout-global">
 
+        <!-- CAPA OSCURA PARA CELULARES -->
         <div class="overlay-fondo" onclick="toggleSidebar()"></div>
 
+        <!-- BARRA LATERAL -->
         <aside id="barra-lateral">
             <div class="opcion-navegacion divisor-sidebar" onclick="toggleSidebar()">
                 <button class="btn-interactivo" style="flex-shrink: 0;">
@@ -495,6 +502,7 @@
             </div>
         </aside>
 
+        <!-- CONTENEDOR DE LA INTERFAZ -->
         <div class="contenido-interfaz" id="contenido-interfaz">
             
             <header id="encabezado-fijo">
@@ -507,6 +515,7 @@
                 
                 <div class="header-der">
                     
+                    <!-- SPLIT BUTTON RECTANGULAR -->
                     <div class="contenedor-split-button">
                         <div class="split-accion-principal" onclick="rotarTemaBase()" title="Rotar Tema Base">
                             <span id="icono-tema" style="font-weight: bold; color: var(--texto-principal); font-size: 1.1rem;">A</span>
@@ -518,24 +527,43 @@
                             <span style="color: var(--texto-principal);">▼</span>
                         </div>
 
+                        <!-- MENÚ FLOTANTE INTEGRAL CON DIVISIONES -->
                         <div class="menu-temas-flotante" id="menu-flotante">
-                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('cyberpunk')">
+                            <!-- SECCIÓN: MODOS PRINCIPALES -->
+                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('auto')">
+                                <div class="circulo-color" style="background-color: #a1a1aa;"></div>
+                                <span>A &nbsp;Automático</span>
+                            </div>
+                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('light')">
+                                <div class="circulo-color" style="background-color: #ffffff; border: 1px solid #cbd5e1;"></div>
+                                <span>☼ Claro</span>
+                            </div>
+                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('dark')">
+                                <div class="circulo-color" style="background-color: #1e1e1e;"></div>
+                                <span>☽ Oscuro</span>
+                            </div>
+                            
+                            <!-- RAYITA DIVISORIA ESTÁTICA -->
+                            <div class="menu-divisor-linea"></div>
+                            
+                            <!-- SECCIÓN: MODOS PREMIUM -->
+                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('cyberpunk')">
                                 <div class="circulo-color" style="background-color: #ff007f;"></div>
                                 <span>⚡ Cyberpunk</span>
                             </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('bosque')">
+                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('bosque')">
                                 <div class="circulo-color" style="background-color: #2a3d32;"></div>
                                 <span>🌲 Místico</span>
                             </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('retro')">
+                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('retro')">
                                 <div class="circulo-color" style="background-color: #bc4749;"></div>
                                 <span>🌸 Aki-Retro</span>
                             </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('oceano')">
-                                <div class="circulo-color" style="background-color: #00b4d8;"></div>
+                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('oceano')">
+                                <div class="circulo-color" style="background-color: #06b6d4;"></div>
                                 <span>🌊 Océano</span>
                             </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaPremium('fuego')">
+                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('fuego')">
                                 <div class="circulo-color" style="background-color: #ff4d00;"></div>
                                 <span>🔥 Fuego Neón</span>
                             </div>
@@ -549,9 +577,9 @@
             </header>
 
             <main>
-                <h3 class="titulo-contenido">Estilos Premium Desplegables</h3>
+                <h3 class="titulo-contenido">Contraste y Menú Unificado</h3>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
-                    Usa el nuevo botón dividido. Haz clic en el icono para alternar entre Auto, Claro y Oscuro. Haz clic en la pequeña flecha para desatar la locura visual.
+                    Abre el menú flotante desde la flecha. Verás la nueva jerarquía organizada por la línea divisoria. Activa el modo Océano para presenciar el nuevo rediseño de alto impacto visual.
                 </p>
                 
                 <ul class="regla-prueba">
@@ -566,6 +594,7 @@
 
     </div>
 
+    <!-- SCRIPT DE CONTROL TOTAL DE TEMAS -->
     <script>
         function toggleSidebar() {
             document.body.classList.toggle('sidebar-abierta');
@@ -574,19 +603,20 @@
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
         const menuFlotante = document.getElementById('menu-flotante');
         
-        const mapasTemasBase = {
-            'auto': { siguiente: 'light', icono: 'A' },
-            'light': { siguiente: 'dark', icono: '☼' },
-            'dark': { siguiente: 'auto', icono: '☽' }
+        // Mapeo Maestro Único (Simplifica la lógica)
+        const diccionarioTemas = {
+            'auto':      { icono: 'A', clase: '' },
+            'light':     { icono: '☼', clase: '' },
+            'dark':      { icono: '☽', clase: 'modo-oscuro' },
+            'cyberpunk': { icono: '⚡', clase: 'tema-cyberpunk' },
+            'bosque':    { icono: '🌲', clase: 'tema-bosque' },
+            'retro':     { icono: '🌸', clase: 'tema-retro' },
+            'oceano':    { icono: '🌊', clase: 'tema-oceano' },
+            'fuego':     { icono: '🔥', clase: 'tema-fuego' }
         };
 
-        const iconosPremium = {
-            'cyberpunk': '⚡',
-            'bosque': '🌲',
-            'retro': '🌸',
-            'oceano': '🌊',
-            'fuego': '🔥'
-        };
+        // Orden de la rotación cíclica del click principal izquierdo
+        const carruselBase = ['auto', 'light', 'dark'];
 
         function limpiarClasesDeTema() {
             document.body.classList.remove('modo-oscuro', 'tema-cyberpunk', 'tema-bosque', 'tema-retro', 'tema-oceano', 'tema-fuego');
@@ -594,58 +624,62 @@
 
         function aplicarTema(tema) {
             limpiarClasesDeTema();
+            const config = diccionarioTemas[tema] || diccionarioTemas['auto'];
             
-            if (mapasTemasBase[tema]) {
-                if (tema === 'dark') {
-                    document.body.classList.add('modo-oscuro');
-                } else if (tema === 'auto' && detectorSistema.matches) {
-                    document.body.classList.add('modo-oscuro');
-                }
-                document.getElementById('icono-tema').textContent = mapasTemasBase[tema].icono;
-            } else if (iconosPremium[tema]) {
-                document.body.classList.add(`tema-${tema}`);
-                document.getElementById('icono-tema').textContent = iconosPremium[tema];
+            // Inyectar clase de estilo al body
+            if (config.clase) {
+                document.body.classList.add(config.clase);
+            } else if (tema === 'auto' && detectorSistema.matches) {
+                document.body.classList.add('modo-oscuro');
             }
+            
+            // Actualizar el icono del Split Button en tiempo real
+            document.getElementById('icono-tema').textContent = config.icono;
         }
 
-        // 1. Click Izquierdo: Ciclo Base
+        // 1. Click Izquierdo: Rotación inteligente del carrusel base
         function rotarTemaBase() {
             let temaActual = localStorage.getItem('tema-guardado') || 'auto';
             
-            if (!mapasTemasBase[temaActual]) {
-                temaActual = 'auto';
+            // Si el usuario está en un tema loco, lo devolvemos al ciclo desde 'auto'
+            let index = carruselBase.indexOf(temaActual);
+            if (index === -1) {
+                index = 0;
+            } else {
+                index = (index + 1) % carruselBase.length;
             }
             
-            const proximoTema = mapasTemasBase[temaActual].siguiente;
+            const proximoTema = carruselBase[index];
             localStorage.setItem('tema-guardado', proximoTema);
             aplicarTema(proximoTema);
-            menuFlotante.classList.remove('activo'); // Cierra el menú al cambiar de tema
+            menuFlotante.classList.remove('activo');
         }
 
-        // 2. Click Derecho: Lanzar Menú (CORREGIDO USANDO CLASSLIST)
+        // 2. Click Derecho: Desplegar u ocultar menú flotante
         function toggleMenuTemas(event) {
-            event.stopPropagation(); // Detiene el cierre global
+            event.stopPropagation();
             menuFlotante.classList.toggle('activo');
         }
 
-        // 3. Click Opcion Premium
-        function seleccionarTemaPremium(nombreTema) {
+        // 3. Click sobre CUALQUIERA de las opciones del menú flotante
+        function seleccionarTemaDirecto(nombreTema) {
             localStorage.setItem('tema-guardado', nombreTema);
             aplicarTema(nombreTema);
             menuFlotante.classList.remove('activo');
         }
 
-        // Cerrar el menú automáticamente si se hace click fuera de él
+        // Cerrar menú automáticamente al hacer click afuera
         document.addEventListener('click', (event) => {
             if (!menuFlotante.contains(event.target)) {
                 menuFlotante.classList.remove('activo');
             }
         });
 
-        // Inicializador
+        // Inicializador instantáneo al cargar la web
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
         aplicarTema(temaInicial);
 
+        // Actualización dinámica en modo Auto
         detectorSistema.addEventListener('change', () => {
             const temaActual = localStorage.getItem('tema-guardado') || 'auto';
             if (temaActual === 'auto') {
