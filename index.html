@@ -7,185 +7,197 @@
     
     <style>
         /* ========================================== */
-        /* 1. CONFIGURACIÓN GENERAL Y VARIABLES       */
+        /* 1. VARIABLES Y CONFIGURACIÓN BASE          */
         /* ========================================== */
+        :root {
+            --ancho-sidebar: 250px;
+            --alto-header: 50px;
+            
+            /* Colores Modo Claro */
+            --bg-principal: #f4f4f9;
+            --bg-tarjetas: #ffffff;
+            --bg-sidebar: #e2e8f0;
+            --texto-principal: #1a1a1a;
+            --texto-secundario: #64748b;
+            --borde-color: #cbd5e1;
+            --sombra: rgba(0, 0, 0, 0.1);
+        }
+
+        body.modo-oscuro {
+            /* Colores Modo Oscuro */
+            --bg-principal: #121212;
+            --bg-tarjetas: #1e1e1e;
+            --bg-sidebar: #1e293b;
+            --texto-principal: #f3f4f6;
+            --texto-secundario: #9ca3af;
+            --borde-color: #334155;
+            --sombra: rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
             font-family: sans-serif;
-            background-color: #f4f4f9;
-            color: #1a1a1a;
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
             transition: background-color 0.2s, color 0.2s;
-            display: flex; 
+            min-height: 100vh;
             
-            /* ESCUDO 1: Evita por completo el deslizamiento lateral molesto */
-            overflow-x: hidden; 
+            /* Escudo definitivo contra el scroll horizontal */
+            overflow-x: hidden;
             width: 100%;
         }
 
         /* ========================================== */
-        /* 2. LA BARRA LATERAL (SIDEBAR)              */
-        /* ========================================== */
-        aside {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 0; /* Nace cerrada */
-            background-color: #e2e8f0;
-            z-index: 2000;
-            transition: width 0.3s ease;
-            overflow: hidden;
-        }
-
-        .contenido-sidebar {
-            width: 250px; 
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        /* ========================================== */
-        /* 3. EL CONTENEDOR PRINCIPAL                 */
+        /* 2. ESTRUCTURA Y CONTENEDOR PRINCIPAL       */
         /* ========================================== */
         .contenedor-principal {
             width: 100%;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            transition: margin-left 0.3s ease, width 0.3s ease;
-            box-sizing: border-box;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* ========================================== */
-        /* 4. ENCABEZADO FIJO                         */
+        /* 3. ENCABEZADO FIJO (HEADER)                */
         /* ========================================== */
         header {
             position: fixed;
             top: 0;
             right: 0;
-            width: 100%; 
-            height: 50px;
+            width: 100%;
+            height: var(--alto-header);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 15px; /* Un poco menos de espacio a los lados en celular */
-            box-sizing: border-box;
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 0 15px;
+            background-color: var(--bg-tarjetas);
+            box-shadow: 0 2px 5px var(--sombra);
             z-index: 1000;
-            transition: width 0.3s ease, right 0.3s ease;
+            transition: background-color 0.2s, box-shadow 0.2s;
         }
 
         .header-izq, .header-der {
             display: flex;
             align-items: center;
             gap: 10px;
-            min-width: 90px; /* Reducido un poco para dar más espacio al título en pantallas chicas */
+            min-width: 80px;
         }
-        
+
         .header-der {
             justify-content: flex-end;
         }
 
         header h2 {
             margin: 0;
-            font-size: 1rem; /* Letra un poquitín más pequeña para que no se sature en pantallas angostas */
+            font-size: 1rem;
             text-align: center;
             flex-grow: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
+        /* Botones decorativos / marcadores de posición */
         .placeholder-btn {
-            background: #e2e8f0;
-            border: 1px dashed #cbd5e1;
-            padding: 5px 10px;
-            font-size: 0.8rem;
+            background-color: var(--bg-sidebar);
+            border: 1px dashed var(--borde-color);
+            padding: 6px 12px;
+            font-size: 0.85rem;
             border-radius: 4px;
-            color: #64748b;
+            color: var(--texto-secundario);
             user-select: none;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
         }
 
         /* ========================================== */
-        /* 5. ÁREA DE CONTENIDO (CON MÁXIMA PROTECCIÓN) */
+        /* 4. BARRA LATERAL (SIDEBAR)                 */
+        /* ========================================== */
+        aside {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: var(--ancho-sidebar);
+            background-color: var(--bg-sidebar);
+            z-index: 2000;
+            /* En lugar de cambiar el ancho, la movemos fuera de la pantalla */
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        aside h3 {
+            margin-top: 0;
+        }
+
+        /* ========================================== */
+        /* 5. ÁREA DE CONTENIDO (MAIN)                */
         /* ========================================== */
         main {
-            padding-top: 70px; 
-            padding-left: 15px;
-            padding-right: 15px;
+            padding-top: calc(var(--alto-header) + 20px);
+            padding-left: 20px;
+            padding-right: 20px;
             padding-bottom: 40px;
-            
-            /* ESCUDO 2: Obliga a que el contenido se ajuste al ancho disponible */
             width: 100%;
-            max-width: 100%; 
-            box-sizing: border-box;
-            
-            /* ESCUDO 3: Rompe las líneas infinitas de texto/puntos y las manda abajo */
-            word-break: break-all; 
+            max-width: 100%;
+            flex-grow: 1;
         }
 
         .titulo-contenido {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-size: 1.2rem;
         }
 
+        /* LA REGLA DE PRUEBA CORREGIDA: Sin texto infinito */
         .regla-prueba {
             list-style: none;
             padding: 0;
             margin: 0;
-            text-align: left;
         }
 
         .regla-prueba li {
-            padding: 12px 0;
-            border-bottom: 1px dotted #cbd5e1;
-            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            padding: 14px 0;
             font-family: monospace;
-            /* También aplicamos el salto de línea a los elementos individuales */
-            word-break: break-all; 
+            font-size: 1rem;
+        }
+
+        /* El truco mágico: Este contenedor genera los puntos mediante CSS */
+        .regla-prueba li::after {
+            content: "";
+            flex-grow: 1;
+            margin-left: 10px;
+            /* Línea punteada nativa que se estira o encoge según la pantalla */
+            border-bottom: 3px dotted var(--borde-color); 
+            height: 1px;
         }
 
         /* ========================================== */
-        /* 6. MODOS VISUALES (MANTENIDOS)             */
-        /* ========================================== */
-        body.modo-oscuro {
-            background-color: #121212;
-            color: #f3f4f6;
-        }
-
-        body.modo-oscuro header {
-            background-color: #1e1e1e;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
-
-        body.modo-oscuro aside {
-            background-color: #1e293b;
-        }
-
-        body.modo-oscuro .placeholder-btn {
-            background: #333333;
-            border-color: #444444;
-            color: #9ca3af;
-        }
-
-        body.modo-oscuro .regla-prueba li {
-            border-bottom-color: #333333;
-        }
-
-        /* ========================================== */
-        /* 7. REGLAS EXCLUSIVAS PARA COMPUTADORA      */
+        /* 6. DISPOSITIVOS MEDIANOS Y GRANDES (PC)   */
         /* ========================================== */
         @media (min-width: 768px) {
-            body.sidebar-abierta aside {
-                width: 250px;
-            }
+            /* En PC, cuando se abre, empuja el contenido */
             body.sidebar-abierta .contenedor-principal {
-                margin-left: 250px;
-                width: calc(100% - 250px);
+                transform: translateX(var(--ancho-sidebar));
+                width: calc(100% - var(--ancho-sidebar));
             }
             body.sidebar-abierta header {
-                width: calc(100% - 250px);
+                width: calc(100% - var(--ancho-sidebar));
+            }
+            body.sidebar-abierta aside {
+                transform: translateX(0);
             }
             
-            /* En PC podemos dar más margen lateral para que se vea más estilizado */
             main {
                 padding-left: 40px;
                 padding-right: 40px;
@@ -196,45 +208,45 @@
         }
 
         /* ========================================== */
-        /* 8. REGLAS EXCLUSIVAS PARA CELULARES        */
+        /* 7. DISPOSITIVOS MÓVILES (CELULARES)        */
         /* ========================================== */
         @media (max-width: 767px) {
+            /* En celular el menú flota por encima sin empujar nada abajo */
             body.sidebar-abierta aside {
-                width: 250px;
-                box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+                transform: translateX(0);
+                box-shadow: 5px 0 15px rgba(0,0,0,0.2);
             }
-            /* En celular aseguramos que el contenedor no intente cambiar de tamaño */
+            
+            /* Asegura que el contenedor principal sea exactamente el ancho del teléfono */
             .contenedor-principal {
-                width: 100%;
-                max-width: 100%;
+                width: 100vw;
+                max-width: 100vw;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- BARRA LATERAL -->
+    <!-- BARRA LATERAL (SIDEBAR) -->
     <aside id="barra-lateral">
-        <div class="contenido-sidebar">
-            <h3>Navegación</h3>
-            <p style="font-size:0.9rem; color:#64748b;">(Aquí pondremos tus secciones pronto)</p>
-            <button onclick="toggleSidebar()" class="placeholder-btn" style="cursor:pointer; width:100%; border-style:solid;">Cerrar Menú</button>
-        </div>
+        <h3>Navegación</h3>
+        <p style="font-size:0.9rem; color: var(--texto-secundario);">(Aquí irán tus secciones pronto)</p>
+        <button onclick="toggleSidebar()" class="placeholder-btn" style="width:100%; border-style:solid; margin-top: 20px;">Cerrar Menú</button>
     </aside>
 
-    <!-- EL CONTENEDOR PRINCIPAL -->
+    <!-- CONTENEDOR PRINCIPAL -->
     <div class="contenedor-principal" id="contenedor-principal">
         
-        <!-- ENCABEZADO -->
+        <!-- ENCABEZADO (HEADER) -->
         <header id="encabezado-fijo">
             <div class="header-izq">
-                <span class="placeholder-btn" onclick="toggleSidebar()" style="cursor:pointer; border-style:solid; font-weight:bold;">☰</span>
+                <span class="placeholder-btn" onclick="toggleSidebar()" style="border-style:solid; font-weight:bold;">☰</span>
             </div>
             
             <h2>Mi Sitio Web</h2>
             
             <div class="header-der">
-                <select id="selector-tema" class="placeholder-btn" onchange="seleccionarTema(this.value)" style="border-style: solid; cursor: pointer;">
+                <select id="selector-tema" class="placeholder-btn" onchange="seleccionarTema(this.value)" style="border-style: solid;">
                     <option value="auto">Auto</option>
                     <option value="light">Claro</option>
                     <option value="dark">Oscuro</option>
@@ -243,50 +255,51 @@
             </div>
         </header>
 
-        <!-- CONTENIDO CON FILA CONTINUA HACIA ABAJO -->
+        <!-- CONTENIDO PRINCIPAL -->
         <main>
             <h3 class="titulo-contenido">Verificación de Comportamiento Híbrido</h3>
-            <p style="text-align: center; font-size: 0.9rem; color: #64748b;">Los puntos ahora caerán ordenadamente hacia abajo en pantallas pequeñas.</p>
+            <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
+                Las líneas de puntos ahora se adaptan con CSS, eliminando el desbordamiento en celulares de forma definitiva.
+            </p>
             
             <ul class="regla-prueba">
-                <li>01 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>02 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>03 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>04 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>05 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>01 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>02 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>03 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>04 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>05 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>01 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>02 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>03 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>04 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>05 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>01 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>02 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>03 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>04 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
-                <li>05 ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••</li>
+                <li>01</li>
+                <li>02</li>
+                <li>03</li>
+                <li>04</li>
+                <li>05</li>
+                <li>01</li>
+                <li>02</li>
+                <li>03</li>
+                <li>04</li>
+                <li>05</li>
+                <li>01</li>
+                <li>02</li>
+                <li>03</li>
+                <li>04</li>
+                <li>05</li>
             </ul>
         </main>
     </div>
 
-    <!-- EL CEREBRO DE LA WEB -->
+    <!-- EL CEREBRO (JAVASCRIPT UNIFICADO Y CORREGIDO) -->
     <script>
+        // Interruptor del Menú Lateral
         function toggleSidebar() {
             document.body.classList.toggle('sidebar-abierta');
         }
 
+        // Detector de preferencia del sistema operativo
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
 
+        // ÚNICA función encargada de pintar el tema en pantalla de forma reactiva
         function aplicarTema(tema) {
             if (tema === 'dark') {
                 document.body.classList.add('modo-oscuro');
             } else if (tema === 'light') {
                 document.body.classList.remove('modo-oscuro');
             } else if (tema === 'auto') {
+                // Si es auto, le hace caso a lo que tenga el sistema operativo en ese instante
                 if (detectorSistema.matches) {
                     document.body.classList.add('modo-oscuro');
                 } else {
@@ -295,18 +308,21 @@
             }
         }
 
+        // Lo que ocurre inmediatamente cuando el usuario hace click en el selector
         function seleccionarTema(tema) {
-            localStorage.setItem('tema-guardado', tema);
-            applyTheme(tema); // Nota: Unificado el nombre a aplicarTema abajo
-            aplicarTema(tema);
+            localStorage.setItem('tema-guardado', tema); // Guarda la elección
+            aplicarTema(tema); // Cambia el color al instante sin congelarse
         }
 
+        // Al cargar la página por primera vez
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
         document.getElementById('selector-tema').value = temaInicial;
         aplicarTema(temaInicial);
 
+        // Escucha en tiempo real si el usuario cambia el tema de su propio celular/PC (Solo si está en 'Auto')
         detectorSistema.addEventListener('change', () => {
-            if (localStorage.getItem('tema-guardado') === 'auto' || !localStorage.getItem('tema-guardado')) {
+            const temaActual = localStorage.getItem('tema-guardado') || 'auto';
+            if (temaActual === 'auto') {
                 aplicarTema('auto');
             }
         });
