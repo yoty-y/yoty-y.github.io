@@ -98,6 +98,11 @@
             gap: 12px;
         }
 
+        /* Oculto por defecto en PC para evitar duplicados */
+        .btn-menu-movil {
+            display: none;
+        }
+
         header h2 {
             font-size: 1rem;
             white-space: nowrap;
@@ -274,6 +279,11 @@
         /* 8. COMPORTAMIENTO CELULARES                */
         /* ========================================== */
         @media (max-width: 767px) {
+            /* El botón del menú reaparece únicamente en la barra superior móvil */
+            .btn-menu-movil {
+                display: flex;
+            }
+
             aside {
                 transform: translateX(-100%);
                 width: var(--ancho-sidebar-total) !important; 
@@ -302,7 +312,7 @@
 
     <!-- BARRA LATERAL INTERACTIVA (DOCK) -->
     <aside id="barra-lateral">
-        <!-- Interruptor Máster Único -->
+        <!-- Interruptor Máster Único (Visible en PC para expandir y en celular para regresar) -->
         <div class="opcion-navegacion divisor-sidebar" onclick="toggleSidebar()">
             <button class="btn-interactivo" style="flex-shrink: 0;">
                 <span>☰</span>
@@ -346,9 +356,13 @@
     <!-- CONTENEDOR INTEGRADO (HEADER + MAIN) -->
     <div class="contenido-interfaz" id="contenido-interfaz">
         
-        <!-- ENCABEZADO CORREGIDO (SIN EL BOTÓN DUPLICADO) -->
+        <!-- ENCABEZADO CON DISPARADOR MÓVIL INTELIGENTE -->
         <header id="encabezado-fijo">
             <div class="header-izq">
+                <!-- Este botón SOLO aparece si estás navegando desde un celular -->
+                <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()" title="Abrir Menú">
+                    <span>☰</span>
+                </button>
                 <h2>Mi Sitio Web</h2>
             </div>
             
@@ -367,9 +381,9 @@
 
         <!-- CUERPO DE LA PÁGINA (CORAZÓN INTERCAMBIABLE) -->
         <main>
-            <h3 class="titulo-contenido">Diseño Limpio y Asignado</h3>
+            <h3 class="titulo-contenido">Comportamiento Híbrido Corregido</h3>
             <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
-                La barra superior ahora queda libre de redundancias y enfocada únicamente en el título y las interacciones rápidas.
+                Estructura 100% responsiva. En PC el menú se maneja desde el riel izquierdo; en móvil, se despliega y regresa usando el control unificado.
             </p>
             
             <ul class="regla-prueba">
