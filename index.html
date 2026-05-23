@@ -30,464 +30,216 @@
             --sombra-general: rgba(0, 0, 0, 0.05);
         }
 
-        /* PALETAS DE TEMAS (CLASES MAESTRAS APLICADAS EN BODY) */
+        /* ========================================== */
+        /* 2. CATÁLOGO COMPLETO DE 9 TEMAS            */
+        /* ========================================== */
         
-        /* 1. MODO OSCURO */
+        /* [BASE 1/3] OSCURO */
         body.modo-oscuro {
-            --bg-principal: #121212;
-            --bg-tarjetas: #1e1e1e;
-            --bg-sidebar: #1e293b;
-            --texto-principal: #f3f4f6;
-            --texto-secundario: #9ca3af;
-            --borde-color: #334155;
-            --btn-bg: #27272a;
-            --btn-sombra-oscura: rgba(0, 0, 0, 0.5);
-            --btn-sombra-clara: rgba(255, 255, 255, 0.05);
-            --icono-sumido: rgba(255, 255, 255, 0.1);
-            --sombra-general: rgba(0, 0, 0, 0.3);
+            --bg-principal: #121212; --bg-tarjetas: #1e1e1e; --bg-sidebar: #1e293b;
+            --texto-principal: #f3f4f6; --texto-secundario: #9ca3af; --borde-color: #334155;
+            --btn-bg: #27272a; --btn-sombra-oscura: rgba(0, 0, 0, 0.5); --btn-sombra-clara: rgba(255, 255, 255, 0.05);
+            --icono-sumido: rgba(255, 255, 255, 0.1); --sombra-general: rgba(0, 0, 0, 0.3);
         }
 
-        /* 2. CYBERPUNK */
+        /* [MULTICOLOR 1/3] CYBERPUNK */
         body.tema-cyberpunk {
-            --bg-principal: #05050a;
-            --bg-tarjetas: #0d0e15;
-            --bg-sidebar: #1a0033;
-            --texto-principal: #fffb00;
-            --texto-secundario: #ff007f;
-            --borde-color: #ff007f;
-            --btn-bg: #121324;
-            --btn-sombra-oscura: rgba(255, 0, 127, 0.2);
-            --btn-sombra-clara: rgba(255, 251, 0, 0.1);
-            --icono-sumido: rgba(255, 251, 0, 0.3);
-            --sombra-general: rgba(255, 0, 127, 0.15);
+            --bg-principal: #05050a; --bg-tarjetas: #0d0e15; --bg-sidebar: #1a0033;
+            --texto-principal: #fffb00; --texto-secundario: #ff007f; --borde-color: #ff007f;
+            --btn-bg: #121324; --btn-sombra-oscura: rgba(255, 0, 127, 0.2); --btn-sombra-clara: rgba(255, 251, 0, 0.1);
+            --icono-sumido: rgba(255, 251, 0, 0.3); --sombra-general: rgba(255, 0, 127, 0.15);
         }
 
-        /* 3. BOSQUE MÍSTICO */
-        body.tema-bosque {
-            --bg-principal: #1b2620;
-            --bg-tarjetas: #233229;
-            --bg-sidebar: #131c17;
-            --texto-principal: #e1efe6;
-            --texto-secundario: #a3b899;
-            --borde-color: #3b5345;
-            --btn-bg: #2a3d32;
-            --btn-sombra-oscura: rgba(0,0,0,0.4);
-            --btn-sombra-clara: rgba(255,255,255,0.05);
-            --icono-sumido: rgba(0,0,0,0.2);
-            --sombra-general: rgba(0,0,0,0.25);
+        /* [MULTICOLOR 2/3] ESPECTRO RGB */
+        body.tema-rgb {
+            --bg-principal: #090d16; --bg-tarjetas: #111726; --bg-sidebar: #171e30;
+            --texto-principal: #00ff66; --texto-secundario: #00ffff; --borde-color: #3b82f6;
+            --btn-bg: #1e293b; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(0,255,102,0.1);
+            --icono-sumido: rgba(0, 255, 102, 0.2); --sombra-general: rgba(59, 130, 246, 0.2);
         }
 
-        /* 4. AKI-RETRO (OTOÑO JAPONÉS) */
-        body.tema-retro {
-            --bg-principal: #f5ebe0;
-            --bg-tarjetas: #f2e8cf;
-            --bg-sidebar: #e6ccb2;
-            --texto-principal: #6b2d5c;
-            --texto-secundario: #bc4749;
-            --borde-color: #ddb892;
-            --btn-bg: #ede0d4;
-            --btn-sombra-oscura: rgba(107, 45, 92, 0.15);
-            --btn-sombra-clara: rgba(255, 255, 255, 0.9);
-            --icono-sumido: rgba(0,0,0,0.08);
-            --sombra-general: rgba(107, 45, 92, 0.05);
-        }
-
-        /* 5. OCÉANO PROFUNDO (REDISEÑADO CON ALTO CONTRASTE) */
-        body.tema-oceano {
-            --bg-principal: #030712; /* Azul abisal ultra oscuro */
-            --bg-tarjetas: #111827; /* Tarjetas oscuras contrastantes */
-            --bg-sidebar: #0f172a;
-            --texto-principal: #06b6d4; /* Cian eléctrico de alta visibilidad */
-            --texto-secundario: #38bdf8; /* Azul cielo brillante */
-            --borde-color: #1e293b;
-            --btn-bg: #1f2937;
-            --btn-sombra-oscura: rgba(0, 0, 0, 0.7);
-            --btn-sombra-clara: rgba(6, 182, 212, 0.1); /* Brillo cian sutil */
-            --icono-sumido: rgba(6, 182, 212, 0.25);
-            --sombra-general: rgba(6, 182, 212, 0.08);
-        }
-
-        /* 6. FUEGO NEÓN */
+        /* [MULTICOLOR 3/3] FUEGO NEÓN */
         body.tema-fuego {
-            --bg-principal: #0f0f12;
-            --bg-tarjetas: #18181c;
-            --bg-sidebar: #241414;
-            --texto-principal: #ff4d00;
-            --texto-secundario: #ff9e00;
-            --borde-color: #ff3c00;
-            --btn-bg: #212126;
-            --btn-sombra-oscura: rgba(0, 0, 0, 0.6);
-            --btn-sombra-clara: rgba(255, 77, 0, 0.05);
-            --icono-sumido: rgba(255, 77, 0, 0.2);
-            --sombra-general: rgba(0, 0, 0, 0.5);
+            --bg-principal: #0f0f12; --bg-tarjetas: #18181c; --bg-sidebar: #241414;
+            --texto-principal: #ff4d00; --texto-secundario: #ff9e00; --borde-color: #ff3c00;
+            --btn-bg: #212126; --btn-sombra-oscura: rgba(0, 0, 0, 0.6); --btn-sombra-clara: rgba(255, 77, 0, 0.05);
+            --icono-sumido: rgba(255, 77, 0, 0.2); --sombra-general: rgba(0, 0, 0, 0.5);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        /* [ORGÁNICO 1/3] BOSQUE MÍSTICO */
+        body.tema-bosque {
+            --bg-principal: #1b2620; --bg-tarjetas: #233229; --bg-sidebar: #131c17;
+            --texto-principal: #e1efe6; --texto-secundario: #a3b899; --borde-color: #3b5345;
+            --btn-bg: #2a3d32; --btn-sombra-oscura: rgba(0,0,0,0.4); --btn-sombra-clara: rgba(255,255,255,0.05);
+            --icono-sumido: rgba(0,0,0,0.2); --sombra-general: rgba(0,0,0,0.25);
         }
 
+        /* [ORGÁNICO 2/3] AKI-RETRO */
+        body.tema-retro {
+            --bg-principal: #f5ebe0; --bg-tarjetas: #f2e8cf; --bg-sidebar: #e6ccb2;
+            --texto-principal: #6b2d5c; --texto-secundario: #bc4749; --borde-color: #ddb892;
+            --btn-bg: #ede0d4; --btn-sombra-oscura: rgba(107, 45, 92, 0.15); --btn-sombra-clara: rgba(255, 255, 255, 0.9);
+            --icono-sumido: rgba(0,0,0,0.08); --sombra-general: rgba(107, 45, 92, 0.05);
+        }
+
+        /* [ORGÁNICO 3/3] DESIERTO CÁLIDO */
+        body.tema-desierto {
+            --bg-principal: #dfd3c3; --bg-tarjetas: #f4eee5; --bg-sidebar: #c7b198;
+            --texto-principal: #7d5a50; --texto-secundario: #b4846c; --borde-color: #c7b198;
+            --btn-bg: #f4eee5; --btn-sombra-oscura: rgba(125,90,80,0.15); --btn-sombra-clara: rgba(255,255,255,0.8);
+            --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.03);
+        }
+
+        /* [FRÍO 1/3] OCÉANO PROFUNDO (ALTO CONTRASTE) */
+        body.tema-oceano {
+            --bg-principal: #030712; --bg-tarjetas: #111827; --bg-sidebar: #0f172a;
+            --texto-principal: #06b6d4; --texto-secundario: #38bdf8; --borde-color: #1e293b;
+            --btn-bg: #1f2937; --btn-sombra-oscura: rgba(0, 0, 0, 0.7); --btn-sombra-clara: rgba(6, 182, 212, 0.1);
+            --icono-sumido: rgba(6, 182, 212, 0.25); --sombra-general: rgba(6, 182, 212, 0.08);
+        }
+
+        /* [FRÍO 2/3] ÁRTICO MINIMAL */
+        body.tema-artico {
+            --bg-principal: #eef2f7; --bg-tarjetas: #ffffff; --bg-sidebar: #dbe2ef;
+            --texto-principal: #3f72af; --texto-secundario: #112d4e; --borde-color: #dbe2ef;
+            --btn-bg: #f9f7f7; --btn-sombra-oscura: rgba(63,114,175,0.15); --btn-sombra-clara: rgba(255,255,255,0.9);
+            --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.02);
+        }
+
+        /* [FRÍO 3/3] NOCHE AURORA */
+        body.tema-aurora {
+            --bg-principal: #0b071e; --bg-tarjetas: #140e2d; --bg-sidebar: #191238;
+            --texto-principal: #a855f7; --texto-secundario: #2dd4bf; --borde-color: #2e1f5e;
+            --btn-bg: #1d1542; --btn-sombra-oscura: rgba(0,0,0,0.5); --btn-sombra-clara: rgba(168,85,247,0.1);
+            --icono-sumido: rgba(45,212,191,0.2); --sombra-general: rgba(168,85,247,0.1);
+        }
+
+        /* ========================================== */
+        /* 3. ARQUITECTURA DE LA INTERFAZ             */
+        /* ========================================== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: sans-serif;
-            background-color: var(--bg-principal);
-            color: var(--texto-principal);
-            transition: background-color 0.2s, color 0.2s;
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: sans-serif; background-color: var(--bg-principal); color: var(--texto-principal);
+            transition: background-color 0.2s, color 0.2s; min-height: 100vh; overflow-x: hidden;
         }
+        .layout-global { display: flex; width: 100vw; min-height: 100vh; overflow: hidden; }
 
-        .layout-global {
-            display: flex;
-            width: 100vw;
-            min-height: 100vh;
-            overflow: hidden;
-        }
-
-        /* ========================================== */
-        /* 2. BARRA LATERAL (SIDEBAR)                 */
-        /* ========================================== */
         aside {
-            width: var(--ancho-sidebar-mini); 
-            height: 100vh;
-            background-color: var(--bg-sidebar);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 9px 13px; 
-            gap: 20px;
-            flex-shrink: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
-            z-index: 2000;
+            width: var(--ancho-sidebar-mini); height: 100vh; background-color: var(--bg-sidebar);
+            display: flex; flex-direction: column; align-items: flex-start; padding: 9px 13px; gap: 20px; flex-shrink: 0;
+            overflow-x: hidden; overflow-y: auto; z-index: 2000;
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .opcion-navegacion { display: flex; align-items: center; width: 100%; text-decoration: none; color: inherit; cursor: pointer; gap: 15px; }
+        .texto-opcion { font-size: 0.95rem; font-weight: 500; white-space: nowrap; opacity: 0; transform: translateX(-10px); transition: opacity 0.15s ease, transform 0.15s ease; pointer-events: none; }
+        body.sidebar-abierta aside { width: var(--ancho-sidebar-total); }
+        body.sidebar-abierta .texto-opcion { opacity: 1; transform: translateX(0); pointer-events: auto; transition-delay: 0.05s; }
+        .divisor-sidebar { width: 100%; border-bottom: 1px solid var(--borde-color); padding-bottom: 5px; margin-bottom: -5px; }
 
-        .opcion-navegacion {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-            gap: 15px;
-        }
+        .contenido-interfaz { flex-grow: 1; display: flex; flex-direction: column; min-height: 100vh; min-width: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        header { position: sticky; top: 0; width: 100%; height: var(--alto-header); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; background-color: var(--bg-tarjetas); box-shadow: 0 2px 8px var(--sombra-general); z-index: 1000; transition: background-color 0.2s, box-shadow 0.2s; }
+        .header-izq, .header-der { display: flex; align-items: center; gap: 12px; }
+        .btn-menu-movil { display: none !important; }
+        header h2 { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .texto-opcion {
-            font-size: 0.95rem;
-            font-weight: 500;
-            white-space: nowrap;
-            opacity: 0; 
-            transform: translateX(-10px);
-            transition: opacity 0.15s ease, transform 0.15s ease;
-            pointer-events: none;
-        }
-
-        body.sidebar-abierta aside {
-            width: var(--ancho-sidebar-total);
-        }
-
-        body.sidebar-abierta .texto-opcion {
-            opacity: 1; 
-            transform: translateX(0);
-            pointer-events: auto;
-            transition-delay: 0.05s;
-        }
-
-        .divisor-sidebar {
-            width: 100%;
-            border-bottom: 1px solid var(--borde-color);
-            padding-bottom: 5px;
-            margin-bottom: -5px;
-        }
-
-        /* ========================================== */
-        /* 3. CONTENEDOR DE INTERFAZ ELÁSTICO         */
-        /* ========================================== */
-        .contenido-interfaz {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            min-width: 0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            height: var(--alto-header);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 15px;
-            background-color: var(--bg-tarjetas);
-            box-shadow: 0 2px 8px var(--sombra-general);
-            z-index: 1000;
-            transition: background-color 0.2s, box-shadow 0.2s;
-        }
-
-        .header-izq, .header-der {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .btn-menu-movil {
-            display: none !important;
-        }
-
-        header h2 {
-            font-size: 1rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* ========================================== */
-        /* 4. DISEÑO DE BOTONES (MATERIAL)            */
-        /* ========================================== */
         .btn-interactivo {
-            background-color: var(--btn-bg);
-            border: 1px solid var(--borde-color);
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            user-select: none;
-            outline: none;
-            transition: all 0.2s ease;
-            box-shadow: 
-                -1px -1px 4px var(--btn-sombra-clara),
-                1px 1px 4px var(--btn-sombra-oscura);
+            background-color: var(--btn-bg); border: 1px solid var(--borde-color); width: 38px; height: 38px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; outline: none; transition: all 0.2s ease;
+            box-shadow: -1px -1px 4px var(--btn-sombra-clara), 1px 1px 4px var(--btn-sombra-oscura);
         }
-
-        .btn-interactivo span {
-            font-size: 1.15rem;
-            font-weight: bold;
-            color: var(--texto-principal);
-            opacity: 0.85;
-            transition: all 0.2s ease;
-        }
-
-        .btn-interactivo:active {
-            box-shadow: 
-                inset -1px -1px 3px var(--btn-sombra-clara),
-                inset 1px 1px 3px var(--btn-sombra-oscura);
-            transform: scale(0.96);
-        }
+        .btn-interactivo span { font-size: 1.15rem; font-weight: bold; color: var(--texto-principal); opacity: 0.85; }
+        .btn-interactivo:active { box-shadow: inset -1px -1px 3px var(--btn-sombra-clara), inset 1px 1px 3px var(--btn-sombra-oscura); transform: scale(0.96); }
 
         /* ========================================== */
-        /* 5. BOTÓN RECTANGULAR DIVIDIDO (SPLIT)       */
+        /* 4. BOTÓN RECTANGULAR DIVIDIDO (SPLIT)       */
         /* ========================================== */
         .contenedor-split-button {
-            position: relative; 
-            display: flex;
-            align-items: center;
-            background-color: var(--btn-bg);
-            border: 1px solid var(--borde-color);
-            height: 38px;
-            width: 82px; 
-            border-radius: 10px;
-            box-shadow: 
-                -1px -1px 4px var(--btn-sombra-clara),
-                1px 1px 4px var(--btn-sombra-oscura);
+            position: relative; display: flex; align-items: center; background-color: var(--btn-bg);
+            border: 1px solid var(--borde-color); height: 38px; width: 82px; border-radius: 10px;
+            box-shadow: -1px -1px 4px var(--btn-sombra-clara), 1px 1px 4px var(--btn-sombra-oscura);
         }
-
-        .split-accion-principal {
-            flex: 1;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            user-select: none;
-            border-top-left-radius: 9px;
-            border-bottom-left-radius: 9px;
-            transition: background-color 0.2s;
-        }
-        
-        .split-accion-principal:hover {
-            background-color: rgba(0,0,0,0.03);
-        }
-        body.modo-oscuro .split-accion-principal:hover {
-            background-color: rgba(255,255,255,0.03);
-        }
-
-        .split-divisor {
-            width: 1px;
-            height: 60%;
-            background-color: var(--borde-color);
-        }
-
-        .split-flecha {
-            width: 32px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            user-select: none;
-            font-size: 0.65rem;
-            border-top-right-radius: 9px;
-            border-bottom-right-radius: 9px;
-            transition: background-color 0.2s;
-        }
-
-        .split-flecha:hover {
-            background-color: rgba(0,0,0,0.05);
-        }
+        .split-accion-principal { flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; border-top-left-radius: 9px; border-bottom-left-radius: 9px; }
+        .split-divisor { width: 1px; height: 60%; background-color: var(--borde-color); }
+        .split-flecha { width: 32px; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; font-size: 0.65rem; border-top-right-radius: 9px; border-bottom-right-radius: 9px; }
 
         /* ========================================== */
-        /* 6. MENÚ FLOTANTE MEJORADO CON DIVISIONES   */
+        /* 5. MENÚ FLOTANTE ULTRA-ESTRUCTURADO        */
         /* ========================================== */
         .menu-temas-flotante {
-            position: absolute;
-            top: 46px;
-            right: 0;
-            background-color: var(--bg-tarjetas);
-            border: 1px solid var(--borde-color);
-            border-radius: 12px;
-            box-shadow: 0 10px 25px var(--sombra-general);
-            width: 185px;
-            padding: 6px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            z-index: 3000;
-            
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(-8px) scale(0.95);
+            position: absolute; top: 46px; right: 0; background-color: var(--bg-tarjetas);
+            border: 1px solid var(--borde-color); border-radius: 14px; box-shadow: 0 10px 30px var(--sombra-general);
+            width: 220px; padding: 6px; display: flex; flex-direction: column; gap: 2px; z-index: 3000;
+            opacity: 0; pointer-events: none; transform: translateY(-8px) scale(0.95);
             transition: opacity 0.2s ease, transform 0.2s ease;
+            max-height: 420px; overflow-y: auto;
         }
+        .menu-temas-flotante.activo { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+        
+        .menu-divisor-linea { height: 1px; background-color: var(--borde-color); margin: 6px 4px; pointer-events: none; }
 
-        .menu-temas-flotante.activo {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateY(0) scale(1);
-        }
-
+        /* Estilo de Opciones de Tema */
         .item-tema-opcion {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--texto-principal);
-            transition: all 0.15s ease;
+            display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px;
+            cursor: pointer; font-size: 0.85rem; font-weight: 500; color: var(--texto-principal); transition: all 0.15s ease;
         }
+        .item-tema-opcion:hover { background-color: var(--btn-bg); transform: translateX(3px); }
+        .item-tema-opcion .circulo-color { width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); }
 
-        .item-tema-opcion:hover {
-            background-color: var(--btn-bg);
-            transform: translateX(3px);
+        /* Estilo Carpetas / Categorías Acordeón */
+        .carpeta-categoria {
+            display: flex; flex-direction: column; border-radius: 8px; overflow: hidden;
         }
+        .carpeta-cabecera {
+            display: flex; justify-content: space-between; align-items: center; padding: 9px 12px;
+            cursor: pointer; font-size: 0.82rem; font-weight: 700; color: var(--texto-secundario);
+            user-select: none; transition: background-color 0.2s;
+        }
+        .carpeta-cabecera:hover { background-color: var(--btn-bg); }
+        .carpeta-cabecera .indicador-flecha { font-size: 0.55rem; transition: transform 0.25s ease; }
+        
+        /* Contenedor Elástico de Sub-elementos */
+        .carpeta-contenido {
+            max-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 2px;
+            padding-left: 8px; background-color: rgba(0,0,0,0.01);
+            transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body.modo-oscuro .carpeta-contenido { background-color: rgba(255,255,255,0.01); }
 
-        /* Línea Divisoria Flotante Estética */
-        .menu-divisor-linea {
-            height: 1px;
-            background-color: var(--borde-color);
-            margin: 4px 6px;
-            pointer-events: none; /* No interactiva */
-        }
-
-        .item-tema-opcion .circulo-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 1px solid rgba(0,0,0,0.1);
-        }
+        /* Estados Abiertos mediante JS */
+        .carpeta-categoria.abierta .carpeta-contenido { max-height: 150px; }
+        .carpeta-categoria.abierta .indicador-flecha { transform: rotate(180deg); }
 
         /* ========================================== */
-        /* 7. ELEMENTOS DEL CUERPO (MAIN)             */
+        /* 6. ÁREA DE TRABAJO (MAIN)                  */
         /* ========================================== */
-        main {
-            padding: 20px;
-            width: 100%;
-            flex-grow: 1;
-        }
+        main { padding: 20px; width: 100%; flex-grow: 1; }
+        .titulo-contenido { text-align: center; margin-bottom: 25px; font-size: 1.2rem; }
+        .regla-prueba { list-style: none; }
+        .regla-prueba li { display: flex; align-items: center; padding: 14px 0; font-family: monospace; font-size: 1rem; }
+        .regla-prueba li::after { content: ""; flex-grow: 1; margin-left: 10px; border-bottom: 3px dotted var(--borde-color); height: 1px; }
+        .overlay-fondo { display: none; }
 
-        .titulo-contenido {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.2rem;
-        }
-
-        .regla-prueba {
-            list-style: none;
-        }
-
-        .regla-prueba li {
-            display: flex;
-            align-items: center;
-            padding: 14px 0;
-            font-family: monospace;
-            font-size: 1rem;
-        }
-
-        .regla-prueba li::after {
-            content: "";
-            flex-grow: 1;
-            margin-left: 10px;
-            border-bottom: 3px dotted var(--borde-color); 
-            height: 1px;
-        }
-
-        .overlay-fondo {
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            main { padding: 40px; }
-            header h2 { font-size: 1.1rem; }
-        }
-
+        @media (min-width: 768px) { main { padding: 40px; } header h2 { font-size: 1.1rem; } }
         @media (max-width: 767px) {
             .btn-menu-movil { display: flex !important; }
-            aside {
-                position: fixed;
-                top: 0;
-                left: 0;
-                transform: translateX(-100%);
-                width: var(--ancho-sidebar-total) !important; 
-            }
-            body.sidebar-abierta aside {
-                transform: translateX(0);
-                box-shadow: 5px 0 15px rgba(0,0,0,0.2);
-            }
+            aside { position: fixed; top: 0; left: 0; transform: translateX(-100%); width: var(--ancho-sidebar-total) !important; }
+            body.sidebar-abierta aside { transform: translateX(0); box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
             body.sidebar-abierta .texto-opcion { opacity: 1; transform: translateX(0); }
-            body.sidebar-abierta .overlay-fondo {
-                display: block;
-                position: fixed;
-                top: 0; left: 0; width: 100vw; height: 100vh;
-                background: rgba(0,0,0,0.4); z-index: 1500;
-            }
+            body.sidebar-abierta .overlay-fondo { display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 1500; }
         }
     </style>
 </head>
 <body>
 
     <div class="layout-global">
-
-        <!-- CAPA OSCURA PARA CELULARES -->
         <div class="overlay-fondo" onclick="toggleSidebar()"></div>
 
         <!-- BARRA LATERAL -->
         <aside id="barra-lateral">
             <div class="opcion-navegacion divisor-sidebar" onclick="toggleSidebar()">
-                <button class="btn-interactivo" style="flex-shrink: 0;">
-                    <span style="color: var(--texto-principal);">☰</span>
-                </button>
+                <button class="btn-interactivo" style="flex-shrink: 0;"><span>☰</span></button>
                 <span class="texto-opcion" style="font-weight: bold; color: var(--texto-secundario);">Menú Lateral</span>
             </div>
-
             <div class="opcion-navegacion">
                 <button class="btn-interactivo" style="flex-shrink: 0;"><span>A</span></button>
                 <span class="texto-opcion">Texto Uno</span>
@@ -496,40 +248,31 @@
                 <button class="btn-interactivo" style="flex-shrink: 0;"><span>B</span></button>
                 <span class="texto-opcion">Texto Dos</span>
             </div>
-            <div class="opcion-navegacion">
-                <button class="btn-interactivo" style="flex-shrink: 0;"><span>C</span></button>
-                <span class="texto-opcion">Texto Tres</span>
-            </div>
         </aside>
 
         <!-- CONTENEDOR DE LA INTERFAZ -->
         <div class="contenido-interfaz" id="contenido-interfaz">
-            
             <header id="encabezado-fijo">
                 <div class="header-izq">
-                    <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()">
-                        <span style="color: var(--texto-principal);">☰</span>
-                    </button>
+                    <button class="btn-interactivo btn-menu-movil" onclick="toggleSidebar()"><span>☰</span></button>
                     <h2>Mi Sitio Web</h2>
                 </div>
                 
                 <div class="header-der">
-                    
                     <!-- SPLIT BUTTON RECTANGULAR -->
                     <div class="contenedor-split-button">
                         <div class="split-accion-principal" onclick="rotarTemaBase()" title="Rotar Tema Base">
                             <span id="icono-tema" style="font-weight: bold; color: var(--texto-principal); font-size: 1.1rem;">A</span>
                         </div>
-                        
                         <div class="split-divisor"></div>
-                        
                         <div class="split-flecha" onclick="toggleMenuTemas(event)" title="Más Temas">
-                            <span style="color: var(--texto-principal);">▼</span>
+                            <span>▼</span>
                         </div>
 
-                        <!-- MENÚ FLOTANTE INTEGRAL CON DIVISIONES -->
-                        <div class="menu-temas-flotante" id="menu-flotante">
-                            <!-- SECCIÓN: MODOS PRINCIPALES -->
+                        <!-- MENÚ FLOTANTE MULTI-ACORDEÓN ANIDADO -->
+                        <div class="menu-temas-flotante" id="menu-flotante" onclick="event.stopPropagation()">
+                            
+                            <!-- SECCIÓN ACCESO DIRECTO FIJO -->
                             <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('auto')">
                                 <div class="circulo-color" style="background-color: #a1a1aa;"></div>
                                 <span>A &nbsp;Automático</span>
@@ -543,150 +286,195 @@
                                 <span>☽ Oscuro</span>
                             </div>
                             
-                            <!-- RAYITA DIVISORIA ESTÁTICA -->
                             <div class="menu-divisor-linea"></div>
                             
-                            <!-- SECCIÓN: MODOS PREMIUM -->
-                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('cyberpunk')">
-                                <div class="circulo-color" style="background-color: #ff007f;"></div>
-                                <span>⚡ Cyberpunk</span>
+                            <!-- APARTADO 1: MULTICOLOR -->
+                            <div class="carpeta-categoria">
+                                <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
+                                    <span>🌈 MULTICOLOR & NEÓN</span>
+                                    <span class="indicador-flecha">▼</span>
+                                </div>
+                                <div class="carpeta-contenido">
+                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('cyberpunk')">
+                                        <div class="circulo-color" style="background-color: #ff007f;"></div>
+                                        <span>⚡ Cyberpunk</span>
+                                    </div>
+                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('rgb')">
+                                        <div class="circulo-color" style="background-color: #00ff66;"></div>
+                                        <span>🎮 Espectro RGB</span>
+                                    </div>
+                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('fuego')">
+                                        <div class="circulo-color" style="background-color: #ff4d00;"></div>
+                                        <span>🔥 Fuego Neón</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('bosque')">
-                                <div class="circulo-color" style="background-color: #2a3d32;"></div>
-                                <span>🌲 Místico</span>
+
+                            <!-- APARTADO 2: ORGÁNICOS -->
+                            <div class="carpeta-categoria">
+                                <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
+                                    <span>🌿 TONOS ORGÁNICOS</span>
+                                    <span class="indicador-flecha">▼</span>
+                                </div>
+                                <div class="carpeta-contenido">
+                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('bosque')">
+                                        <div class="circulo-color" style="background-color: #2a3d32;"></div>
+                                        <span>🌲 Bosque Místico</span>
+                                    </div>
+                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('retro')">
+                                        <div class="circulo-color" style="background-color: #bc4749;"></div>
+                                        <span>🌸 Aki-Retro</span>
+                                    </div>
+                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('desierto')">
+                                        <div class="circulo-color" style="background-color: #7d5a50;"></div>
+                                        <span>🏜️ Desierto Cálido</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('retro')">
-                                <div class="circulo-color" style="background-color: #bc4749;"></div>
-                                <span>🌸 Aki-Retro</span>
+
+                            <!-- APARTADO 3: FRÍOS -->
+                            <div class="carpeta-categoria">
+                                <div class="carpeta-cabecera" onclick="toggleCarpeta(this)">
+                                    <span>🌊 TONOS FRÍOS</span>
+                                    <span class="indicador-flecha">▼</span>
+                                </div>
+                                <div class="carpeta-contenido">
+                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('oceano')">
+                                        <div class="circulo-color" style="background-color: #06b6d4;"></div>
+                                        <span>🌊 Océano Profundo</span>
+                                    </div>
+                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('artico')">
+                                        <div class="circulo-color" style="background-color: #3f72af;"></div>
+                                        <span>❄️ Ártico Minimal</span>
+                                    </div>
+                                    <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('aurora')">
+                                        <div class="circulo-color" style="background-color: #a855f7;"></div>
+                                        <span>🌌 Noche Aurora</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('oceano')">
-                                <div class="circulo-color" style="background-color: #06b6d4;"></div>
-                                <span>🌊 Océano</span>
-                            </div>
-                            <div class="item-tema-opcion" onclick="seleccionarTemaDirecto('fuego')">
-                                <div class="circulo-color" style="background-color: #ff4d00;"></div>
-                                <span>🔥 Fuego Neón</span>
-                            </div>
+
                         </div>
                     </div>
                     
-                    <button class="btn-interactivo" title="Opciones">
-                        <span style="color: var(--texto-principal);">⋮</span>
-                    </button>
+                    <button class="btn-interactivo"><span>⋮</span></button>
                 </div>
             </header>
 
             <main>
-                <h3 class="titulo-contenido">Contraste y Menú Unificado</h3>
+                <h3 class="titulo-contenido">Biblioteca de Temas Desplegables</h3>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 30px;">
-                    Abre el menú flotante desde la flecha. Verás la nueva jerarquía organizada por la línea divisoria. Activa el modo Océano para presenciar el nuevo rediseño de alto impacto visual.
+                    Haz clic en la flecha pequeña del botón. Verás las carpetas colapsables estructuradas de forma limpia. Abre una categoría y selecciona cualquiera de las 9 experiencias de color únicas.
                 </p>
-                
-                <ul class="regla-prueba">
-                    <li>01</li>
-                    <li>02</li>
-                    <li>03</li>
-                    <li>04</li>
-                    <li>05</li>
-                </ul>
+                <ul class="regla-prueba"><li>01</li><li>02</li><li>03</li><li>04</li></ul>
             </main>
         </div>
-
     </div>
 
-    <!-- SCRIPT DE CONTROL TOTAL DE TEMAS -->
+    <!-- SCRIPT DE MANEJO DE INTERFACES ANIDADAS -->
     <script>
-        function toggleSidebar() {
-            document.body.classList.toggle('sidebar-abierta');
-        }
+        function toggleSidebar() { document.body.classList.toggle('sidebar-abierta'); }
 
         const detectorSistema = window.matchMedia('(prefers-color-scheme: dark)');
         const menuFlotante = document.getElementById('menu-flotante');
         
-        // Mapeo Maestro Único (Simplifica la lógica)
+        // Mapeo Maestro de los 9 Temas Integrados
         const diccionarioTemas = {
             'auto':      { icono: 'A', clase: '' },
             'light':     { icono: '☼', clase: '' },
             'dark':      { icono: '☽', clase: 'modo-oscuro' },
             'cyberpunk': { icono: '⚡', clase: 'tema-cyberpunk' },
+            'rgb':       { icono: '🎮', clase: 'tema-rgb' },
+            'fuego':     { icono: '🔥', clase: 'tema-fuego' },
             'bosque':    { icono: '🌲', clase: 'tema-bosque' },
             'retro':     { icono: '🌸', clase: 'tema-retro' },
+            'desierto':  { icono: '🏜️', clase: 'tema-desierto' },
             'oceano':    { icono: '🌊', clase: 'tema-oceano' },
-            'fuego':     { icono: '🔥', clase: 'tema-fuego' }
+            'artico':    { icono: '❄️', clase: 'tema-artico' },
+            'aurora':    { icono: '🌌', clase: 'tema-aurora' }
         };
 
-        // Orden de la rotación cíclica del click principal izquierdo
         const carruselBase = ['auto', 'light', 'dark'];
 
         function limpiarClasesDeTema() {
-            document.body.classList.remove('modo-oscuro', 'tema-cyberpunk', 'tema-bosque', 'tema-retro', 'tema-oceano', 'tema-fuego');
+            document.body.classList.remove(
+                'modo-oscuro', 'tema-cyberpunk', 'tema-rgb', 'tema-fuego', 
+                'tema-bosque', 'tema-retro', 'tema-desierto', 'tema-oceano', 
+                'tema-artico', 'tema-aurora'
+            );
         }
 
         function aplicarTema(tema) {
             limpiarClasesDeTema();
             const config = diccionarioTemas[tema] || diccionarioTemas['auto'];
             
-            // Inyectar clase de estilo al body
             if (config.clase) {
                 document.body.classList.add(config.clase);
             } else if (tema === 'auto' && detectorSistema.matches) {
                 document.body.classList.add('modo-oscuro');
             }
-            
-            // Actualizar el icono del Split Button en tiempo real
             document.getElementById('icono-tema').textContent = config.icono;
         }
 
-        // 1. Click Izquierdo: Rotación inteligente del carrusel base
+        // Clic Principal Izquierdo: Rotación Inteligente del bloque base
         function rotarTemaBase() {
             let temaActual = localStorage.getItem('tema-guardado') || 'auto';
-            
-            // Si el usuario está en un tema loco, lo devolvemos al ciclo desde 'auto'
             let index = carruselBase.indexOf(temaActual);
-            if (index === -1) {
-                index = 0;
-            } else {
-                index = (index + 1) % carruselBase.length;
-            }
+            if (index === -1) index = 0;
+            else index = (index + 1) % carruselBase.length;
             
             const proximoTema = carruselBase[index];
             localStorage.setItem('tema-guardado', proximoTema);
             aplicarTema(proximoTema);
-            menuFlotante.classList.remove('activo');
+            cerrarTodoElMenu();
         }
 
-        // 2. Click Derecho: Desplegar u ocultar menú flotante
+        // Desplegar Menú Principal
         function toggleMenuTemas(event) {
             event.stopPropagation();
             menuFlotante.classList.toggle('activo');
         }
 
-        // 3. Click sobre CUALQUIERA de las opciones del menú flotante
+        // Control de Acordeones Integrados
+        function toggleCarpeta(cabeceraElemento) {
+            const carpetaPadre = cabeceraElemento.parentElement;
+            const estaAbierta = carpetaPadre.classList.contains('abierta');
+            
+            document.querySelectorAll('.carpeta-categoria').forEach(folder => {
+                folder.classList.remove('abierta');
+            });
+
+            if (!estaAbierta) {
+                carpetaPadre.classList.add('abierta');
+            }
+        }
+
+        // Selección Directa de opciones internas
         function seleccionarTemaDirecto(nombreTema) {
             localStorage.setItem('tema-guardado', nombreTema);
             aplicarTema(nombreTema);
-            menuFlotante.classList.remove('activo');
+            cerrarTodoElMenu();
         }
 
-        // Cerrar menú automáticamente al hacer click afuera
-        document.addEventListener('click', (event) => {
-            if (!menuFlotante.contains(event.target)) {
-                menuFlotante.classList.remove('activo');
-            }
+        function cerrarTodoElMenu() {
+            menuFlotante.classList.remove('activo');
+            document.querySelectorAll('.carpeta-categoria').forEach(folder => {
+                folder.classList.remove('abierta');
+            });
+        }
+
+        // Cerrar al clickear fuera de la caja
+        document.addEventListener('click', () => {
+            cerrarTodoElMenu();
         });
 
-        // Inicializador instantáneo al cargar la web
+        // Inicialización Instantánea
         const temaInicial = localStorage.getItem('tema-guardado') || 'auto';
         aplicarTema(temaInicial);
 
-        // Actualización dinámica en modo Auto
         detectorSistema.addEventListener('change', () => {
-            const temaActual = localStorage.getItem('tema-guardado') || 'auto';
-            if (temaActual === 'auto') {
-                aplicarTema('auto');
-            }
+            if (localStorage.getItem('tema-guardado') === 'auto') aplicarTema('auto');
         });
     </script>
-
 </body>
 </html>
