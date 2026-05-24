@@ -13,9 +13,8 @@
     <div class="layout-global">
         <div class="overlay-fondo" id="overlay-sidebar"></div>
 
-        <!-- SIDEBAR: mini en reposo, expande con hover (desktop) o clase (móvil) -->
+        <!-- SIDEBAR -->
         <aside id="barra-lateral">
-            <!-- Cabecera del sidebar: botón ☰ siempre visible, nombre aparece al expandir -->
             <div class="sidebar-brand" id="btn-cerrar-sidebar">
                 <button class="btn-interactivo" style="flex-shrink:0;" aria-label="Alternar menú">
                     <span>☰</span>
@@ -25,14 +24,13 @@
 
             <nav id="menu-navegacion-paginas"></nav>
 
-            <div class="sidebar-footer">v2.2 · modular spa</div>
+            <div class="sidebar-footer">v3.0 · modular spa</div>
         </aside>
 
         <!-- CONTENIDO PRINCIPAL -->
         <div class="contenido-interfaz" id="contenido-interfaz">
             <header id="encabezado-fijo">
                 <div class="header-izq">
-                    <!-- Solo visible en móvil -->
                     <button class="btn-interactivo btn-menu-movil" id="btn-abrir-sidebar" aria-label="Abrir menú">
                         <span>☰</span>
                     </button>
@@ -43,15 +41,14 @@
                     <!-- Selector de tema -->
                     <div class="posicion-menu-relativo">
                         <div class="contenedor-split-button">
-                            <div class="split-accion-principal" id="btn-rotar-tema" title="Tema Automático">
+                            <div class="split-accion-principal" id="btn-rotar-tema" title="Cambiar tema">
                                 <span id="icono-tema" style="font-weight:700; font-size:1rem; color:var(--texto-principal);">A</span>
                             </div>
                             <div class="split-divisor"></div>
-                            <div class="split-flecha" id="btn-toggle-temas" title="Más Temas">
+                            <div class="split-flecha" id="btn-toggle-temas" title="Más temas">
                                 <span>▼</span>
                             </div>
                         </div>
-                        <!-- FUERA del split-button para posicionarse correctamente -->
                         <div class="menu-temas-flotante" id="menu-flotante"></div>
                     </div>
 

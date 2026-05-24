@@ -1,3 +1,4 @@
+// paginas/texto-uno.js
 export const contenido = `
     <div class="bloque-lectura">
         <span class="badge">✦ Demo</span>

@@ -1,3 +1,4 @@
+// paginas/inicio.js
 export const contenido = `
     <div class="bloque-lectura">
         <span class="badge">✦ Inicio</span>

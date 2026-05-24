@@ -11,104 +11,233 @@
     --ancho-sidebar-total: 260px;
     --alto-header:         56px;
 
-    /* Paleta orgánica */
-    --bg-principal:    #f5f2ee;
-    --bg-tarjetas:     #fdfcfb;
-    --bg-sidebar:      #edeae5;
-    --texto-principal: #1c1a17;
-    --texto-secundario:#7a7167;
-    --borde-color:     #ddd8d0;
-    --btn-bg:          #e6e2db;
+    --bg-principal:      #f5f2ee;
+    --bg-tarjetas:       #fdfcfb;
+    --bg-sidebar:        #edeae5;
+    --texto-principal:   #1c1a17;
+    --texto-secundario:  #7a7167;
+    --borde-color:       #ddd8d0;
+    --btn-bg:            #e6e2db;
     --btn-sombra-oscura: rgba(0,0,0,0.12);
     --btn-sombra-clara:  rgba(255,255,255,0.85);
-    --icono-sumido:    rgba(0,0,0,0.08);
-    --sombra-general:  rgba(0,0,0,0.05);
-    --accent-color:    #c9622f;
-    --check-color:     #5a9a6f;
+    --icono-sumido:      rgba(0,0,0,0.08);
+    --sombra-general:    rgba(0,0,0,0.05);
+    --accent-color:      #c9622f;
+    --check-color:       #5a9a6f;
 
-    /* Tipografía */
     --font-display: 'Playfair Display', Georgia, serif;
     --font-body:    'DM Sans', sans-serif;
     --font-mono:    'DM Mono', monospace;
 
-    --transicion-tema: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    --transicion-tema: background-color 0.3s ease, color 0.3s ease,
+                       border-color 0.3s ease, box-shadow 0.3s ease;
 
-    /* Textura de fondo */
-    --bg-texture: radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
+    --bg-texture:      radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
     --bg-texture-size: 22px 22px;
 }
 
 /* ==========================================================================
-   2. TEMAS
+   2. TEMAS — Oscuro base
    ========================================================================== */
 body.modo-oscuro {
-    --bg-principal:    #131110;
-    --bg-tarjetas:     #1c1916;
-    --bg-sidebar:      #0f0d0b;
-    --texto-principal: #ede8e0;
-    --texto-secundario:#8a8074;
-    --borde-color:     #2e2921;
-    --btn-bg:          #262119;
+    --bg-principal:      #131110;
+    --bg-tarjetas:       #1c1916;
+    --bg-sidebar:        #0f0d0b;
+    --texto-principal:   #ede8e0;
+    --texto-secundario:  #8a8074;
+    --borde-color:       #2e2921;
+    --btn-bg:            #262119;
     --btn-sombra-oscura: rgba(0,0,0,0.55);
     --btn-sombra-clara:  rgba(255,255,255,0.04);
-    --icono-sumido:    rgba(255,255,255,0.08);
-    --sombra-general:  rgba(0,0,0,0.35);
-    --accent-color:    #e0845a;
-    --check-color:     #6dbf85;
+    --icono-sumido:      rgba(255,255,255,0.08);
+    --sombra-general:    rgba(0,0,0,0.35);
+    --accent-color:      #e0845a;
+    --check-color:       #6dbf85;
 }
-body.tema-cyberpunk {
-    --bg-principal: #05050a; --bg-tarjetas: #0d0e15; --bg-sidebar: #1a0033;
-    --texto-principal: #fffb00; --texto-secundario: #ff007f; --borde-color: #ff007f;
-    --btn-bg: #121324; --btn-sombra-oscura: rgba(255,0,127,0.2); --btn-sombra-clara: rgba(255,251,0,0.1);
-    --icono-sumido: rgba(255,251,0,0.3); --sombra-general: rgba(255,0,127,0.15); --accent-color: #fffb00; --check-color: #00f5ff;
-}
-body.tema-rgb {
-    --bg-principal: #090d16; --bg-tarjetas: #111726; --bg-sidebar: #171e30;
-    --texto-principal: #00ff66; --texto-secundario: #00ffff; --borde-color: #3b82f6;
-    --btn-bg: #1e293b; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(0,255,102,0.1);
-    --icono-sumido: rgba(0,255,102,0.2); --sombra-general: rgba(59,130,246,0.2); --accent-color: #00ff66; --check-color: #00ff66;
-}
-body.tema-fuego {
-    --bg-principal: #0f0f12; --bg-tarjetas: #18181c; --bg-sidebar: #241414;
-    --texto-principal: #ff4d00; --texto-secundario: #ff9e00; --borde-color: #ff3c00;
-    --btn-bg: #212126; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(255,77,0,0.05);
-    --icono-sumido: rgba(255,77,0,0.2); --sombra-general: rgba(0,0,0,0.5); --accent-color: #ff9e00; --check-color: #ff4d00;
-}
-body.tema-bosque {
-    --bg-principal: #1b2620; --bg-tarjetas: #233229; --bg-sidebar: #131c17;
-    --texto-principal: #e1efe6; --texto-secundario: #a3b899; --borde-color: #3b5345;
-    --btn-bg: #2a3d32; --btn-sombra-oscura: rgba(0,0,0,0.4); --btn-sombra-clara: rgba(255,255,255,0.05);
-    --icono-sumido: rgba(0,0,0,0.2); --sombra-general: rgba(0,0,0,0.25); --accent-color: #6dbf85; --check-color: #6dbf85;
-}
+
+/* ── Cálidos ── */
 body.tema-retro {
     --bg-principal: #f5ebe0; --bg-tarjetas: #f2e8cf; --bg-sidebar: #e6ccb2;
     --texto-principal: #6b2d5c; --texto-secundario: #bc4749; --borde-color: #ddb892;
     --btn-bg: #ede0d4; --btn-sombra-oscura: rgba(107,45,92,0.15); --btn-sombra-clara: rgba(255,255,255,0.9);
-    --icono-sumido: rgba(0,0,0,0.08); --sombra-general: rgba(107,45,92,0.05); --accent-color: #bc4749; --check-color: #5a9a6f;
+    --icono-sumido: rgba(0,0,0,0.08); --sombra-general: rgba(107,45,92,0.05);
+    --accent-color: #bc4749; --check-color: #5a9a6f;
 }
 body.tema-desierto {
     --bg-principal: #dfd3c3; --bg-tarjetas: #f4eee5; --bg-sidebar: #c7b198;
     --texto-principal: #7d5a50; --texto-secundario: #b4846c; --borde-color: #c7b198;
     --btn-bg: #f4eee5; --btn-sombra-oscura: rgba(125,90,80,0.15); --btn-sombra-clara: rgba(255,255,255,0.8);
-    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.03); --accent-color: #b4846c; --check-color: #5a9a6f;
+    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.03);
+    --accent-color: #b4846c; --check-color: #5a9a6f;
 }
+body.tema-amanecer {
+    --bg-principal: #fef3ec; --bg-tarjetas: #fff8f3; --bg-sidebar: #fde8d8;
+    --texto-principal: #7c2d12; --texto-secundario: #c2410c; --borde-color: #fdba74;
+    --btn-bg: #fde8d8; --btn-sombra-oscura: rgba(124,45,18,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
+    --icono-sumido: rgba(0,0,0,0.06); --sombra-general: rgba(194,65,12,0.08);
+    --accent-color: #ea580c; --check-color: #15803d;
+}
+body.tema-cafe {
+    --bg-principal: #2c1a0e; --bg-tarjetas: #3b2314; --bg-sidebar: #1e1009;
+    --texto-principal: #e8d5b7; --texto-secundario: #b59a78; --borde-color: #5c3d22;
+    --btn-bg: #4a2e18; --btn-sombra-oscura: rgba(0,0,0,0.5); --btn-sombra-clara: rgba(232,213,183,0.08);
+    --icono-sumido: rgba(0,0,0,0.25); --sombra-general: rgba(0,0,0,0.35);
+    --accent-color: #d97706; --check-color: #6dbf85;
+}
+body.tema-brasa {
+    --bg-principal: #0f0f12; --bg-tarjetas: #18181c; --bg-sidebar: #241414;
+    --texto-principal: #ff4d00; --texto-secundario: #ff9e00; --borde-color: #ff3c00;
+    --btn-bg: #212126; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(255,77,0,0.05);
+    --icono-sumido: rgba(255,77,0,0.2); --sombra-general: rgba(0,0,0,0.5);
+    --accent-color: #ff9e00; --check-color: #ff4d00;
+}
+
+/* ── Fríos ── */
 body.tema-oceano {
     --bg-principal: #030712; --bg-tarjetas: #111827; --bg-sidebar: #0f172a;
     --texto-principal: #06b6d4; --texto-secundario: #38bdf8; --borde-color: #1e293b;
     --btn-bg: #1f2937; --btn-sombra-oscura: rgba(0,0,0,0.7); --btn-sombra-clara: rgba(6,182,212,0.1);
-    --icono-sumido: rgba(6,182,212,0.25); --sombra-general: rgba(6,182,212,0.08); --accent-color: #06b6d4; --check-color: #38bdf8;
+    --icono-sumido: rgba(6,182,212,0.25); --sombra-general: rgba(6,182,212,0.08);
+    --accent-color: #06b6d4; --check-color: #38bdf8;
 }
 body.tema-artico {
     --bg-principal: #eef2f7; --bg-tarjetas: #ffffff; --bg-sidebar: #dbe2ef;
     --texto-principal: #3f72af; --texto-secundario: #112d4e; --borde-color: #dbe2ef;
     --btn-bg: #f9f7f7; --btn-sombra-oscura: rgba(63,114,175,0.15); --btn-sombra-clara: rgba(255,255,255,0.9);
-    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.02); --accent-color: #3f72af; --check-color: #5a9a6f;
+    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.02);
+    --accent-color: #3f72af; --check-color: #5a9a6f;
 }
 body.tema-aurora {
     --bg-principal: #0b071e; --bg-tarjetas: #140e2d; --bg-sidebar: #191238;
     --texto-principal: #a855f7; --texto-secundario: #2dd4bf; --borde-color: #2e1f5e;
     --btn-bg: #1d1542; --btn-sombra-oscura: rgba(0,0,0,0.5); --btn-sombra-clara: rgba(168,85,247,0.1);
-    --icono-sumido: rgba(45,212,191,0.2); --sombra-general: rgba(168,85,247,0.1); --accent-color: #a855f7; --check-color: #2dd4bf;
+    --icono-sumido: rgba(45,212,191,0.2); --sombra-general: rgba(168,85,247,0.1);
+    --accent-color: #a855f7; --check-color: #2dd4bf;
+}
+body.tema-niebla {
+    --bg-principal: #f1f5f9; --bg-tarjetas: #f8fafc; --bg-sidebar: #e2e8f0;
+    --texto-principal: #334155; --texto-secundario: #64748b; --borde-color: #cbd5e1;
+    --btn-bg: #e2e8f0; --btn-sombra-oscura: rgba(51,65,85,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
+    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.04);
+    --accent-color: #64748b; --check-color: #0ea5e9;
+}
+body.tema-hielo {
+    --bg-principal: #e0f2fe; --bg-tarjetas: #f0f9ff; --bg-sidebar: #bae6fd;
+    --texto-principal: #0c4a6e; --texto-secundario: #0369a1; --borde-color: #7dd3fc;
+    --btn-bg: #e0f2fe; --btn-sombra-oscura: rgba(12,74,110,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
+    --icono-sumido: rgba(0,0,0,0.06); --sombra-general: rgba(3,105,161,0.06);
+    --accent-color: #0ea5e9; --check-color: #0369a1;
+}
+
+/* ── Naturaleza ── */
+body.tema-bosque {
+    --bg-principal: #1b2620; --bg-tarjetas: #233229; --bg-sidebar: #131c17;
+    --texto-principal: #e1efe6; --texto-secundario: #a3b899; --borde-color: #3b5345;
+    --btn-bg: #2a3d32; --btn-sombra-oscura: rgba(0,0,0,0.4); --btn-sombra-clara: rgba(255,255,255,0.05);
+    --icono-sumido: rgba(0,0,0,0.2); --sombra-general: rgba(0,0,0,0.25);
+    --accent-color: #6dbf85; --check-color: #6dbf85;
+}
+body.tema-musgo {
+    --bg-principal: #1a2e1f; --bg-tarjetas: #22382a; --bg-sidebar: #111e15;
+    --texto-principal: #d4edd8; --texto-secundario: #8fb899; --borde-color: #2d4a34;
+    --btn-bg: #1f3526; --btn-sombra-oscura: rgba(0,0,0,0.45); --btn-sombra-clara: rgba(255,255,255,0.04);
+    --icono-sumido: rgba(0,0,0,0.2); --sombra-general: rgba(0,0,0,0.25);
+    --accent-color: #4a7c59; --check-color: #6dbf85;
+}
+body.tema-lavanda {
+    --bg-principal: #f5f3ff; --bg-tarjetas: #faf9ff; --bg-sidebar: #ede9fe;
+    --texto-principal: #4c1d95; --texto-secundario: #7c3aed; --borde-color: #c4b5fd;
+    --btn-bg: #ede9fe; --btn-sombra-oscura: rgba(76,29,149,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
+    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(76,29,149,0.06);
+    --accent-color: #7c3aed; --check-color: #059669;
+}
+body.tema-oliva {
+    --bg-principal: #f5f4ec; --bg-tarjetas: #fbfaf3; --bg-sidebar: #e8e6d8;
+    --texto-principal: #3d4220; --texto-secundario: #6b7040; --borde-color: #c8c9a0;
+    --btn-bg: #e8e6d8; --btn-sombra-oscura: rgba(61,66,32,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
+    --icono-sumido: rgba(0,0,0,0.06); --sombra-general: rgba(0,0,0,0.04);
+    --accent-color: #8a9a5b; --check-color: #4a7c59;
+}
+body.tema-tierra {
+    --bg-principal: #1c1410; --bg-tarjetas: #271d17; --bg-sidebar: #120d09;
+    --texto-principal: #d6c4b0; --texto-secundario: #9e8472; --borde-color: #3d2e22;
+    --btn-bg: #332519; --btn-sombra-oscura: rgba(0,0,0,0.5); --btn-sombra-clara: rgba(214,196,176,0.06);
+    --icono-sumido: rgba(0,0,0,0.2); --sombra-general: rgba(0,0,0,0.3);
+    --accent-color: #a07850; --check-color: #6dbf85;
+}
+
+/* ── Modernos ── */
+body.tema-minimal {
+    --bg-principal: #ffffff; --bg-tarjetas: #fafafa; --bg-sidebar: #f4f4f5;
+    --texto-principal: #18181b; --texto-secundario: #71717a; --borde-color: #e4e4e7;
+    --btn-bg: #f4f4f5; --btn-sombra-oscura: rgba(0,0,0,0.08); --btn-sombra-clara: rgba(255,255,255,1);
+    --icono-sumido: rgba(0,0,0,0.04); --sombra-general: rgba(0,0,0,0.03);
+    --accent-color: #18181b; --check-color: #059669;
+}
+body.tema-carbon {
+    --bg-principal: #0f172a; --bg-tarjetas: #1e293b; --bg-sidebar: #0c1420;
+    --texto-principal: #e2e8f0; --texto-secundario: #94a3b8; --borde-color: #334155;
+    --btn-bg: #1e293b; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(255,255,255,0.04);
+    --icono-sumido: rgba(255,255,255,0.06); --sombra-general: rgba(0,0,0,0.4);
+    --accent-color: #38bdf8; --check-color: #34d399;
+}
+body.tema-tinta {
+    --bg-principal: #f9f5f0; --bg-tarjetas: #fefcf8; --bg-sidebar: #f0e8dc;
+    --texto-principal: #3d2b1f; --texto-secundario: #7a5c44; --borde-color: #d4bfa8;
+    --btn-bg: #ede1d4; --btn-sombra-oscura: rgba(61,43,31,0.14); --btn-sombra-clara: rgba(255,255,255,0.9);
+    --icono-sumido: rgba(0,0,0,0.06); --sombra-general: rgba(61,43,31,0.06);
+    --accent-color: #7a5c44; --check-color: #5a9a6f;
+}
+body.tema-grafito {
+    --bg-principal: #1c2128; --bg-tarjetas: #262d36; --bg-sidebar: #161b22;
+    --texto-principal: #cdd9e5; --texto-secundario: #768390; --borde-color: #373e47;
+    --btn-bg: #2d333b; --btn-sombra-oscura: rgba(0,0,0,0.5); --btn-sombra-clara: rgba(255,255,255,0.04);
+    --icono-sumido: rgba(255,255,255,0.05); --sombra-general: rgba(0,0,0,0.3);
+    --accent-color: #57a0d2; --check-color: #3fb950;
+}
+body.tema-rosado {
+    --bg-principal: #fff1f7; --bg-tarjetas: #fff8fb; --bg-sidebar: #fce7f3;
+    --texto-principal: #831843; --texto-secundario: #be185d; --borde-color: #fbcfe8;
+    --btn-bg: #fce7f3; --btn-sombra-oscura: rgba(131,24,67,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
+    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(131,24,67,0.06);
+    --accent-color: #e11d74; --check-color: #059669;
+}
+
+/* ── Neón & Especiales ── */
+body.tema-cyberpunk {
+    --bg-principal: #05050a; --bg-tarjetas: #0d0e15; --bg-sidebar: #1a0033;
+    --texto-principal: #fffb00; --texto-secundario: #ff007f; --borde-color: #ff007f;
+    --btn-bg: #121324; --btn-sombra-oscura: rgba(255,0,127,0.2); --btn-sombra-clara: rgba(255,251,0,0.1);
+    --icono-sumido: rgba(255,251,0,0.3); --sombra-general: rgba(255,0,127,0.15);
+    --accent-color: #fffb00; --check-color: #00f5ff;
+}
+body.tema-rgb {
+    --bg-principal: #090d16; --bg-tarjetas: #111726; --bg-sidebar: #171e30;
+    --texto-principal: #00ff66; --texto-secundario: #00ffff; --borde-color: #3b82f6;
+    --btn-bg: #1e293b; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(0,255,102,0.1);
+    --icono-sumido: rgba(0,255,102,0.2); --sombra-general: rgba(59,130,246,0.2);
+    --accent-color: #00ff66; --check-color: #00ff66;
+}
+body.tema-matrix {
+    --bg-principal: #000a00; --bg-tarjetas: #001200; --bg-sidebar: #000800;
+    --texto-principal: #00ff41; --texto-secundario: #00c832; --borde-color: #003300;
+    --btn-bg: #001a00; --btn-sombra-oscura: rgba(0,0,0,0.8); --btn-sombra-clara: rgba(0,255,65,0.08);
+    --icono-sumido: rgba(0,255,65,0.15); --sombra-general: rgba(0,255,65,0.07);
+    --accent-color: #00ff41; --check-color: #00ff41;
+}
+body.tema-synthwave {
+    --bg-principal: #0d0221; --bg-tarjetas: #160633; --bg-sidebar: #08011a;
+    --texto-principal: #f0abfc; --texto-secundario: #e040fb; --borde-color: #4a0e6b;
+    --btn-bg: #220a3a; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(224,64,251,0.08);
+    --icono-sumido: rgba(224,64,251,0.2); --sombra-general: rgba(224,64,251,0.1);
+    --accent-color: #f472b6; --check-color: #34d399;
+}
+body.tema-neon-oro {
+    --bg-principal: #0a0800; --bg-tarjetas: #141000; --bg-sidebar: #080600;
+    --texto-principal: #ffd700; --texto-secundario: #ffc107; --borde-color: #3d3000;
+    --btn-bg: #1a1400; --btn-sombra-oscura: rgba(0,0,0,0.7); --btn-sombra-clara: rgba(255,215,0,0.08);
+    --icono-sumido: rgba(255,215,0,0.15); --sombra-general: rgba(255,215,0,0.08);
+    --accent-color: #ffd700; --check-color: #ffd700;
 }
 
 /* ==========================================================================
@@ -120,8 +249,6 @@ body {
     font-family: var(--font-body);
     font-weight: 400;
     background-color: var(--bg-principal);
-    background-image: var(--bg-texture);
-    background-size: var(--bg-texture-size);
     color: var(--texto-principal);
     transition: var(--transicion-tema);
     min-height: 100vh;
@@ -140,18 +267,16 @@ body {
     overflow: hidden;
 }
 
-/* Overlay móvil */
 .overlay-fondo {
     display: none;
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(2px);
     z-index: 1500;
 }
 
 /* ==========================================================================
-   5. SIDEBAR — expande en desktop, desliza en móvil
+   5. SIDEBAR
    ========================================================================== */
 aside {
     width: var(--ancho-sidebar-mini);
@@ -167,13 +292,12 @@ aside {
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 2000;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), var(--transicion-tema);
+    transition: width 0.3s cubic-bezier(0.4,0,0.2,1), var(--transicion-tema);
 }
 
 aside::-webkit-scrollbar { width: 3px; }
 aside::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 10px; }
 
-/* Botón cerrar / logo en la cabecera del sidebar */
 .sidebar-brand {
     display: flex;
     align-items: center;
@@ -201,7 +325,6 @@ aside::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 
     letter-spacing: -0.01em;
 }
 
-/* Navegación de páginas */
 #menu-navegacion-paginas {
     display: flex;
     flex-direction: column;
@@ -217,13 +340,10 @@ aside::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 
     cursor: pointer;
     border-radius: 10px;
     padding: 3px 0;
-    transition: background-color 0.18s ease;
     overflow: hidden;
+    transition: background-color 0.18s ease, transform 0.15s ease;
 }
-
-.opcion-navegacion:hover {
-    background-color: var(--icono-sumido);
-}
+.opcion-navegacion:hover { background-color: var(--icono-sumido); }
 
 .texto-opcion {
     font-size: 0.88rem;
@@ -236,7 +356,6 @@ aside::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 
     letter-spacing: 0.01em;
 }
 
-/* Footer del sidebar */
 .sidebar-footer {
     margin-top: auto;
     padding-top: 10px;
@@ -253,33 +372,27 @@ aside::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 
     overflow: hidden;
 }
 
-/* Estado EXPANDIDO (desktop: hover o clase, móvil: clase) */
-body.sidebar-abierta aside,
-aside:hover {
-    width: var(--ancho-sidebar-total);
-}
+/* ── Sidebar expandido en desktop ── */
+@media (min-width: 768px) {
+    aside:hover,
+    body.sidebar-abierta aside {
+        width: var(--ancho-sidebar-total);
+    }
 
-body.sidebar-abierta .texto-opcion,
-aside:hover .texto-opcion {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-    transition-delay: 0.06s;
-}
+    aside:hover .texto-opcion,
+    body.sidebar-abierta .texto-opcion {
+        opacity: 1; transform: translateX(0); pointer-events: auto; transition-delay: 0.06s;
+    }
+    aside:hover .sidebar-brand-nombre,
+    body.sidebar-abierta .sidebar-brand-nombre {
+        opacity: 1; transform: translateX(0); pointer-events: auto; transition-delay: 0.04s;
+    }
+    aside:hover .sidebar-footer,
+    body.sidebar-abierta .sidebar-footer {
+        opacity: 1; pointer-events: auto; transition-delay: 0.08s;
+    }
 
-body.sidebar-abierta .sidebar-brand-nombre,
-aside:hover .sidebar-brand-nombre {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-    transition-delay: 0.04s;
-}
-
-body.sidebar-abierta .sidebar-footer,
-aside:hover .sidebar-footer {
-    opacity: 1;
-    pointer-events: auto;
-    transition-delay: 0.08s;
+    .overlay-fondo { display: none !important; }
 }
 
 /* ==========================================================================
@@ -300,6 +413,8 @@ aside:hover .sidebar-footer {
     font-family: var(--font-body);
     transition: all 0.2s ease, var(--transicion-tema);
     box-shadow: -1px -1px 4px var(--btn-sombra-clara), 1px 1px 4px var(--btn-sombra-oscura);
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-interactivo span { font-size: 1.1rem; font-weight: 600; color: var(--texto-principal); opacity: 0.85; }
@@ -308,6 +423,20 @@ aside:hover .sidebar-footer {
     box-shadow: inset -1px -1px 3px var(--btn-sombra-clara), inset 1px 1px 3px var(--btn-sombra-oscura);
     transform: scale(0.96);
 }
+
+/* Efecto ripple en hover (btn-interactivo y split-accion-principal comparten el mismo patrón) */
+.btn-interactivo::after,
+.split-accion-principal::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, var(--btn-sombra-clara) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+.btn-interactivo:hover::after,
+.split-accion-principal:hover::after { opacity: 1; }
 
 /* ==========================================================================
    7. HEADER
@@ -348,8 +477,7 @@ header {
     color: var(--texto-principal);
 }
 
-/* En desktop el botón hamburguesa se oculta (el hover del sidebar lo reemplaza) */
-.btn-menu-movil { display: none !important; }
+.btn-menu-movil { display: none; }
 
 /* ==========================================================================
    8. SPLIT BUTTON + MENÚS FLOTANTES
@@ -377,11 +505,13 @@ header {
     justify-content: center;
     cursor: pointer;
     user-select: none;
+    position: relative;
+    overflow: hidden;
     transition: background-color 0.2s;
 }
 .split-accion-principal:active { background-color: var(--icono-sumido); }
 
-.split-divisor { width: 1px; height: 60%; background-color: var(--borde-color); transition: var(--transicion-tema); }
+.split-divisor { width: 1px; height: 60%; background-color: var(--borde-color); flex-shrink: 0; transition: var(--transicion-tema); }
 
 .split-flecha {
     width: 32px;
@@ -398,7 +528,8 @@ header {
 .split-flecha span { color: var(--texto-principal); opacity: 0.6; }
 
 /* Menús flotantes */
-.menu-temas-flotante, .menu-opciones-flotante {
+.menu-temas-flotante,
+.menu-opciones-flotante {
     position: absolute;
     top: 46px;
     right: 0;
@@ -416,12 +547,15 @@ header {
     pointer-events: none;
     transform: translateY(-8px) scale(0.97);
     transform-origin: top right;
-    transition: opacity 0.2s cubic-bezier(0.4,0,0.2,1), transform 0.2s cubic-bezier(0.4,0,0.2,1), var(--transicion-tema);
+    transition: opacity 0.2s cubic-bezier(0.4,0,0.2,1),
+                transform 0.2s cubic-bezier(0.4,0,0.2,1),
+                var(--transicion-tema);
     max-height: 420px;
     overflow-y: auto;
 }
 
-.menu-temas-flotante.activo, .menu-opciones-flotante.activo {
+.menu-temas-flotante.activo,
+.menu-opciones-flotante.activo {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0) scale(1);
@@ -438,7 +572,7 @@ header {
     transition: var(--transicion-tema);
 }
 
-/* Items de menú */
+/* Items del menú */
 .item-tema-opcion {
     display: flex;
     align-items: center;
@@ -490,7 +624,10 @@ header {
     transition: background-color 0.2s;
 }
 .carpeta-cabecera:hover { background-color: var(--btn-bg); }
-.carpeta-cabecera .indicador-flecha { font-size: 0.5rem; transition: transform 0.25s; }
+.carpeta-cabecera .indicador-flecha {
+    font-size: 0.5rem;
+    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+}
 
 .carpeta-contenido {
     max-height: 0;
@@ -499,12 +636,11 @@ header {
     flex-direction: column;
     gap: 1px;
     padding-left: 8px;
-    background-color: rgba(0,0,0,0.02);
+    background-color: var(--icono-sumido);
     transition: max-height 0.28s cubic-bezier(0.4,0,0.2,1);
 }
-body.modo-oscuro .carpeta-contenido { background-color: rgba(255,255,255,0.02); }
 .carpeta-categoria.abierta .carpeta-contenido { max-height: 300px; }
-.carpeta-categoria.abierta .indicador-flecha { transform: rotate(180deg); }
+.carpeta-categoria.abierta .indicador-flecha  { transform: rotate(180deg); }
 
 /* ==========================================================================
    9. CONTENIDO PRINCIPAL
@@ -525,7 +661,6 @@ main {
 main::-webkit-scrollbar { width: 4px; }
 main::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 10px; }
 
-/* Bloque de lectura */
 .bloque-lectura {
     background-color: var(--bg-tarjetas);
     border: 1px solid var(--borde-color);
@@ -534,13 +669,12 @@ main::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 1
     box-shadow: 0 4px 20px var(--sombra-general);
     max-width: 680px;
     margin: 0 auto;
-    transition: var(--transicion-tema);
+    transition: var(--transicion-tema), box-shadow 0.28s ease, transform 0.28s ease;
     animation: slideFadeIn 0.35s cubic-bezier(0.4,0,0.2,1);
 }
-
-@keyframes slideFadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
+.bloque-lectura:hover {
+    box-shadow: 0 8px 32px var(--sombra-general);
+    transform: translateY(-2px);
 }
 
 .titulo-contenido {
@@ -562,21 +696,20 @@ main::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 1
 }
 
 /* Modos de lectura */
-body.lectura-detallada .txt-resumido { display: none !important; }
-body.lectura-resumida  .txt-detallado { display: none !important; }
+body.lectura-detallada .txt-resumido  { display: none; }
+body.lectura-resumida  .txt-detallado { display: none; }
 
 .txt-detallado { line-height: 1.72; font-size: 0.94rem; font-weight: 300; color: var(--texto-secundario); }
-.txt-resumido  { line-height: 1.5; font-size: 0.94rem; font-weight: 500; color: var(--texto-principal); border-left: 3px solid var(--accent-color); padding-left: 12px; }
+.txt-resumido  {
+    line-height: 1.5; font-size: 0.94rem; font-weight: 500; color: var(--texto-principal);
+    border-left: 3px solid var(--accent-color); padding-left: 12px;
+}
 
 /* Web component texto-dinamico */
 texto-dinamico {
     display: block;
     line-height: 1.72;
     animation: fadeInTexto 0.3s ease;
-}
-@keyframes fadeInTexto {
-    from { opacity: 0; transform: translateY(3px); }
-    to   { opacity: 1; transform: translateY(0); }
 }
 texto-dinamico h4 {
     font-family: var(--font-display);
@@ -587,7 +720,7 @@ texto-dinamico h4 {
     letter-spacing: -0.02em;
 }
 
-/* Elementos decorativos reutilizables */
+/* Elementos decorativos */
 .separador-deco {
     display: flex;
     align-items: center;
@@ -599,11 +732,13 @@ texto-dinamico h4 {
     color: var(--texto-secundario);
     font-family: var(--font-mono);
 }
-.separador-deco::before, .separador-deco::after {
+.separador-deco::before,
+.separador-deco::after {
     content: '';
     flex: 1;
     height: 1px;
     background: var(--borde-color);
+    animation: lineaExpandir 0.6s cubic-bezier(0.4,0,0.2,1) 0.1s both;
 }
 
 .bloque-acento {
@@ -629,56 +764,117 @@ texto-dinamico h4 {
     font-weight: 500;
     letter-spacing: 0.04em;
     font-family: var(--font-mono);
+    animation: badgePop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+/* Item activo del menú opciones */
+.item-tema-opcion.seleccionado {
+    background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
 }
 
 /* ==========================================================================
-   10. RESPONSIVO MÓVIL
+   10. ANIMACIONES
    ========================================================================== */
-@media (min-width: 768px) {
-    main { padding: 40px 48px; }
+@keyframes headerSlideDown {
+    from { opacity: 0; transform: translateY(-100%); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes sidebarFadeIn {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInTexto {
+    from { opacity: 0; transform: translateY(3px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pageEnter {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes badgePop {
+    0%   { opacity: 0; transform: scale(0.8); }
+    70%  { transform: scale(1.06); }
+    100% { opacity: 1; transform: scale(1); }
+}
+@keyframes lineaExpandir {
+    from { width: 0; opacity: 0; }
+    to   { width: 100%; opacity: 1; }
+}
+@keyframes menuSpring {
+    from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@media (max-width: 767px) {
-    /* Mostrar botón hamburguesa en el header */
-    .btn-menu-movil { display: flex !important; }
+header { animation: headerSlideDown 0.38s cubic-bezier(0.4,0,0.2,1) both; }
+aside  { animation: sidebarFadeIn   0.42s cubic-bezier(0.4,0,0.2,1) both; }
 
-    /* El contenido principal ocupa todo el ancho */
-    .contenido-interfaz {
-        width: 100% !important;
-        flex: 1 1 100% !important;
-        min-width: 0 !important;
+.menu-temas-flotante.activo,
+.menu-opciones-flotante.activo {
+    animation: menuSpring 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+
+#contenedor-central {
+    animation: pageEnter 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Icono tema */
+#icono-tema {
+    display: inline-block;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), color 0.25s;
+}
+#icono-tema.girando { transform: rotate(360deg) scale(1.25); }
+
+/* Slide lateral del item de nav */
+.opcion-navegacion:hover { transform: translateX(2px); }
+
+/* ==========================================================================
+   11. ACCESIBILIDAD — Reducir movimiento
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
     }
+}
 
-    /* Sidebar: position fixed lo saca del flujo visual,
-       visibility:hidden + transform lo oculta completamente */
+/* ==========================================================================
+   12. RESPONSIVE MÓVIL (< 768px)
+   ========================================================================== */
+@media (max-width: 767px) {
+    .btn-menu-movil { display: flex; }
+
+    main { padding: 20px 16px; }
+    .bloque-lectura { padding: 22px 18px; }
+
+    /* Sidebar fuera de flujo, oculto por defecto */
     aside {
         position: fixed;
         top: 0;
         left: 0;
         height: 100vh;
-        width: var(--ancho-sidebar-total) !important;
+        width: var(--ancho-sidebar-total);
         transform: translateX(-110%);
-        transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.32s, var(--transicion-tema);
         pointer-events: none;
-        z-index: 2000;
         visibility: hidden;
+        transition: transform 0.32s cubic-bezier(0.4,0,0.2,1),
+                    visibility 0s linear 0.32s,
+                    var(--transicion-tema);
     }
 
-    /* Anular expand por hover en móvil */
-    aside:hover {
-        width: var(--ancho-sidebar-total) !important;
-    }
-
-    /* Todo el contenido del sidebar se desvanece al plegarse */
+    /* Ocultar texto mientras está cerrado */
     aside .texto-opcion,
     aside .sidebar-brand-nombre,
     aside .sidebar-footer,
     aside .btn-interactivo,
     aside .opcion-navegacion {
-        opacity: 0 !important;
-        pointer-events: none !important;
-        transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1) !important;
-        transition-delay: 0s !important;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1);
+        transition-delay: 0s;
     }
 
     /* Sidebar abierto */
@@ -687,286 +883,31 @@ texto-dinamico h4 {
         box-shadow: 6px 0 32px rgba(0,0,0,0.35);
         pointer-events: auto;
         visibility: visible;
-        transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0s, var(--transicion-tema);
+        transition: transform 0.32s cubic-bezier(0.4,0,0.2,1),
+                    visibility 0s linear 0s,
+                    var(--transicion-tema);
     }
-
-    /* Todo el contenido aparece con fade al abrir */
     body.sidebar-abierta aside .texto-opcion,
     body.sidebar-abierta aside .sidebar-brand-nombre,
     body.sidebar-abierta aside .sidebar-footer,
     body.sidebar-abierta aside .btn-interactivo,
     body.sidebar-abierta aside .opcion-navegacion {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1) !important;
-        transition-delay: 0.08s !important;
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1);
+        transition-delay: 0.08s;
     }
 
-    /* Overlay con desenfoque solo en móvil */
+    /* Overlay con blur solo en móvil */
     body.sidebar-abierta .overlay-fondo {
         display: block;
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
         background: rgba(0,0,0,0.4);
     }
-
-    main { padding: 20px 16px; }
-    .bloque-lectura { padding: 22px 18px; }
 }
 
-/* En desktop: aseguramos que el overlay NUNCA tenga blur */
+/* Desktop: asegurar que el padding de main sea correcto */
 @media (min-width: 768px) {
-    .overlay-fondo {
-        display: none !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-    }
-}
-/* ==========================================================================
-   TEMAS ADICIONALES — Cálidos
-   ========================================================================== */
-body.tema-amanecer {
-    --bg-principal: #fef3ec; --bg-tarjetas: #fff8f3; --bg-sidebar: #fde8d8;
-    --texto-principal: #7c2d12; --texto-secundario: #c2410c; --borde-color: #fdba74;
-    --btn-bg: #fde8d8; --btn-sombra-oscura: rgba(124,45,18,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
-    --icono-sumido: rgba(0,0,0,0.06); --sombra-general: rgba(194,65,12,0.08); --accent-color: #ea580c; --check-color: #15803d;
-}
-body.tema-cafe {
-    --bg-principal: #2c1a0e; --bg-tarjetas: #3b2314; --bg-sidebar: #1e1009;
-    --texto-principal: #e8d5b7; --texto-secundario: #b59a78; --borde-color: #5c3d22;
-    --btn-bg: #4a2e18; --btn-sombra-oscura: rgba(0,0,0,0.5); --btn-sombra-clara: rgba(232,213,183,0.08);
-    --icono-sumido: rgba(0,0,0,0.25); --sombra-general: rgba(0,0,0,0.35); --accent-color: #d97706; --check-color: #6dbf85;
-}
-body.tema-brasa {
-    --bg-principal: #0f0f12; --bg-tarjetas: #18181c; --bg-sidebar: #241414;
-    --texto-principal: #ff4d00; --texto-secundario: #ff9e00; --borde-color: #ff3c00;
-    --btn-bg: #212126; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(255,77,0,0.05);
-    --icono-sumido: rgba(255,77,0,0.2); --sombra-general: rgba(0,0,0,0.5); --accent-color: #ff9e00; --check-color: #ff4d00;
-}
-
-/* ==========================================================================
-   TEMAS ADICIONALES — Fríos
-   ========================================================================== */
-body.tema-niebla {
-    --bg-principal: #f1f5f9; --bg-tarjetas: #f8fafc; --bg-sidebar: #e2e8f0;
-    --texto-principal: #334155; --texto-secundario: #64748b; --borde-color: #cbd5e1;
-    --btn-bg: #e2e8f0; --btn-sombra-oscura: rgba(51,65,85,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
-    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(0,0,0,0.04); --accent-color: #64748b; --check-color: #0ea5e9;
-}
-body.tema-hielo {
-    --bg-principal: #e0f2fe; --bg-tarjetas: #f0f9ff; --bg-sidebar: #bae6fd;
-    --texto-principal: #0c4a6e; --texto-secundario: #0369a1; --borde-color: #7dd3fc;
-    --btn-bg: #e0f2fe; --btn-sombra-oscura: rgba(12,74,110,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
-    --icono-sumido: rgba(0,0,0,0.06); --sombra-general: rgba(3,105,161,0.06); --accent-color: #0ea5e9; --check-color: #0369a1;
-}
-
-/* ==========================================================================
-   TEMAS ADICIONALES — Naturaleza
-   ========================================================================== */
-body.tema-musgo {
-    --bg-principal: #1a2e1f; --bg-tarjetas: #22382a; --bg-sidebar: #111e15;
-    --texto-principal: #d4edd8; --texto-secundario: #8fb899; --borde-color: #2d4a34;
-    --btn-bg: #1f3526; --btn-sombra-oscura: rgba(0,0,0,0.45); --btn-sombra-clara: rgba(255,255,255,0.04);
-    --icono-sumido: rgba(0,0,0,0.2); --sombra-general: rgba(0,0,0,0.25); --accent-color: #4a7c59; --check-color: #6dbf85;
-}
-body.tema-lavanda {
-    --bg-principal: #f5f3ff; --bg-tarjetas: #faf9ff; --bg-sidebar: #ede9fe;
-    --texto-principal: #4c1d95; --texto-secundario: #7c3aed; --borde-color: #c4b5fd;
-    --btn-bg: #ede9fe; --btn-sombra-oscura: rgba(76,29,149,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
-    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(76,29,149,0.06); --accent-color: #7c3aed; --check-color: #059669;
-}
-body.tema-oliva {
-    --bg-principal: #f5f4ec; --bg-tarjetas: #fbfaf3; --bg-sidebar: #e8e6d8;
-    --texto-principal: #3d4220; --texto-secundario: #6b7040; --borde-color: #c8c9a0;
-    --btn-bg: #e8e6d8; --btn-sombra-oscura: rgba(61,66,32,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
-    --icono-sumido: rgba(0,0,0,0.06); --sombra-general: rgba(0,0,0,0.04); --accent-color: #8a9a5b; --check-color: #4a7c59;
-}
-body.tema-tierra {
-    --bg-principal: #1c1410; --bg-tarjetas: #271d17; --bg-sidebar: #120d09;
-    --texto-principal: #d6c4b0; --texto-secundario: #9e8472; --borde-color: #3d2e22;
-    --btn-bg: #332519; --btn-sombra-oscura: rgba(0,0,0,0.5); --btn-sombra-clara: rgba(214,196,176,0.06);
-    --icono-sumido: rgba(0,0,0,0.2); --sombra-general: rgba(0,0,0,0.3); --accent-color: #a07850; --check-color: #6dbf85;
-}
-
-/* ==========================================================================
-   TEMAS ADICIONALES — Modernos
-   ========================================================================== */
-body.tema-minimal {
-    --bg-principal: #ffffff; --bg-tarjetas: #fafafa; --bg-sidebar: #f4f4f5;
-    --texto-principal: #18181b; --texto-secundario: #71717a; --borde-color: #e4e4e7;
-    --btn-bg: #f4f4f5; --btn-sombra-oscura: rgba(0,0,0,0.08); --btn-sombra-clara: rgba(255,255,255,1);
-    --icono-sumido: rgba(0,0,0,0.04); --sombra-general: rgba(0,0,0,0.03); --accent-color: #18181b; --check-color: #059669;
-}
-body.tema-carbon {
-    --bg-principal: #0f172a; --bg-tarjetas: #1e293b; --bg-sidebar: #0c1420;
-    --texto-principal: #e2e8f0; --texto-secundario: #94a3b8; --borde-color: #334155;
-    --btn-bg: #1e293b; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(255,255,255,0.04);
-    --icono-sumido: rgba(255,255,255,0.06); --sombra-general: rgba(0,0,0,0.4); --accent-color: #38bdf8; --check-color: #34d399;
-}
-body.tema-tinta {
-    --bg-principal: #f9f5f0; --bg-tarjetas: #fefcf8; --bg-sidebar: #f0e8dc;
-    --texto-principal: #3d2b1f; --texto-secundario: #7a5c44; --borde-color: #d4bfa8;
-    --btn-bg: #ede1d4; --btn-sombra-oscura: rgba(61,43,31,0.14); --btn-sombra-clara: rgba(255,255,255,0.9);
-    --icono-sumido: rgba(0,0,0,0.06); --sombra-general: rgba(61,43,31,0.06); --accent-color: #7a5c44; --check-color: #5a9a6f;
-}
-body.tema-grafito {
-    --bg-principal: #1c2128; --bg-tarjetas: #262d36; --bg-sidebar: #161b22;
-    --texto-principal: #cdd9e5; --texto-secundario: #768390; --borde-color: #373e47;
-    --btn-bg: #2d333b; --btn-sombra-oscura: rgba(0,0,0,0.5); --btn-sombra-clara: rgba(255,255,255,0.04);
-    --icono-sumido: rgba(255,255,255,0.05); --sombra-general: rgba(0,0,0,0.3); --accent-color: #57a0d2; --check-color: #3fb950;
-}
-body.tema-rosado {
-    --bg-principal: #fff1f7; --bg-tarjetas: #fff8fb; --bg-sidebar: #fce7f3;
-    --texto-principal: #831843; --texto-secundario: #be185d; --borde-color: #fbcfe8;
-    --btn-bg: #fce7f3; --btn-sombra-oscura: rgba(131,24,67,0.12); --btn-sombra-clara: rgba(255,255,255,0.9);
-    --icono-sumido: rgba(0,0,0,0.05); --sombra-general: rgba(131,24,67,0.06); --accent-color: #e11d74; --check-color: #059669;
-}
-
-/* ==========================================================================
-   TEMAS ADICIONALES — Neón & Especiales
-   ========================================================================== */
-body.tema-matrix {
-    --bg-principal: #000a00; --bg-tarjetas: #001200; --bg-sidebar: #000800;
-    --texto-principal: #00ff41; --texto-secundario: #00c832; --borde-color: #003300;
-    --btn-bg: #001a00; --btn-sombra-oscura: rgba(0,0,0,0.8); --btn-sombra-clara: rgba(0,255,65,0.08);
-    --icono-sumido: rgba(0,255,65,0.15); --sombra-general: rgba(0,255,65,0.07); --accent-color: #00ff41; --check-color: #00ff41;
-}
-body.tema-synthwave {
-    --bg-principal: #0d0221; --bg-tarjetas: #160633; --bg-sidebar: #08011a;
-    --texto-principal: #f0abfc; --texto-secundario: #e040fb; --borde-color: #4a0e6b;
-    --btn-bg: #220a3a; --btn-sombra-oscura: rgba(0,0,0,0.6); --btn-sombra-clara: rgba(224,64,251,0.08);
-    --icono-sumido: rgba(224,64,251,0.2); --sombra-general: rgba(224,64,251,0.1); --accent-color: #f472b6; --check-color: #34d399;
-}
-body.tema-neon-oro {
-    --bg-principal: #0a0800; --bg-tarjetas: #141000; --bg-sidebar: #080600;
-    --texto-principal: #ffd700; --texto-secundario: #ffc107; --borde-color: #3d3000;
-    --btn-bg: #1a1400; --btn-sombra-oscura: rgba(0,0,0,0.7); --btn-sombra-clara: rgba(255,215,0,0.08);
-    --icono-sumido: rgba(255,215,0,0.15); --sombra-general: rgba(255,215,0,0.08); --accent-color: #ffd700; --check-color: #ffd700;
-}
-
-/* ==========================================================================
-   ANIMACIONES ELEGANTES — Entrada del header
-   ========================================================================== */
-@keyframes headerSlideDown {
-    from { opacity: 0; transform: translateY(-100%); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-header {
-    animation: headerSlideDown 0.38s cubic-bezier(0.4,0,0.2,1) both;
-}
-
-/* Animación de entrada del sidebar */
-@keyframes sidebarFadeIn {
-    from { opacity: 0; transform: translateX(-12px); }
-    to   { opacity: 1; transform: translateX(0); }
-}
-aside {
-    animation: sidebarFadeIn 0.42s cubic-bezier(0.4,0,0.2,1) both;
-}
-
-/* Botones: efecto ripple suave al hacer hover */
-.btn-interactivo {
-    position: relative;
-    overflow: hidden;
-}
-.btn-interactivo::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, var(--btn-sombra-clara) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    pointer-events: none;
-}
-.btn-interactivo:hover::after { opacity: 1; }
-
-/* Split button: brillo en hover */
-.split-accion-principal {
-    position: relative;
-    overflow: hidden;
-}
-.split-accion-principal::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, var(--btn-sombra-clara) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.25s;
-    pointer-events: none;
-}
-.split-accion-principal:hover::after { opacity: 1; }
-
-/* Icono del tema: transición al girar cuando cambia */
-#icono-tema {
-    display: inline-block;
-    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), color 0.25s;
-}
-#icono-tema.girando {
-    transform: rotate(360deg) scale(1.25);
-}
-
-/* Opción de navegación: pequeño slide al hover */
-.opcion-navegacion {
-    transition: background-color 0.18s ease, transform 0.15s ease;
-}
-.opcion-navegacion:hover {
-    transform: translateX(2px);
-}
-
-/* Bloque de lectura: hover suave */
-.bloque-lectura {
-    transition: var(--transicion-tema), box-shadow 0.28s ease, transform 0.28s ease;
-}
-.bloque-lectura:hover {
-    box-shadow: 0 8px 32px var(--sombra-general);
-    transform: translateY(-2px);
-}
-
-/* Badge: pulso suave de entrada */
-@keyframes badgePop {
-    0%   { opacity: 0; transform: scale(0.8); }
-    70%  { transform: scale(1.06); }
-    100% { opacity: 1; transform: scale(1); }
-}
-.badge {
-    animation: badgePop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
-}
-
-/* Separador deco: líneas que se expanden */
-@keyframes lineaExpandir {
-    from { width: 0; opacity: 0; }
-    to   { width: 100%; opacity: 1; }
-}
-.separador-deco::before,
-.separador-deco::after {
-    animation: lineaExpandir 0.6s cubic-bezier(0.4,0,0.2,1) 0.1s both;
-}
-
-/* Menús flotantes: entrada limpia sin rebote */
-.menu-temas-flotante.activo, .menu-opciones-flotante.activo {
-    animation: menuSpring 0.22s cubic-bezier(0.4,0,0.2,1);
-}
-@keyframes menuSpring {
-    from { opacity: 0; transform: translateY(-8px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* Item de tema: destello al seleccionarse */
-.item-tema-opcion.seleccionado {
-    background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
-    transition: background-color 0.2s;
-}
-
-/* Transición del contenido central al cambiar página */
-#contenedor-central {
-    animation: pageEnter 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-@keyframes pageEnter {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Carpeta cabecera: flecha con bounce */
-.carpeta-cabecera .indicador-flecha {
-    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+    main { padding: 40px 48px; }
 }

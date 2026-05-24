@@ -1,19 +1,24 @@
 // config.js
 export const configSitio = {
-    // Registro de sub-páginas
+    // ─── Páginas registradas ───────────────────────────────────────────────────
     paginas: [
-        { id: "inicio", titulo: "Inicio Principal", icono: "🏠", archivo: "inicio.js" },
-        { id: "texto-uno", titulo: "Texto Uno (Demo)", icono: "📄", archivo: "texto-uno.js" }
+        { id: "inicio",    titulo: "Inicio Principal",  icono: "🏠", archivo: "inicio.js"    },
+        { id: "texto-uno", titulo: "Texto Uno (Demo)",  icono: "📄", archivo: "texto-uno.js" }
     ],
 
-    // Registro de Temas
-    // Los 3 básicos se muestran SUELTOS en el menú (antes de la línea divisora).
-    // Las categorías de abajo se muestran en carpetas desplegables.
+    // ─── Los 3 temas básicos del botón izquierdo (ciclo) ─────────────────────
+    temasBasicos: [
+        { id: "auto",  nombre: "Automático", icono: "A",  color: "#a1a1aa", borde: false },
+        { id: "light", nombre: "Claro",      icono: "☼", color: "#ffffff", borde: true  },
+        { id: "dark",  nombre: "Oscuro",     icono: "☽", color: "#1e1e1e", borde: false }
+    ],
+
+    // ─── Categorías de temas en carpetas ─────────────────────────────────────
     categoriasTemas: [
         {
             nombre: "🌡️ TONOS CÁLIDOS",
             temas: [
-                { id: "retro",    nombre: "Retro Rosado",   color: "#bc4749", icono: "🌸" },
+                { id: "retro",    nombre: "Retro Rosado",    color: "#bc4749", icono: "🌸" },
                 { id: "desierto", nombre: "Desierto Arena",  color: "#b4846c", icono: "🏜️" },
                 { id: "amanecer", nombre: "Amanecer Suave",  color: "#e07b54", icono: "🌅" },
                 { id: "cafe",     nombre: "Café Oscuro",     color: "#6f4e37", icono: "☕" },
@@ -43,7 +48,7 @@ export const configSitio = {
         {
             nombre: "🎨 MODERNOS",
             temas: [
-                { id: "minimal",  nombre: "Minimal Blanco",  color: "#f1f5f9", icono: "◻️" },
+                { id: "minimal",  nombre: "Minimal Blanco",  color: "#f1f5f9", icono: "◻️", borde: true },
                 { id: "carbon",   nombre: "Carbón Slate",    color: "#334155", icono: "🪨" },
                 { id: "tinta",    nombre: "Tinta Sepia",     color: "#3d2b1f", icono: "✒️" },
                 { id: "grafito",  nombre: "Grafito Puro",    color: "#475569", icono: "📐" },
