@@ -669,13 +669,14 @@ texto-dinamico h4 {
         width: var(--ancho-sidebar-total) !important;
     }
 
-    /* Textos ocultos por defecto en móvil (el sidebar está fuera de pantalla) */
+    /* Textos: se desvanecen suavemente al cerrar */
     aside .texto-opcion,
     aside .sidebar-brand-nombre,
     aside .sidebar-footer {
         opacity: 0 !important;
         transform: translateX(-8px) !important;
         pointer-events: none !important;
+        transition: opacity 0.18s ease, transform 0.18s ease !important;
         transition-delay: 0s !important;
     }
 
@@ -688,14 +689,15 @@ texto-dinamico h4 {
         transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0s, var(--transicion-tema);
     }
 
-    /* Textos visibles solo cuando el sidebar está abierto */
+    /* Textos visibles y con fade al abrir */
     body.sidebar-abierta aside .texto-opcion,
     body.sidebar-abierta aside .sidebar-brand-nombre,
     body.sidebar-abierta aside .sidebar-footer {
         opacity: 1 !important;
         transform: translateX(0) !important;
         pointer-events: auto !important;
-        transition-delay: 0.08s !important;
+        transition: opacity 0.22s ease, transform 0.22s ease !important;
+        transition-delay: 0.1s !important;
     }
 
     /* Overlay con desenfoque solo en móvil */
@@ -938,12 +940,12 @@ aside {
     animation: lineaExpandir 0.6s cubic-bezier(0.4,0,0.2,1) 0.1s both;
 }
 
-/* Menús flotantes: spring de entrada */
+/* Menús flotantes: spring suave como respiración */
 .menu-temas-flotante.activo, .menu-opciones-flotante.activo {
-    animation: menuSpring 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    animation: menuSpring 0.32s cubic-bezier(0.34,1.15,0.64,1);
 }
 @keyframes menuSpring {
-    from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+    from { opacity: 0; transform: translateY(-10px) scale(0.96); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
