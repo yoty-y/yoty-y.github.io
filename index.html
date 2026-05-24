@@ -13,26 +13,26 @@
     <div class="layout-global">
         <div class="overlay-fondo" id="overlay-sidebar"></div>
 
-        <!-- BARRA LATERAL (siempre fixed, se desliza con clase sidebar-abierta) -->
+        <!-- SIDEBAR: mini en reposo, expande con hover (desktop) o clase (móvil) -->
         <aside id="barra-lateral">
+            <!-- Cabecera del sidebar: botón ☰ siempre visible, nombre aparece al expandir -->
             <div class="sidebar-brand" id="btn-cerrar-sidebar">
-                <div>
-                    <div class="sidebar-brand-nombre">Yoty-y</div>
-                    <div class="sidebar-brand-sub">mi espacio web</div>
-                </div>
-                <button class="btn-interactivo" style="flex-shrink:0; width:34px; height:34px; padding:0;" aria-label="Cerrar menú">
-                    <span>✕</span>
+                <button class="btn-interactivo" style="flex-shrink:0;" aria-label="Alternar menú">
+                    <span>☰</span>
                 </button>
+                <span class="sidebar-brand-nombre">Yoty-y</span>
             </div>
+
             <nav id="menu-navegacion-paginas"></nav>
+
             <div class="sidebar-footer">v2.0 · modular spa</div>
         </aside>
 
-        <!-- CONTENIDO PRINCIPAL (ocupa todo el ancho siempre) -->
+        <!-- CONTENIDO PRINCIPAL -->
         <div class="contenido-interfaz" id="contenido-interfaz">
             <header id="encabezado-fijo">
                 <div class="header-izq">
-                    <!-- Botón hamburguesa visible siempre -->
+                    <!-- Solo visible en móvil -->
                     <button class="btn-interactivo btn-menu-movil" id="btn-abrir-sidebar" aria-label="Abrir menú">
                         <span>☰</span>
                     </button>
@@ -40,18 +40,18 @@
                 </div>
 
                 <div class="header-der">
-                    <!-- Selector de Tema: split button + menú FUERA del split -->
+                    <!-- Selector de tema -->
                     <div class="posicion-menu-relativo">
                         <div class="contenedor-split-button">
                             <div class="split-accion-principal" id="btn-rotar-tema" title="Tema Automático">
-                                <span id="icono-tema" style="font-weight:700; font-size:1rem;">A</span>
+                                <span id="icono-tema" style="font-weight:700; font-size:1rem; color:var(--texto-principal);">A</span>
                             </div>
                             <div class="split-divisor"></div>
                             <div class="split-flecha" id="btn-toggle-temas" title="Más Temas">
-                                <span style="font-size:0.65rem; opacity:0.7;">▼</span>
+                                <span>▼</span>
                             </div>
                         </div>
-                        <!-- El menú flotante FUERA del split-button para posicionarse bien -->
+                        <!-- FUERA del split-button para posicionarse correctamente -->
                         <div class="menu-temas-flotante" id="menu-flotante"></div>
                     </div>
 
@@ -62,7 +62,9 @@
                         </button>
                         <div class="menu-opciones-flotante" id="menu-opciones">
                             <div class="carpeta-categoria abierta">
-                                <div class="carpeta-cabecera"><span>📖 Modo de lectura</span></div>
+                                <div class="carpeta-cabecera">
+                                    <span>📖 Modos de Lectura</span>
+                                </div>
                                 <div class="carpeta-contenido">
                                     <div class="item-tema-opcion seleccionado" id="opt-lectura-detallada" data-modo="detallada">
                                         <div class="item-flex-izq"><span>📚 Modo Detallado</span></div>
@@ -75,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="menu-divisor-linea"></div>
-                            <div class="item-tema-opcion" id="btn-restablecer" style="color:var(--texto-secundario); font-size:0.82rem;">
+                            <div class="item-tema-opcion" id="btn-restablecer" style="color:var(--texto-secundario); font-size:0.8rem;">
                                 <span>🔄 Restablecer Todo</span>
                             </div>
                         </div>
