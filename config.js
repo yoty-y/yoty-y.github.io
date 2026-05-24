@@ -1,25 +1,22 @@
 export const configSitio = {
-    // 1. REGISTRO DE PÁGINAS Y JERARQUÍA MULTI-NIVEL
-    // visible: 1 (Aparece en menú) | visible: 0 (Oculto en menú, pero accesible por enlace)
-    // padre: "id-del-padre" (Crea un subnivel) | padre: null (Página principal)
+    // visible: 1 (Menú) | 0 (Oculto)
+    // padre: id del superior | null (Raíz)
     paginas: [
         { id: "inicio", titulo: "Inicio Principal", archivo: "inicio.js", icono: "🏠", visible: 1, padre: null },
         
-            // --- SUBPÁGINAS DE INICIO ---
-            { id: "sub-inicio-progreso", titulo: "Mi Progreso", archivo: "sub-inicio-progreso.js", icono: "📈", visible: 1, padre: "inicio" },
+            // Subnivel 1
+            { id: "sub-inicio-progreso", titulo: "Mi Progreso", archivo: "progreso.js", icono: "📈", visible: 1, padre: "inicio" },
                 
-                // Nivel 2 (Sub-subpágina)
-                { id: "sub-inicio-detalles", titulo: "Métricas", archivo: "sub-inicio-detalles.js", icono: "📊", visible: 1, padre: "sub-inicio-progreso" },
+                // Subnivel 2
+                { id: "sub-inicio-detalles", titulo: "Métricas", archivo: "metricas.js", icono: "📊", visible: 1, padre: "sub-inicio-progreso" },
             
-            // Página de prueba oculta en el menú (visible: 0) pero enlazable desde inicio.js
+            // Página oculta
             { id: "pagina-prueba-hijo", titulo: "Prueba Oculta", archivo: "sub-inicio.js", icono: "🧪", visible: 0, padre: "inicio" },
 
-        // --- OTRAS PÁGINAS PRINCIPALES ---
         { id: "texto-uno", titulo: "Texto Uno", archivo: "texto-uno.js", icono: "📄", visible: 1, padre: null },
         { id: "texto-dos", titulo: "Texto Dos", archivo: "texto-dos.js", icono: "📄", visible: 1, padre: null }
     ],
 
-    // 2. REGISTRO DE TEMAS (Metadata para el menú, NO los estilos reales)
     categoriasTemas: [
         {
             nombre: "🌈 MULTICOLOR & NEÓN",
