@@ -6,25 +6,24 @@ let paginaActualId = localStorage.getItem('pagina-actual') || configSitio.pagina
 let moduloPaginaActual = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    inicializarEventos();
-    construirMenuTemas();
+    inicializarUI();
     construirMenuSidebar();
     aplicarTema(temaActual);
     aplicarModoLectura(modoLecturaActual);
     cargarPagina(paginaActualId);
 });
 
-function inicializarEventos() {
-    // Toggle Sidebar escritorio y móvil
-    const toggleSidebar = () => document.body.classList.toggle('sidebar-abierta');
-    document.getElementById('btn-toggle-sidebar-manual').onclick = toggleSidebar;
-    document.getElementById('btn-abrir-movil').onclick = toggleSidebar;
+function inicializarUI() {
+    // Toggle Sidebar (Solo el botón de las 3 rayas)
+    const toggle = () => document.body.classList.toggle('sidebar-abierta');
+    document.getElementById('btn-cerrar-sidebar').onclick = toggle;
+    document.getElementById('btn-abrir-sidebar').onclick = toggle;
     document.getElementById('overlay-sidebar').onclick = () => document.body.classList.remove('sidebar-abierta');
 
-    // Menús flotantes (Tres puntos y Temas)
+    // Menús flotantes
     const btnTemas = document.getElementById('btn-abrir-temas');
-    const btnOpciones = document.getElementById('btn-abrir-opciones');
-    const menuTemas = document.getElementById('menu-temas');
+    const btnOpciones = document.getElementById('btn-toggle-opciones');
+    const menuTemas = document.getElementById('menu-flotante');
     const menuOpciones = document.getElementById('menu-opciones');
 
     btnTemas.onclick = (e) => {
@@ -44,13 +43,8 @@ function inicializarEventos() {
         menuOpciones.classList.remove('activo');
     });
 
-    // Modos de lectura
     document.getElementById('opt-lectura-detallada').onclick = () => aplicarModoLectura('detallada');
     document.getElementById('opt-lectura-resumida').onclick = () => aplicarModoLectura('resumida');
-    document.getElementById('btn-restablecer').onclick = () => {
-        localStorage.clear();
-        location.reload();
-    };
 }
 
 async function cargarPagina(id) {
@@ -63,81 +57,69 @@ async function cargarPagina(id) {
         const modulo = await import(`./paginas/${pag.archivo}`);
         moduloPaginaActual = modulo.contenido;
         document.getElementById('contenedor-central').innerHTML = moduloPaginaActual[modoLecturaActual];
-        document.getElementById('titulo-pagina').textContent = pag.titulo;
-        construirMenuSidebar(); 
-    } catch (e) { console.error("Error:", e); }
+        construirMenuSidebar(); // Refrescar para marcar activo
+    } catch (e) { console.error("Error al cargar página:", e); }
 }
 
 function construirMenuSidebar() {
     const nav = document.getElementById('menu-navegacion-paginas');
     nav.innerHTML = '';
 
-    const render = (padreId, contenedor) => {
-        const hijos = configSitio.paginas.filter(p => p.padre === padreId && p.visible === 1);
-        hijos.forEach(pag => {
+    // Función recursiva para niveles infinitos
+    const renderNivel = (padreId, contenedor) => {
+        const paginas = configSitio.paginas.filter(p => p.padre === padreId && p.visible === 1);
+        
+        paginas.forEach(pag => {
             const grupo = document.createElement('div');
             grupo.className = 'bloque-menu-grupo';
             
-            const item = document.createElement('div');
-            item.className = `opcion-navegacion ${paginaActualId === pag.id ? 'activa' : ''}`;
-            
             const tieneHijos = configSitio.paginas.some(p => p.padre === pag.id && p.visible === 1);
+            const estaActiva = paginaActualId === pag.id;
+
+            const item = document.createElement('div');
+            item.className = `opcion-navegacion ${estaActiva ? 'activa' : ''}`;
             
             item.innerHTML = `
                 <button class="btn-interactivo"><span>${pag.icono}</span></button>
                 <div class="texto-opcion">
-                    <span class="nav-link">${pag.titulo}</span>
+                    <span class="label-nav">${pag.titulo}</span>
                     ${tieneHijos ? `<span class="flecha-desplegable">▼</span>` : ''}
                 </div>
             `;
 
-            // Lógica solicitada: Icono y Texto NAVEGAN. Flecha DESPLIEGA.
+            // CLIC EN ICONO O TEXTO: NAVEGA
             item.querySelector('.btn-interactivo').onclick = () => cargarPagina(pag.id);
-            item.querySelector('.nav-link').onclick = () => cargarPagina(pag.id);
+            item.querySelector('.label-nav').onclick = () => cargarPagina(pag.id);
 
             grupo.appendChild(item);
 
             if (tieneHijos) {
-                const sub = document.createElement('div');
-                sub.className = 'submenu-hijos';
-                const flecha = item.querySelector('.flecha-desplegable');
+                const subContenedor = document.createElement('div');
+                subContenedor.className = 'submenu-hijos';
                 
+                // CLIC EN FLECHA: DESPLIEGA
+                const flecha = item.querySelector('.flecha-desplegable');
                 flecha.onclick = (e) => {
                     e.stopPropagation();
-                    sub.classList.toggle('activo');
+                    subContenedor.classList.toggle('activo');
                     flecha.classList.toggle('rotada');
                 };
 
-                render(pag.id, sub);
-                grupo.appendChild(sub);
+                renderNivel(pag.id, subContenedor);
+                grupo.appendChild(subContenedor);
             }
             contenedor.appendChild(grupo);
         });
     };
-    render(null, nav);
+
+    renderNivel(null, nav);
 }
 
-function construirMenuTemas() {
-    const cont = document.getElementById('menu-temas');
-    let html = configSitio.categoriasTemas.map(cat => `
-        <div class="carpeta-cabecera" style="font-weight:bold; font-size:0.7rem; margin-top:5px; opacity:0.6">${cat.nombre}</div>
-        ${cat.temas.map(t => `<div class="item-tema-opcion" data-tema="${t.id}">${t.icono} ${t.nombre}</div>`).join('')}
-    `).join('');
-    cont.innerHTML = html;
-    cont.querySelectorAll('.item-tema-opcion').forEach(el => {
-        el.onclick = () => {
-            temaActual = el.dataset.tema;
-            localStorage.setItem('tema-guardado', temaActual);
-            aplicarTema(temaActual);
-        };
-    });
-}
-
+// Lógica de Temas (Simplificada para que funcione siempre)
 function aplicarTema(id) {
     document.body.className = document.body.className.replace(/tema-\w+|modo-oscuro/g, '').trim();
     if (id === 'dark') document.body.classList.add('modo-oscuro');
     else if (id !== 'auto' && id !== 'light') document.body.classList.add(`tema-${id}`);
-    document.getElementById('icono-tema').textContent = id === 'dark' ? '☽' : 'A';
 }
 
 function aplicarModoLectura(modo) {
