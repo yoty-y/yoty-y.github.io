@@ -1,27 +1,26 @@
+// config.js
 export const configSitio = {
+    // Registro de sub-páginas
     paginas: [
-        { id: "inicio", titulo: "Inicio", archivo: "inicio.js", icono: "🏠", visible: 1, padre: null },
-        { id: "progreso", titulo: "Mi Progreso", archivo: "progreso.js", icono: "📈", visible: 1, padre: "inicio" },
-        { id: "metricas", titulo: "Métricas", archivo: "metricas.js", icono: "📊", visible: 1, padre: "progreso" },
-        
-        { id: "programas", titulo: "Programas", archivo: "programas.js", icono: "💻", visible: 1, padre: null },
-        
-        { id: "texto-uno", titulo: "Texto Uno", archivo: "texto-uno.js", icono: "📄", visible: 1, padre: null }
+        { id: "inicio", titulo: "Inicio Principal", icono: "🏠", archivo: "inicio.js" },
+        { id: "texto-uno", titulo: "Texto Uno (Demo)", icono: "📄", archivo: "texto-uno.js" }
     ],
 
+    // Registro de Temas
     categoriasTemas: [
         {
-            nombre: "🌈 MULTICOLOR & NEÓN",
+            nombre: "🌈 BÁSICOS",
             temas: [
-                { id: "cyberpunk", nombre: "⚡ Cyberpunk", icono: "⚡" },
-                { id: "rgb", nombre: "🎮 Espectro RGB", icono: "🎮" }
+                { id: "auto", nombre: "Automático", color: "#a1a1aa", icono: "A" },
+                { id: "light", nombre: "Claro", color: "#ffffff", icono: "☼" },
+                { id: "dark", nombre: "Oscuro", color: "#1e1e1e", icono: "☽" }
             ]
         },
         {
-            nombre: "🌊 TONOS FRÍOS",
+            nombre: "⚡ MULTICOLOR & NEÓN",
             temas: [
-                { id: "oceano", nombre: "🌊 Océano Profundo", icono: "🌊" },
-                { id: "dark", nombre: "🌑 Oscuro Puro", icono: "🌑" }
+                { id: "cyberpunk", nombre: "Cyberpunk", color: "#ff007f", icono: "⚡" },
+                { id: "rgb", nombre: "Espectro RGB", color: "#00ff66", icono: "🎮" }
             ]
         }
     ]

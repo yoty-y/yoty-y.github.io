@@ -1,24 +1,70 @@
-<header id="encabezado-fijo">
-    <div class="header-izq">
-        <button class="btn-interactivo btn-menu-movil" id="btn-abrir-sidebar"><span>☰</span></button>
-        <h2 id="titulo-web">Mi Web</h2>
-    </div>
-    
-    <div class="header-der">
-        <div class="posicion-menu-relativo">
-            <button class="btn-interactivo" id="btn-abrir-temas"><span>🎨</span></button>
-            <div class="menu-flotante" id="menu-flotante">
-                </div>
-        </div>
-        
-        <div class="posicion-menu-relativo">
-            <button class="btn-interactivo" id="btn-toggle-opciones"><span>⋮</span></button>
-            <div class="menu-flotante" id="menu-opciones">
-                <div class="item-tema-opcion" id="opt-lectura-detallada"><span>📚 Detallado</span></div>
-                <div class="item-tema-opcion" id="opt-lectura-resumida"><span>⚡ Sintético</span></div>
-                <hr>
-                <div class="item-tema-opcion" onclick="location.reload()"><span>🔄 Reiniciar</span></div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La web de Yoty-y</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="lectura-detallada">
+
+    <div class="layout-global">
+        <div class="overlay-fondo" id="overlay-sidebar"></div>
+
+        <aside id="barra-lateral">
+            <div class="opcion-navegacion divisor-sidebar" id="btn-cerrar-sidebar">
+                <button class="btn-interactivo" style="flex-shrink: 0;" aria-label="Alternar Menú"><span>☰</span></button>
+                <span class="texto-opcion" style="font-weight: bold; color: var(--texto-secundario);">Menú Lateral</span>
             </div>
+            <nav id="menu-navegacion-paginas"></nav>
+        </aside>
+
+        <div class="contenido-interfaz" id="contenido-interfaz">
+            <header id="encabezado-fijo">
+                <div class="header-izq">
+                    <button class="btn-interactivo btn-menu-movil" id="btn-abrir-sidebar"><span>☰</span></button>
+                    <h2>Mi Sitio Web</h2>
+                </div>
+                
+                <div class="header-der">
+                    <div class="posicion-menu-relativo">
+                        <div class="contenedor-split-button">
+                            <div class="split-accion-principal" id="btn-rotar-tema" title="Tema Automático">
+                                <span id="icono-tema" style="font-weight: bold; color: var(--texto-principal); font-size: 1.1rem;">A</span>
+                            </div>
+                            <div class="split-divisor"></div>
+                            <div class="split-flecha" id="btn-toggle-temas" title="Más Temas"><span>▼</span></div>
+                            <div class="menu-temas-flotante" id="menu-flotante"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="posicion-menu-relativo">
+                        <button class="btn-interactivo" id="btn-toggle-opciones" title="Opciones"><span>⋮</span></button>
+                        <div class="menu-opciones-flotante" id="menu-opciones">
+                            <div class="carpeta-categoria abierta">
+                                <div class="carpeta-cabecera"><span>📖 MODOS DE LECTURA</span></div>
+                                <div class="carpeta-contenido">
+                                    <div class="item-tema-opcion seleccionado" id="opt-lectura-detallada" data-modo="detallada">
+                                        <div class="item-flex-izq"><span>📚 Modo Detallado</span></div><span class="check-seleccionado">✓</span>
+                                    </div>
+                                    <div class="item-tema-opcion" id="opt-lectura-resumida" data-modo="resumida">
+                                        <div class="item-flex-izq"><span>⚡ Modo Sintético</span></div><span class="check-seleccionado">✓</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-divisor-linea"></div>
+                            <div class="item-tema-opcion" id="btn-restablecer" style="color: var(--texto-secundario); font-size: 0.8rem;">
+                                <span>🔄 Restablecer Todo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main id="contenedor-central"></main>
         </div>
     </div>
-</header>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

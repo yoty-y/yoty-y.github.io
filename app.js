@@ -1,131 +1,70 @@
+// app.js
 import { configSitio } from './config.js';
-
-let temaActual = localStorage.getItem('tema-guardado') || 'auto';
-let modoLecturaActual = localStorage.getItem('modo-lectura-guardado') || 'detallada';
-let paginaActualId = localStorage.getItem('pagina-actual') || configSitio.paginas[0].id;
-let moduloPaginaActual = null;
+import { EstadoGlobal } from './js/core.js';
+import { construirSidebar, construirMenuTemas } from './js/builders.js';
+import './js/componentes.js'; // Activa el <texto-dinamico>
 
 document.addEventListener('DOMContentLoaded', () => {
-    inicializarUI();
-    construirMenuSidebar();
-    aplicarTema(temaActual);
-    aplicarModoLectura(modoLecturaActual);
-    cargarPagina(paginaActualId);
-});
-
-function inicializarUI() {
-    // Toggle Sidebar (Solo el botón de las 3 rayas)
-    const toggle = () => document.body.classList.toggle('sidebar-abierta');
-    document.getElementById('btn-cerrar-sidebar').onclick = toggle;
-    document.getElementById('btn-abrir-sidebar').onclick = toggle;
-    document.getElementById('overlay-sidebar').onclick = () => document.body.classList.remove('sidebar-abierta');
-
-    // Menús flotantes
-    const btnTemas = document.getElementById('btn-abrir-temas');
-    const btnOpciones = document.getElementById('btn-toggle-opciones');
-    const menuTemas = document.getElementById('menu-flotante');
-    const menuOpciones = document.getElementById('menu-opciones');
-
-    btnTemas.onclick = (e) => {
-        e.stopPropagation();
-        menuOpciones.classList.remove('activo');
-        menuTemas.classList.toggle('activo');
-    };
-
-    btnOpciones.onclick = (e) => {
-        e.stopPropagation();
-        menuTemas.classList.remove('activo');
-        menuOpciones.classList.toggle('activo');
-    };
-
-    document.addEventListener('click', () => {
-        menuTemas.classList.remove('activo');
-        menuOpciones.classList.remove('activo');
+    // 1. Construir Interfaz
+    construirSidebar(configSitio, 'menu-navegacion-paginas', id => {
+        EstadoGlobal.cargarPagina(id);
+        if(window.innerWidth < 768) document.body.classList.remove('sidebar-abierta');
     });
 
-    document.getElementById('opt-lectura-detallada').onclick = () => aplicarModoLectura('detallada');
-    document.getElementById('opt-lectura-resumida').onclick = () => aplicarModoLectura('resumida');
-}
+    construirMenuTemas(configSitio, 'menu-flotante', id => {
+        EstadoGlobal.aplicarTema(id);
+        cerrarMenus();
+    });
 
-async function cargarPagina(id) {
-    const pag = configSitio.paginas.find(p => p.id === id);
-    if (!pag) return;
-    paginaActualId = id;
-    localStorage.setItem('pagina-actual', id);
+    // 2. Cargar Estado Inicial
+    const temaGuardado = localStorage.getItem('tema-guardado') || 'auto';
+    EstadoGlobal.aplicarTema(temaGuardado);
+    EstadoGlobal.aplicarModoLectura(window.modoLecturaActual);
     
-    try {
-        const modulo = await import(`./paginas/${pag.archivo}`);
-        moduloPaginaActual = modulo.contenido;
-        document.getElementById('contenedor-central').innerHTML = moduloPaginaActual[modoLecturaActual];
-        construirMenuSidebar(); // Refrescar para marcar activo
-    } catch (e) { console.error("Error al cargar página:", e); }
-}
+    const paginaGuardada = localStorage.getItem('pagina-actual') || configSitio.paginas[0].id;
+    EstadoGlobal.cargarPagina(paginaGuardada);
 
-function construirMenuSidebar() {
-    const nav = document.getElementById('menu-navegacion-paginas');
-    nav.innerHTML = '';
+    // 3. Eventos de la UI
+    document.getElementById('opt-lectura-detallada').addEventListener('click', () => { EstadoGlobal.aplicarModoLectura('detallada'); cerrarMenus(); });
+    document.getElementById('opt-lectura-resumida').addEventListener('click', () => { EstadoGlobal.aplicarModoLectura('resumida'); cerrarMenus(); });
+    document.getElementById('btn-restablecer').addEventListener('click', () => { EstadoGlobal.restablecer(); cerrarMenus(); });
+    
+    // Toggles de menús
+    const menuTemas = document.getElementById('menu-flotante');
+    const menuOpciones = document.getElementById('menu-opciones');
+    
+    document.getElementById('btn-toggle-temas').addEventListener('click', e => { e.stopPropagation(); menuOpciones.classList.remove('activo'); menuTemas.classList.toggle('activo'); });
+    document.getElementById('btn-toggle-opciones').addEventListener('click', e => { e.stopPropagation(); menuTemas.classList.remove('activo'); menuOpciones.classList.toggle('activo'); });
+    
+    // Sidebar
+    const toggleSidebar = (e) => { e.stopPropagation(); document.body.classList.toggle('sidebar-abierta'); };
+    document.getElementById('btn-abrir-sidebar').addEventListener('click', toggleSidebar);
+    document.getElementById('btn-cerrar-sidebar').addEventListener('click', toggleSidebar);
+    document.getElementById('overlay-sidebar').addEventListener('click', () => document.body.classList.remove('sidebar-abierta'));
 
-    // Función recursiva para niveles infinitos
-    const renderNivel = (padreId, contenedor) => {
-        const paginas = configSitio.paginas.filter(p => p.padre === padreId && p.visible === 1);
-        
-        paginas.forEach(pag => {
-            const grupo = document.createElement('div');
-            grupo.className = 'bloque-menu-grupo';
-            
-            const tieneHijos = configSitio.paginas.some(p => p.padre === pag.id && p.visible === 1);
-            const estaActiva = paginaActualId === pag.id;
+    function cerrarMenus() {
+        menuTemas.classList.remove('activo');
+        menuOpciones.classList.remove('activo');
+    }
+    document.addEventListener('click', cerrarMenus);
+});
 
-            const item = document.createElement('div');
-            item.className = `opcion-navegacion ${estaActiva ? 'activa' : ''}`;
-            
-            item.innerHTML = `
-                <button class="btn-interactivo"><span>${pag.icono}</span></button>
-                <div class="texto-opcion">
-                    <span class="label-nav">${pag.titulo}</span>
-                    ${tieneHijos ? `<span class="flecha-desplegable">▼</span>` : ''}
-                </div>
-            `;
+// Sincronizar UI cuando cambian cosas
+window.addEventListener('modoLecturaCambiado', (e) => {
+    document.querySelectorAll('.menu-opciones-flotante .item-tema-opcion').forEach(el => el.classList.remove('seleccionado'));
+    document.querySelector(`[data-modo="${e.detail}"]`)?.classList.add('seleccionado');
+});
 
-            // CLIC EN ICONO O TEXTO: NAVEGA
-            item.querySelector('.btn-interactivo').onclick = () => cargarPagina(pag.id);
-            item.querySelector('.label-nav').onclick = () => cargarPagina(pag.id);
+window.addEventListener('temaCambiado', (e) => {
+    document.querySelectorAll('.menu-temas-flotante .item-tema-opcion').forEach(el => el.classList.remove('seleccionado'));
+    document.querySelector(`[data-tema="${e.detail}"]`)?.classList.add('seleccionado');
+    
+    const temaConfig = configSitio.categoriasTemas.flatMap(c => c.temas).find(t => t.id === e.detail);
+    if(temaConfig) document.getElementById('icono-tema').textContent = temaConfig.icono;
+});
 
-            grupo.appendChild(item);
-
-            if (tieneHijos) {
-                const subContenedor = document.createElement('div');
-                subContenedor.className = 'submenu-hijos';
-                
-                // CLIC EN FLECHA: DESPLIEGA
-                const flecha = item.querySelector('.flecha-desplegable');
-                flecha.onclick = (e) => {
-                    e.stopPropagation();
-                    subContenedor.classList.toggle('activo');
-                    flecha.classList.toggle('rotada');
-                };
-
-                renderNivel(pag.id, subContenedor);
-                grupo.appendChild(subContenedor);
-            }
-            contenedor.appendChild(grupo);
-        });
-    };
-
-    renderNivel(null, nav);
-}
-
-// Lógica de Temas (Simplificada para que funcione siempre)
-function aplicarTema(id) {
-    document.body.className = document.body.className.replace(/tema-\w+|modo-oscuro/g, '').trim();
-    if (id === 'dark') document.body.classList.add('modo-oscuro');
-    else if (id !== 'auto' && id !== 'light') document.body.classList.add(`tema-${id}`);
-}
-
-function aplicarModoLectura(modo) {
-    modoLecturaActual = modo;
-    localStorage.setItem('modo-lectura-guardado', modo);
-    document.body.classList.remove('lectura-detallada', 'lectura-resumida');
-    document.body.classList.add(`lectura-${modo}`);
-    if (moduloPaginaActual) document.getElementById('contenedor-central').innerHTML = moduloPaginaActual[modo];
-}
+window.addEventListener('paginaCambiada', (e) => {
+    document.querySelectorAll('.opcion-navegacion').forEach(el => {
+        el.style.color = el.dataset.id === e.detail ? 'var(--texto-principal)' : 'inherit';
+    });
+});
