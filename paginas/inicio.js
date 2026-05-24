@@ -2,23 +2,35 @@ export const contenido = {
     detallada: `
         <h3 class="titulo-contenido">Contenido Dinámico Adaptable</h3>
         <p style="text-align: center; font-size: 0.9rem; color: var(--texto-secundario); margin-bottom: 20px;">
-            Estás en la página de INICIO. Cambia el modo de lectura en el menú de los tres puntos (⋮).
+            Estás en la página de INICIO.
         </p>
 
         <div class="bloque-lectura">
-            <h4>🚀 El Futuro del Desarrollo Web</h4>
+            <h4>🚀 Arquitectura SPA</h4>
             <div class="txt-detallado">
-                El diseño web moderno ha evolucionado hacia arquitecturas sumamente dinámicas. La inyección de variables personalizadas desde hojas de estilo CSS combinadas con la interactividad en tiempo real de JavaScript nos permite crear interfaces altamente responsivas sin la necesidad de recargar componentes pesados, mejorando drásticamente el rendimiento técnico del lado del cliente y optimizando los tiempos de respuesta.
+                Aquí comprobamos que la arquitectura dinámica funciona a la perfección.
             </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <p style="font-size: 0.9rem; margin-bottom: 15px;">Este botón lleva a una página que existe en config.js pero no está en la barra lateral:</p>
+            <button onclick="window.cargarPagina('pagina-prueba-hijo')" class="btn-interactivo" style="width: auto; padding: 0 15px;">
+                <span>Ir a Página Oculta ➔</span>
+            </button>
         </div>
     `,
     resumida: `
         <h3 class="titulo-contenido">Inicio (Resumen)</h3>
         <div class="bloque-lectura">
-            <h4>🚀 Desarrollo Web Rápido</h4>
+            <h4>🚀 SPA Funcional</h4>
             <div class="txt-resumido">
-                El desarrollo web actual usa CSS Variables + JS para crear páginas rápidas, ultra-interactivas y fluidas sin recargar el navegador. ¡Eficiencia pura! ⚡
+                La web funciona sin recargas.
             </div>
+        </div>
+        <div style="margin-top: 20px; text-align: center;">
+            <button onclick="window.cargarPagina('pagina-prueba-hijo')" class="btn-interactivo" style="width: auto; padding: 0 15px;">
+                <span>Ir a Oculta ➔</span>
+            </button>
         </div>
     `
 };
