@@ -1,10 +1,7 @@
-/* ========================================== */
-/* 1. ESTRUCTURA GLOBAL Y DISEÑO BASE         */
-/* ========================================== */
 :root {
-    --ancho-sidebar-mini: 65px;
+    --ancho-sidebar-mini: 70px;
     --ancho-sidebar-total: 260px; 
-    --alto-header: 55px;
+    --alto-header: 60px;
     --bg-principal: #f4f4f9;
     --bg-tarjetas: #ffffff;
     --bg-sidebar: #e2e8f0;
@@ -14,101 +11,97 @@
     --btn-bg: #f1f5f9;
     --btn-sombra-oscura: rgba(148, 163, 184, 0.3);
     --btn-sombra-clara: rgba(255, 255, 255, 0.8);
-    --icono-sumido: rgba(0, 0, 0, 0.15);
     --sombra-general: rgba(0, 0, 0, 0.05);
-    --transicion-tema: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-principal); color: var(--texto-principal);
-    transition: var(--transicion-tema); min-height: 100vh; overflow-x: hidden;
-}
+body { font-family: system-ui, sans-serif; background-color: var(--bg-principal); color: var(--texto-principal); overflow: hidden; }
 
-.layout-global { display: flex; width: 100%; height: 100vh; overflow: hidden; }
+.layout-global { display: flex; width: 100vw; height: 100vh; }
 
-/* BARRA LATERAL */
+/* SIDEBAR REESTRUCTURADO */
 aside { 
-    width: var(--ancho-sidebar-mini); height: 100vh; background-color: var(--bg-sidebar); 
-    display: flex; flex-direction: column; padding: 9px 13px; gap: 20px; flex-shrink: 0; 
-    overflow-y: auto; overflow-x: hidden; z-index: 2000; 
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), var(--transicion-tema); 
+    width: var(--ancho-sidebar-mini); height: 100%; background-color: var(--bg-sidebar); 
+    display: flex; flex-direction: column; padding: 10px; gap: 15px; flex-shrink: 0; 
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2000; overflow-x: hidden;
 }
-
-#menu-navegacion-paginas { display: flex; flex-direction: column; width: 100%; }
-
-/* NODOS PRINCIPALES (Los que no tienen padre) */
-#menu-navegacion-paginas > .bloque-menu-grupo { margin-bottom: 12px; }
+body.sidebar-abierta aside { width: var(--ancho-sidebar-total); }
 
 .opcion-navegacion { 
-    display: flex; align-items: center; width: 100%; cursor: pointer; gap: 15px; border-radius: 10px; 
-    transition: background-color 0.2s; position: relative;
+    display: flex; align-items: center; width: 100%; cursor: pointer; border-radius: 12px;
+    min-height: 45px; transition: background 0.2s;
 }
 
-.opcion-navegacion.activa .btn-interactivo { 
-    box-shadow: inset -1px -1px 3px var(--btn-sombra-clara), inset 1px 1px 3px var(--btn-sombra-oscura); 
+/* Iconos siempre cuadrados */
+.btn-interactivo { 
+    width: 45px; height: 45px; min-width: 45px; min-height: 45px; border-radius: 12px;
+    background-color: var(--btn-bg); border: 1px solid var(--borde-color);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    box-shadow: -1px -1px 4px var(--btn-sombra-clara), 1px 1px 4px var(--btn-sombra-oscura);
+    transition: all 0.2s; flex-shrink: 0;
 }
+.btn-interactivo:active { transform: scale(0.92); box-shadow: inset 1px 1px 3px var(--btn-sombra-oscura); }
 
 .texto-opcion { 
-    font-size: 0.95rem; font-weight: 500; white-space: nowrap; opacity: 0; 
-    transform: translateX(-10px); transition: opacity 0.2s, transform 0.2s; 
-    pointer-events: none; flex-grow: 1; display: flex; justify-content: space-between; align-items: center;
+    margin-left: 15px; white-space: nowrap; opacity: 0; transition: opacity 0.2s;
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
+    font-weight: 500; pointer-events: none;
 }
+body.sidebar-abierta .texto-opcion { opacity: 1; pointer-events: auto; }
 
-body.sidebar-abierta aside { width: var(--ancho-sidebar-total); }
-body.sidebar-abierta .texto-opcion { opacity: 1; transform: translateX(0); pointer-events: auto; }
-
-/* SUBMENÚS */
-.submenu-hijos {
-    display: none; border-left: 2px solid var(--borde-color);
-    margin-left: 18px; padding-left: 5px; margin-top: 5px;
+/* SUBPÁGINAS */
+.bloque-menu-grupo { display: flex; flex-direction: column; width: 100%; margin-bottom: 8px; }
+.submenu-hijos { 
+    display: none; margin-left: 22px; border-left: 2px solid var(--borde-color); 
+    padding-left: 10px; margin-top: 5px; 
 }
-
 .submenu-hijos.activo { display: block; }
-
-/* REGLA DE ORO: SI EL SIDEBAR ESTÁ CERRADO, NADA DE HIJOS NI FLECHAS */
 body:not(.sidebar-abierta) .submenu-hijos { display: none !important; }
-body:not(.sidebar-abierta) .flecha-desplegable { display: none !important; }
 
-.flecha-desplegable {
-    padding: 8px; font-size: 0.6rem; transition: transform 0.3s; opacity: 0.5;
-}
-.flecha-desplegable:hover { opacity: 1; transform: scale(1.2); }
+.flecha-desplegable { padding: 8px; font-size: 0.7rem; transition: 0.3s; }
 .flecha-desplegable.rotada { transform: rotate(180deg); }
 
-/* INTERFAZ PRINCIPAL */
-.contenido-interfaz { flex-grow: 1; display: flex; flex-direction: column; height: 100vh; min-width: 0; }
+/* HEADER Y BOTONES */
 header { 
-    position: sticky; top: 0; width: 100%; height: var(--alto-header); display: flex; 
-    justify-content: space-between; align-items: center; padding: 0 15px; 
-    background-color: var(--bg-tarjetas); box-shadow: 0 2px 8px var(--sombra-general); z-index: 1000; 
+    height: var(--alto-header); display: flex; justify-content: space-between; align-items: center; 
+    padding: 0 20px; background: var(--bg-tarjetas); box-shadow: 0 2px 10px var(--sombra-general);
 }
 
-.btn-interactivo { 
-    background-color: var(--btn-bg); border: 1px solid var(--borde-color); width: 38px; height: 38px; 
-    border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; 
-    transition: all 0.2s ease; box-shadow: -1px -1px 4px var(--btn-sombra-clara), 1px 1px 4px var(--btn-sombra-oscura); 
+.header-der { display: flex; gap: 15px; align-items: center; }
+
+/* Versión de escritorio: ocultar botón menú en header */
+.btn-menu-movil { display: none; }
+
+.contenedor-split-button { 
+    display: flex; height: 40px; border: 1px solid var(--borde-color); border-radius: 10px; overflow: hidden;
+    background: var(--btn-bg); box-shadow: 2px 2px 5px var(--btn-sombra-oscura);
 }
-.btn-interactivo:active { transform: scale(0.95); }
+.split-accion-principal { padding: 0 12px; display: flex; align-items: center; cursor: pointer; }
+.split-divisor { width: 1px; background: var(--borde-color); height: 60%; align-self: center; }
+.split-flecha { padding: 0 8px; display: flex; align-items: center; cursor: pointer; font-size: 0.7rem; }
 
-/* MENÚS FLOTANTES */
-.posicion-menu-relativo { position: relative; }
-.menu-temas-flotante, .menu-opciones-flotante { 
-    position: absolute; top: 46px; right: 0; background-color: var(--bg-tarjetas); 
-    border: 1px solid var(--borde-color); border-radius: 14px; width: 220px; padding: 6px; 
-    opacity: 0; pointer-events: none; transform: translateY(-8px); transition: 0.2s; z-index: 3000;
+/* MENÚS FLOTANTES REFORMADOS */
+.menu-flotante { 
+    position: absolute; top: 50px; right: 0; background: var(--bg-tarjetas); 
+    border: 1px solid var(--borde-color); border-radius: 12px; width: 220px; padding: 8px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1); opacity: 0; pointer-events: none; 
+    transform: translateY(-10px); transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1); z-index: 3000;
 }
-.menu-temas-flotante.activo, .menu-opciones-flotante.activo { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.menu-flotante.activo { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
-/* TEMAS (ESTILOS REALES) */
-body.tema-cyberpunk { --bg-principal: #05050a; --bg-tarjetas: #0d0e15; --bg-sidebar: #1a0033; --texto-principal: #fffb00; --texto-secundario: #ff007f; --borde-color: #ff007f; }
-body.tema-rgb { --bg-principal: #090d16; --bg-tarjetas: #111726; --bg-sidebar: #171e30; --texto-principal: #00ff66; --texto-secundario: #00ffff; --borde-color: #3b82f6; }
-body.modo-oscuro { --bg-principal: #121212; --bg-tarjetas: #1e1e1e; --bg-sidebar: #1e293b; --texto-principal: #f3f4f6; --texto-secundario: #9ca3af; --borde-color: #334155; }
-/* ... (puedes añadir el resto de temas aquí) */
+.item-tema-opcion { 
+    padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; gap: 10px;
+}
+.item-tema-opcion:hover { background: var(--btn-bg); }
 
-/* LECTURA */
-main { padding: 20px; width: 100%; flex-grow: 1; overflow-y: auto; }
-.bloque-lectura { background-color: var(--bg-tarjetas); border: 1px solid var(--borde-color); padding: 20px; border-radius: 14px; max-width: 650px; margin: 20px auto; }
-body.lectura-detallada .txt-resumido { display: none !important; }
-body.lectura-resumida .txt-detallado { display: none !important; }
+/* RESPONSIVE MÓVIL */
+@media (max-width: 768px) {
+    .btn-menu-movil { display: flex; }
+    aside { position: fixed; left: -100%; height: 100%; transition: left 0.3s; }
+    body.sidebar-abierta aside { left: 0; width: var(--ancho-sidebar-total); }
+    .overlay-fondo.activo { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 1500; }
+}
+
+/* TEMAS */
+body.tema-cyberpunk { --bg-sidebar: #120024; --texto-principal: #00ffcc; --borde-color: #ff007f; --bg-principal: #050505; --bg-tarjetas: #101010; }
+body.modo-oscuro { --bg-principal: #121212; --bg-tarjetas: #1e1e1e; --bg-sidebar: #18181b; --texto-principal: #ffffff; --borde-color: #3f3f46; }
