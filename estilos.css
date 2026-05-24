@@ -660,13 +660,13 @@ texto-dinamico h4 {
         width: var(--ancho-sidebar-total) !important;
     }
 
-    /* Textos y footer visibles siempre que el sidebar esté abierto */
+    /* Textos ocultos por defecto en móvil (el sidebar está fuera de pantalla) */
     aside .texto-opcion,
     aside .sidebar-brand-nombre,
     aside .sidebar-footer {
-        opacity: 1 !important;
-        transform: translateX(0) !important;
-        pointer-events: auto !important;
+        opacity: 0 !important;
+        transform: translateX(-8px) !important;
+        pointer-events: none !important;
         transition-delay: 0s !important;
     }
 
@@ -675,6 +675,16 @@ texto-dinamico h4 {
         transform: translateX(0);
         box-shadow: 6px 0 32px rgba(0,0,0,0.35);
         pointer-events: auto;
+    }
+
+    /* Textos visibles solo cuando el sidebar está abierto */
+    body.sidebar-abierta aside .texto-opcion,
+    body.sidebar-abierta aside .sidebar-brand-nombre,
+    body.sidebar-abierta aside .sidebar-footer {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+        pointer-events: auto !important;
+        transition-delay: 0.08s !important;
     }
 
     /* Overlay con desenfoque solo en móvil */
