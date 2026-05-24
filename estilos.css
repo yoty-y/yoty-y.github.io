@@ -639,33 +639,63 @@ texto-dinamico h4 {
 }
 
 @media (max-width: 767px) {
-    /* En móvil el hover no funciona bien, usamos solo la clase */
+    /* Mostrar botón hamburguesa en el header */
     .btn-menu-movil { display: flex !important; }
 
+    /* Sidebar: completamente oculto fuera de pantalla, sin hover, ancho fijo */
     aside {
         position: fixed;
         top: 0;
         left: 0;
         height: 100vh;
-        transform: translateX(-100%);
         width: var(--ancho-sidebar-total) !important;
+        transform: translateX(-110%);
         transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), var(--transicion-tema);
+        pointer-events: none;
+        z-index: 2000;
     }
 
-    /* En móvil no queremos que hover expanda — solo touch/clase */
-    aside:hover { width: var(--ancho-sidebar-total); }
+    /* Anular el expand por hover en móvil — el sidebar ya tiene ancho fijo */
+    aside:hover {
+        width: var(--ancho-sidebar-total) !important;
+    }
 
+    /* Textos y footer visibles siempre que el sidebar esté abierto */
+    aside .texto-opcion,
+    aside .sidebar-brand-nombre,
+    aside .sidebar-footer {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+        pointer-events: auto !important;
+        transition-delay: 0s !important;
+    }
+
+    /* Sidebar abierto */
     body.sidebar-abierta aside {
         transform: translateX(0);
-        box-shadow: 6px 0 24px rgba(0,0,0,0.25);
+        box-shadow: 6px 0 32px rgba(0,0,0,0.35);
+        pointer-events: auto;
     }
 
+    /* Overlay con desenfoque solo en móvil */
     body.sidebar-abierta .overlay-fondo {
         display: block;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        background: rgba(0,0,0,0.4);
     }
 
     main { padding: 20px 16px; }
     .bloque-lectura { padding: 22px 18px; }
+}
+
+/* En desktop: aseguramos que el overlay NUNCA tenga blur */
+@media (min-width: 768px) {
+    .overlay-fondo {
+        display: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
 }
 /* ==========================================================================
    TEMAS ADICIONALES — Cálidos
