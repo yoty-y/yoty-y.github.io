@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function construirMenuTemas() {
     const contenedor = document.getElementById('menu-flotante');
     
-    // Opciones base
     contenedor.innerHTML = `
         <div class="item-tema-opcion" data-tema="auto">
             <div class="item-flex-izq"><div class="circulo-color" style="background-color: #a1a1aa;"></div><span>A &nbsp;Automático</span></div>
@@ -38,7 +37,6 @@ function construirMenuTemas() {
         <div class="menu-divisor-linea"></div>
     `;
 
-    // Inyectar categorías dinámicas
     configSitio.categoriasTemas.forEach(cat => {
         let htmlTemas = '';
         cat.temas.forEach(tema => {
@@ -58,12 +56,10 @@ function construirMenuTemas() {
             </div>`;
     });
 
-    // Asignar Eventos a los temas inyectados
     document.querySelectorAll('#menu-flotante .item-tema-opcion').forEach(item => {
         item.addEventListener('click', () => cambiarTema(item.dataset.tema));
     });
 
-    // Eventos de carpetas (Acordeón)
     document.querySelectorAll('.carpeta-cabecera').forEach(cabecera => {
         cabecera.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -76,7 +72,7 @@ function construirMenuTemas() {
 }
 
 function nombreCorto(nombre) {
-    return nombre.split(' ').slice(1).join(' '); // Quita el emoji del nombre si ya tiene el icono aparte
+    return nombre.split(' ').slice(1).join(' ');
 }
 
 // Construir Sidebar de Páginas
@@ -86,11 +82,13 @@ function construirMenuSidebar() {
     
     configSitio.paginas.forEach(pagina => {
         const div = document.createElement('div');
-        div.className = `opcion-navegacion ${pagina.id === paginaActualId ? 'activa' : ''}`;
+        div.className = `opcion-navegacion`;
         div.innerHTML = `
             <button class="btn-interactivo" style="flex-shrink: 0;"><span>${pagina.icono}</span></button>
             <span class="texto-opcion">${pagina.titulo}</span>
         `;
+        div.style.color = (pagina.id === paginaActualId) ? 'var(--texto-principal)' : 'inherit';
+        
         div.addEventListener('click', () => {
             cargarPagina(pagina.id);
             if(window.innerWidth < 768) document.body.classList.remove('sidebar-abierta');
@@ -108,16 +106,21 @@ async function cargarPagina(idPagina) {
     localStorage.setItem('pagina-actual', paginaActualId);
     
     try {
-        // Importación dinámica desde la carpeta /paginas/
         moduloPaginaActual = await import(`./paginas/${paginaConfig.archivo}`);
         renderizarContenidoActual();
         
-        // Actualizar visual de la barra lateral
+        // Refrescar qué página se ve activa en la barra lateral
         document.querySelectorAll('#menu-navegacion-paginas .opcion-navegacion').forEach((el, index) => {
-            el.style.color = (configSitio.paginas[index].id === idPagina) ? 'var(--texto-principal)' : 'inherit';
+            if (configSitio.paginas[index].id === idPagina) {
+                el.style.color = 'var(--texto-principal)';
+                el.querySelector('.btn-interactivo').style.boxShadow = 'inset -1px -1px 3px var(--btn-sombra-clara), inset 1px 1px 3px var(--btn-sombra-oscura)';
+            } else {
+                el.style.color = 'inherit';
+                el.querySelector('.btn-interactivo').style.boxShadow = '-1px -1px 4px var(--btn-sombra-clara), 1px 1px 4px var(--btn-sombra-oscura)';
+            }
         });
     } catch (error) {
-        document.getElementById('contenedor-central').innerHTML = `<h3>Error cargando la página: ${paginaConfig.titulo}</h3>`;
+        document.getElementById('contenedor-central').innerHTML = `<h3>Error cargando: ${paginaConfig.titulo}</h3>`;
         console.error(error);
     }
 }
@@ -127,7 +130,6 @@ function renderizarContenidoActual() {
     const contenedor = document.getElementById('contenedor-central');
     contenedor.innerHTML = moduloPaginaActual.contenido[modoLecturaActual];
     
-    // Si la página tiene scripts interactivos, los iniciamos
     if (typeof moduloPaginaActual.inicializar === 'function') {
         moduloPaginaActual.inicializar();
     }
@@ -169,7 +171,7 @@ function aplicarModoLectura(modo) {
     document.body.classList.add(`lectura-${modo}`);
     
     marcarCheckActivo('#menu-opciones', modo);
-    renderizarContenidoActual(); // Re-renderiza la página actual si es necesario
+    renderizarContenidoActual();
     cerrarMenus();
 }
 
@@ -183,7 +185,7 @@ function marcarCheckActivo(selectorMenu, valorActivo) {
 }
 
 // ==========================================
-// 4. EVENTOS DE UI (CLICS Y MENÚS)
+// 4. EVENTOS DE INTERFAZ GENERAL (MENÚS Y TOGGLES)
 // ==========================================
 const menuTemas = document.getElementById('menu-flotante');
 const menuOpciones = document.getElementById('menu-opciones');
@@ -203,8 +205,17 @@ document.getElementById('btn-toggle-opciones').addEventListener('click', (e) => 
 document.getElementById('opt-lectura-detallada').addEventListener('click', () => aplicarModoLectura('detallada'));
 document.getElementById('opt-lectura-resumida').addEventListener('click', () => aplicarModoLectura('resumida'));
 
-document.getElementById('btn-abrir-sidebar').addEventListener('click', () => document.body.classList.add('sidebar-abierta'));
-document.getElementById('btn-cerrar-sidebar').addEventListener('click', () => document.body.classList.remove('sidebar-abierta'));
+// CORRECCIÓN LOGICIAL: Ambos botones alternan de forma fija la barra lateral (toggle)
+document.getElementById('btn-abrir-sidebar').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.body.classList.toggle('sidebar-abierta');
+});
+
+document.getElementById('btn-cerrar-sidebar').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.body.classList.toggle('sidebar-abierta');
+});
+
 document.getElementById('overlay-sidebar').addEventListener('click', () => document.body.classList.remove('sidebar-abierta'));
 
 function cerrarMenus() {
