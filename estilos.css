@@ -1,87 +1,118 @@
 /* ==========================================================================
+   IMPORTACIÓN DE TIPOGRAFÍAS
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400&display=swap');
+
+/* ==========================================================================
    1. VARIABLES DE ENTORNO Y DISEÑO BASE (Tema Claro por defecto)
    ========================================================================== */
 :root {
-    --ancho-sidebar-total: 260px; 
-    --alto-header: 55px;
-    
-    /* Paleta por Defecto: Claro */
-    --bg-principal: #f8fafc;
-    --bg-tarjetas: #ffffff;
-    --bg-sidebar: #f1f5f9;
-    --texto-principal: #0f172a;
-    --texto-secundario: #64748b;
-    --borde-color: #e2e8f0;
-    --btn-bg: #e2e8f0;
-    --accent-color: #3b82f6;
-    --check-color: #22c55e;
-    
-    /* Sombras y Efectos */
-    --sombra-general: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    --sombra-menus: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    
-    /* Animación de Suavizado General */
-    --transicion-tema: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    --ancho-sidebar-total: 270px;
+    --alto-header: 58px;
+
+    /* Paleta Base: Claro Orgánico */
+    --bg-principal:    #f5f2ee;
+    --bg-tarjetas:     #fdfcfb;
+    --bg-sidebar:      #eeebe6;
+    --texto-principal: #1c1a17;
+    --texto-secundario:#7a7167;
+    --borde-color:     #ddd8d0;
+    --btn-bg:          #e8e3dc;
+    --accent-color:    #c9622f;
+    --check-color:     #5a9a6f;
+
+    /* Tipografía */
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'DM Sans', sans-serif;
+    --font-mono:    'DM Mono', monospace;
+
+    /* Botones neumórficos suaves */
+    --btn-sombra-clara: rgba(255,255,255,0.85);
+    --btn-sombra-oscura: rgba(0,0,0,0.12);
+
+    /* Sombras */
+    --sombra-general: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    --sombra-menus:   0 16px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
+    --sombra-card:    0 4px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+
+    /* Transición global */
+    --transicion-tema: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+
+    /* Textura de fondo (patrón de puntos sutiles) */
+    --bg-texture: radial-gradient(circle, rgba(0,0,0,0.035) 1px, transparent 1px);
+    --bg-texture-size: 22px 22px;
 }
 
 /* ==========================================================================
-   2. PALETA DE TEMAS DINÁMICOS (Inyectados por core.js)
+   2. PALETAS DE TEMAS
    ========================================================================== */
 
-/* --- TEMA OSCURO --- */
+/* --- OSCURO ORGÁNICO --- */
 body.modo-oscuro {
-    --bg-principal: #0f172a;
-    --bg-tarjetas: #1e293b;
-    --bg-sidebar: #0f172a;
-    --texto-principal: #f8fafc;
-    --texto-secundario: #94a3b8;
-    --borde-color: #334155;
-    --btn-bg: #334155;
-    --accent-color: #38bdf8;
-    --sombra-general: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --bg-principal:    #151210;
+    --bg-tarjetas:     #1e1b17;
+    --bg-sidebar:      #111009;
+    --texto-principal: #ede8e0;
+    --texto-secundario:#8a8074;
+    --borde-color:     #2e2921;
+    --btn-bg:          #2a2620;
+    --accent-color:    #e0845a;
+    --check-color:     #6dbf85;
+    --btn-sombra-clara: rgba(255,255,255,0.04);
+    --btn-sombra-oscura: rgba(0,0,0,0.5);
+    --sombra-general: 0 2px 12px rgba(0,0,0,0.4);
+    --sombra-menus:   0 16px 32px rgba(0,0,0,0.5);
 }
 
-/* --- TEMA CYBERPUNK --- */
+/* --- CYBERPUNK --- */
 body.tema-cyberpunk {
-    --bg-principal: #120136;
-    --bg-tarjetas: #03001e;
-    --bg-sidebar: #120136;
+    --bg-principal:    #0a0015;
+    --bg-tarjetas:     #0d0020;
+    --bg-sidebar:      #070010;
     --texto-principal: #00f5ff;
-    --texto-secundario: #ff007f;
-    --borde-color: #ff007f;
-    --btn-bg: #ff007f;
-    --accent-color: #fffb00;
+    --texto-secundario:#ff007f;
+    --borde-color:     #2a0050;
+    --btn-bg:          #1a0035;
+    --accent-color:    #fffb00;
+    --check-color:     #00f5ff;
+    --bg-texture: radial-gradient(circle, rgba(0,245,255,0.04) 1px, transparent 1px);
 }
 
-/* --- TEMA RGB (GAMER) --- */
+/* --- RGB GAMER --- */
 body.tema-rgb {
-    --bg-principal: #111111;
-    --bg-tarjetas: #1a1a1a;
-    --bg-sidebar: #0d0d0d;
-    --texto-principal: #00ff66;
-    --texto-secundario: #a1a1aa;
-    --borde-color: #262626;
-    --btn-bg: #262626;
-    --accent-color: #00ff66;
+    --bg-principal:    #0c0c0c;
+    --bg-tarjetas:     #141414;
+    --bg-sidebar:      #090909;
+    --texto-principal: #e8ffe8;
+    --texto-secundario:#6a6a6a;
+    --borde-color:     #1e1e1e;
+    --btn-bg:          #1a1a1a;
+    --accent-color:    #00ff66;
+    --check-color:     #00ff66;
+    --bg-texture: radial-gradient(circle, rgba(0,255,102,0.03) 1px, transparent 1px);
 }
 
-/* Reset Estándar */
-* {
+/* --- RESET GENERAL --- */
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-body);
+    font-weight: 400;
     background-color: var(--bg-principal);
+    background-image: var(--bg-texture);
+    background-size: var(--bg-texture-size);
     color: var(--texto-principal);
     transition: var(--transicion-tema);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* ==========================================================================
-   3. ESTRUCTURA GLOBAL (LAYOUT SPA)
+   3. LAYOUT GLOBAL (SPA)
    ========================================================================== */
 .layout-global {
     display: flex;
@@ -89,26 +120,25 @@ body {
     width: 100vw;
 }
 
-/* Fondo oscuro para móviles cuando la barra lateral se despliega */
+/* Overlay móvil */
 .overlay-fondo {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.4);
+    inset: 0;
+    background-color: rgba(0,0,0,0.45);
+    backdrop-filter: blur(2px);
     z-index: 99;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
-
 body.sidebar-abierta .overlay-fondo {
     opacity: 1;
     pointer-events: auto;
 }
 
-/* --- BARRA LATERAL (SIDEBAR) --- */
+/* ==========================================================================
+   4. BARRA LATERAL (SIDEBAR)
+   ========================================================================== */
 #barra-lateral {
     width: var(--ancho-sidebar-total);
     background-color: var(--bg-sidebar);
@@ -116,47 +146,106 @@ body.sidebar-abierta .overlay-fondo {
     display: flex;
     flex-direction: column;
     z-index: 100;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), var(--transicion-tema);
+    flex-shrink: 0;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), var(--transicion-tema);
 }
 
-.divisor-sidebar {
+/* Marca / Título del sidebar */
+.sidebar-brand {
+    padding: 20px 18px 16px;
     border-bottom: 1px solid var(--borde-color);
-    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
 }
 
+.sidebar-brand-nombre {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--texto-principal);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.sidebar-brand-sub {
+    font-size: 0.7rem;
+    color: var(--texto-secundario);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+/* Navegación de páginas */
 #menu-navegacion-paginas {
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    gap: 5px;
+    padding: 14px 10px;
+    gap: 3px;
+    flex: 1;
 }
 
 .opcion-navegacion {
     display: flex;
     align-items: center;
-    padding: 10px;
-    gap: 15px;
+    padding: 10px 12px;
+    gap: 13px;
     cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
+    border-radius: 10px;
+    color: var(--texto-secundario);
+    transition: background-color 0.18s ease, color 0.18s ease;
+    position: relative;
 }
 
 .opcion-navegacion:hover {
-    background-color: var(--borde-color);
+    background-color: var(--btn-bg);
+    color: var(--texto-principal);
+}
+
+.opcion-navegacion .btn-interactivo {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 8px;
+    flex-shrink: 0;
+    font-size: 1rem;
 }
 
 .texto-opcion {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
+    font-weight: 500;
     white-space: nowrap;
+    letter-spacing: 0.01em;
 }
 
-/* --- CONTENIDO PRINCIPAL --- */
+/* Línea activa izquierda */
+.opcion-navegacion[style*="texto-principal"] {
+    color: var(--texto-principal);
+    background-color: var(--btn-bg);
+}
+
+/* Pie del sidebar */
+.sidebar-footer {
+    padding: 14px 14px;
+    border-top: 1px solid var(--borde-color);
+    font-size: 0.72rem;
+    color: var(--texto-secundario);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+}
+
+/* ==========================================================================
+   5. HEADER FIJO
+   ========================================================================== */
 .contenido-interfaz {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
+    min-width: 0;
 }
 
 #encabezado-fijo {
@@ -166,65 +255,105 @@ body.sidebar-abierta .overlay-fondo {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 22px;
     transition: var(--transicion-tema);
     flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    background-color: color-mix(in srgb, var(--bg-tarjetas) 92%, transparent);
 }
 
 .header-izq, .header-der {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
+}
+
+.header-titulo {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--texto-principal);
+    font-style: italic;
 }
 
 .btn-menu-movil {
-    display: none; /* Se activa solo en pantallas pequeñas */
-}
-
-#contenedor-central {
-    flex-grow: 1;
-    padding: 30px;
-    overflow-y: auto;
-    background-color: var(--bg-principal);
-    transition: var(--transicion-tema);
+    display: none;
 }
 
 /* ==========================================================================
-   4. BOTONES E INTERACTIVIDAD
+   6. CONTENIDO CENTRAL
+   ========================================================================== */
+#contenedor-central {
+    flex-grow: 1;
+    padding: 36px 40px;
+    overflow-y: auto;
+    background-color: var(--bg-principal);
+    background-image: var(--bg-texture);
+    background-size: var(--bg-texture-size);
+    transition: var(--transicion-tema);
+    scroll-behavior: smooth;
+}
+
+/* Scrollbar estilizada */
+#contenedor-central::-webkit-scrollbar { width: 5px; }
+#contenedor-central::-webkit-scrollbar-track { background: transparent; }
+#contenedor-central::-webkit-scrollbar-thumb {
+    background: var(--borde-color);
+    border-radius: 10px;
+}
+
+/* ==========================================================================
+   7. BOTONES
    ========================================================================== */
 .btn-interactivo {
     background-color: var(--btn-bg);
     border: 1px solid var(--borde-color);
     color: var(--texto-principal);
-    padding: 8px 12px;
-    border-radius: 6px;
+    padding: 8px 13px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
+    font-family: var(--font-body);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: var(--transicion-tema);
+    gap: 6px;
+    box-shadow: -1px -1px 3px var(--btn-sombra-clara), 1px 1px 3px var(--btn-sombra-oscura);
+    transition: var(--transicion-tema), filter 0.15s ease;
 }
 
 .btn-interactivo:hover {
-    filter: brightness(1.1);
+    filter: brightness(1.06);
 }
 
-/* Split Button (Tema Automático / Selector) */
+.btn-interactivo:active {
+    box-shadow: inset 1px 1px 3px var(--btn-sombra-oscura), inset -1px -1px 2px var(--btn-sombra-clara);
+}
+
+/* Split Button */
 .contenedor-split-button {
     display: flex;
     border: 1px solid var(--borde-color);
-    border-radius: 6px;
+    border-radius: 9px;
     overflow: hidden;
+    background: var(--bg-tarjetas);
+    box-shadow: -1px -1px 3px var(--btn-sombra-clara), 1px 1px 3px var(--btn-sombra-oscura);
 }
 
 .split-accion-principal, .split-flecha {
-    background-color: var(--bg-tarjetas);
-    padding: 8px 12px;
+    background: transparent;
+    padding: 8px 13px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    transition: var(--transicion-tema);
+    justify-content: center;
+    transition: background-color 0.15s ease;
+    border: none;
+    color: var(--texto-principal);
+    font-size: 0.88rem;
 }
 
 .split-accion-principal:hover, .split-flecha:hover {
@@ -237,7 +366,7 @@ body.sidebar-abierta .overlay-fondo {
 }
 
 /* ==========================================================================
-   5. MENÚS DESPLEGABLES FLOTANTES (ANIMACIONES CLAVE)
+   8. MENÚS FLOTANTES
    ========================================================================== */
 .posicion-menu-relativo {
     position: relative;
@@ -245,63 +374,66 @@ body.sidebar-abierta .overlay-fondo {
 
 .menu-temas-flotante, .menu-opciones-flotante {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 10px);
     right: 0;
-    width: 240px;
+    width: 248px;
     background-color: var(--bg-tarjetas);
     border: 1px solid var(--borde-color);
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: var(--sombra-menus);
     padding: 8px;
     z-index: 110;
-    
-    /* Estado inicial oculto con animación hacia arriba */
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-10px);
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-8px) scale(0.98);
+    transform-origin: top right;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Clase desencadenada por JavaScript para abrir los menús */
 .menu-temas-flotante.activo, .menu-opciones-flotante.activo {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
-/* Carpetas de Categorías dentro del menú */
+/* Carpetas */
 .carpeta-categoria {
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .carpeta-cabecera {
-    font-size: 0.75rem;
-    font-weight: bold;
+    font-size: 0.68rem;
+    font-weight: 600;
     color: var(--texto-secundario);
-    padding: 6px 10px;
+    padding: 6px 10px 4px;
     display: flex;
     justify-content: space-between;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    cursor: default;
 }
 
 .carpeta-contenido {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
 }
 
-/* Items Opciones/Temas individuales */
+/* Items individuales */
 .item-tema-opcion {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 8px 10px;
-    font-size: 0.9rem;
-    border-radius: 6px;
+    font-size: 0.875rem;
+    border-radius: 8px;
     cursor: pointer;
     color: var(--texto-principal);
-    transition: background-color 0.15s ease;
+    transition: background-color 0.12s ease;
+    font-family: var(--font-body);
 }
 
 .item-tema-opcion:hover {
@@ -315,15 +447,16 @@ body.sidebar-abierta .overlay-fondo {
 }
 
 .circulo-color {
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
-/* Control del Check de Selección (Oculto por defecto, aparece al seleccionarse) */
 .check-seleccionado {
     color: var(--check-color);
-    font-weight: bold;
+    font-size: 0.8rem;
+    font-weight: 700;
     opacity: 0;
     transition: opacity 0.15s ease;
 }
@@ -335,45 +468,141 @@ body.sidebar-abierta .overlay-fondo {
 .menu-divisor-linea {
     height: 1px;
     background-color: var(--borde-color);
-    margin: 6px 0;
+    margin: 5px 0;
 }
 
 /* ==========================================================================
-   6. CONTENIDOS Y WEB COMPONENT <texto-dinamico>
+   9. CONTENIDOS — BLOQUE DE LECTURA
    ========================================================================== */
 .bloque-lectura {
     background-color: var(--bg-tarjetas);
     border: 1px solid var(--borde-color);
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: var(--sombra-general);
-    max-width: 800px;
+    padding: 36px 40px;
+    border-radius: 16px;
+    box-shadow: var(--sombra-card);
+    max-width: 780px;
     margin: 0 auto;
     transition: var(--transicion-tema);
+    animation: slideFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideFadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .titulo-contenido {
-    margin-bottom: 15px;
-    font-size: 1.4rem;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--texto-principal);
+    line-height: 1.2;
+    margin-bottom: 18px;
 }
 
-/* Estilos de animación interna para cuando cambia de modo el Web Component */
-texto-dinamico {
-    display: block;
-    line-height: 1.6;
-    animation: fadeInTexto 0.3s ease-in-out;
+.subtitulo-contenido {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--texto-secundario);
+    margin-bottom: 14px;
+    margin-top: 24px;
 }
 
-@keyframes fadeInTexto {
-    from { opacity: 0; transform: translateY(3px); }
-    to { opacity: 1; transform: translateY(0); }
+.parrafo-contenido {
+    font-size: 0.96rem;
+    line-height: 1.75;
+    color: var(--texto-secundario);
+    margin-bottom: 14px;
+    font-weight: 300;
+}
+
+/* Separador decorativo */
+.separador-deco {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--borde-color);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--texto-secundario);
+}
+.separador-deco::before,
+.separador-deco::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--borde-color);
 }
 
 /* ==========================================================================
-   7. DISEÑO RESPONSIVO (MÓVILES)
+   10. WEB COMPONENT <texto-dinamico>
+   ========================================================================== */
+texto-dinamico {
+    display: block;
+    line-height: 1.72;
+    font-size: 0.96rem;
+    font-weight: 300;
+    color: var(--texto-secundario);
+    animation: fadeInTexto 0.35s ease;
+}
+
+@keyframes fadeInTexto {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+texto-dinamico h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--texto-principal);
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+}
+
+/* Clase auxiliar para modo detallado */
+.txt-detallado { line-height: 1.75; }
+.txt-resumido  { font-weight: 400; }
+
+/* ==========================================================================
+   11. ACCENTO LATERAL (línea decorativa)
+   ========================================================================== */
+.bloque-acento {
+    border-left: 3px solid var(--accent-color);
+    padding-left: 18px;
+    margin: 20px 0;
+    font-style: italic;
+    color: var(--texto-secundario);
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+/* ==========================================================================
+   12. BADGE / ETIQUETA
+   ========================================================================== */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+    color: var(--accent-color);
+    border: 1px solid color-mix(in srgb, var(--accent-color) 30%, transparent);
+    border-radius: 100px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   13. RESPONSIVO MÓVIL
    ========================================================================== */
 @media (max-width: 768px) {
-    /* Esconder Sidebar fuera de la pantalla en móviles */
     #barra-lateral {
         position: fixed;
         top: 0;
@@ -382,7 +611,6 @@ texto-dinamico {
         transform: translateX(-100%);
     }
 
-    /* Mostrar menú cuando se activa la clase en el body */
     body.sidebar-abierta #barra-lateral {
         transform: translateX(0);
     }
@@ -392,6 +620,10 @@ texto-dinamico {
     }
 
     #contenedor-central {
-        padding: 15px;
+        padding: 20px 18px;
+    }
+
+    .bloque-lectura {
+        padding: 24px 20px;
     }
 }

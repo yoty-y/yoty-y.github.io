@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La web de Yoty-y</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body class="lectura-detallada">
@@ -11,49 +13,69 @@
     <div class="layout-global">
         <div class="overlay-fondo" id="overlay-sidebar"></div>
 
+        <!-- BARRA LATERAL -->
         <aside id="barra-lateral">
-            <div class="opcion-navegacion divisor-sidebar" id="btn-cerrar-sidebar">
-                <button class="btn-interactivo" style="flex-shrink: 0;" aria-label="Alternar Menú"><span>☰</span></button>
-                <span class="texto-opcion" style="font-weight: bold; color: var(--texto-secundario);">Menú Lateral</span>
+            <div class="sidebar-brand" id="btn-cerrar-sidebar">
+                <div>
+                    <div class="sidebar-brand-nombre">Yoty-y</div>
+                    <div class="sidebar-brand-sub">mi espacio web</div>
+                </div>
+                <button class="btn-interactivo" style="flex-shrink: 0; width:34px; height:34px; padding:0;" aria-label="Cerrar menú">
+                    <span>✕</span>
+                </button>
             </div>
             <nav id="menu-navegacion-paginas"></nav>
+            <div class="sidebar-footer">
+                v2.0 · modular spa
+            </div>
         </aside>
 
+        <!-- CONTENIDO PRINCIPAL -->
         <div class="contenido-interfaz" id="contenido-interfaz">
             <header id="encabezado-fijo">
                 <div class="header-izq">
-                    <button class="btn-interactivo btn-menu-movil" id="btn-abrir-sidebar"><span>☰</span></button>
-                    <h2>Mi Sitio Web</h2>
+                    <button class="btn-interactivo btn-menu-movil" id="btn-abrir-sidebar" aria-label="Abrir menú">
+                        <span>☰</span>
+                    </button>
+                    <span class="header-titulo">Yoty-y</span>
                 </div>
-                
+
                 <div class="header-der">
+                    <!-- Selector de Tema -->
                     <div class="posicion-menu-relativo">
                         <div class="contenedor-split-button">
                             <div class="split-accion-principal" id="btn-rotar-tema" title="Tema Automático">
-                                <span id="icono-tema" style="font-weight: bold; color: var(--texto-principal); font-size: 1.1rem;">A</span>
+                                <span id="icono-tema" style="font-weight: 700; font-size: 1rem;">A</span>
                             </div>
                             <div class="split-divisor"></div>
-                            <div class="split-flecha" id="btn-toggle-temas" title="Más Temas"><span>▼</span></div>
-                            <div class="menu-temas-flotante" id="menu-flotante"></div>
+                            <div class="split-flecha" id="btn-toggle-temas" title="Más Temas">
+                                <span style="font-size: 0.65rem; opacity: 0.7;">▼</span>
+                            </div>
                         </div>
+                        <div class="menu-temas-flotante" id="menu-flotante"></div>
                     </div>
-                    
+
+                    <!-- Opciones -->
                     <div class="posicion-menu-relativo">
-                        <button class="btn-interactivo" id="btn-toggle-opciones" title="Opciones"><span>⋮</span></button>
+                        <button class="btn-interactivo" id="btn-toggle-opciones" title="Opciones">
+                            <span>⋮</span>
+                        </button>
                         <div class="menu-opciones-flotante" id="menu-opciones">
                             <div class="carpeta-categoria abierta">
-                                <div class="carpeta-cabecera"><span>📖 MODOS DE LECTURA</span></div>
+                                <div class="carpeta-cabecera"><span>📖 Modo de lectura</span></div>
                                 <div class="carpeta-contenido">
                                     <div class="item-tema-opcion seleccionado" id="opt-lectura-detallada" data-modo="detallada">
-                                        <div class="item-flex-izq"><span>📚 Modo Detallado</span></div><span class="check-seleccionado">✓</span>
+                                        <div class="item-flex-izq"><span>📚 Modo Detallado</span></div>
+                                        <span class="check-seleccionado">✓</span>
                                     </div>
                                     <div class="item-tema-opcion" id="opt-lectura-resumida" data-modo="resumida">
-                                        <div class="item-flex-izq"><span>⚡ Modo Sintético</span></div><span class="check-seleccionado">✓</span>
+                                        <div class="item-flex-izq"><span>⚡ Modo Sintético</span></div>
+                                        <span class="check-seleccionado">✓</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="menu-divisor-linea"></div>
-                            <div class="item-tema-opcion" id="btn-restablecer" style="color: var(--texto-secundario); font-size: 0.8rem;">
+                            <div class="item-tema-opcion" id="btn-restablecer" style="color: var(--texto-secundario); font-size: 0.82rem;">
                                 <span>🔄 Restablecer Todo</span>
                             </div>
                         </div>
