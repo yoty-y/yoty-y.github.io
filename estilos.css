@@ -669,14 +669,15 @@ texto-dinamico h4 {
         width: var(--ancho-sidebar-total) !important;
     }
 
-    /* Iconos/textos: se desvanecen al mismo tiempo que el panel se pliega */
+    /* Todo el contenido del sidebar se desvanece al plegarse */
     aside .texto-opcion,
     aside .sidebar-brand-nombre,
-    aside .sidebar-footer {
+    aside .sidebar-footer,
+    aside .btn-interactivo,
+    aside .opcion-navegacion {
         opacity: 0 !important;
-        transform: translateX(-8px) !important;
         pointer-events: none !important;
-        transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1), transform 0.22s cubic-bezier(0.4,0,0.2,1) !important;
+        transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1) !important;
         transition-delay: 0s !important;
     }
 
@@ -689,15 +690,16 @@ texto-dinamico h4 {
         transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0s, var(--transicion-tema);
     }
 
-    /* Textos visibles y con fade al abrir */
+    /* Todo el contenido aparece con fade al abrir */
     body.sidebar-abierta aside .texto-opcion,
     body.sidebar-abierta aside .sidebar-brand-nombre,
-    body.sidebar-abierta aside .sidebar-footer {
+    body.sidebar-abierta aside .sidebar-footer,
+    body.sidebar-abierta aside .btn-interactivo,
+    body.sidebar-abierta aside .opcion-navegacion {
         opacity: 1 !important;
-        transform: translateX(0) !important;
         pointer-events: auto !important;
-        transition: opacity 0.22s ease, transform 0.22s ease !important;
-        transition-delay: 0.1s !important;
+        transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1) !important;
+        transition-delay: 0.08s !important;
     }
 
     /* Overlay con desenfoque solo en móvil */
