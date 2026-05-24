@@ -1,15 +1,13 @@
 import { configSitio } from './config.js';
 
 // ==========================================
-// 0. DEFINICIÓN DEL WEB COMPONENT <texto-dinamico>
+// 0. WEB COMPONENT <texto-dinamico>
 // ==========================================
 class TextoDinamico extends HTMLElement {
     connectedCallback() {
         this.renderizar();
-        // Escucha el evento global para cambiar cuando se toque el menú
         window.addEventListener('modoLecturaCambiado', () => this.renderizar());
     }
-
     renderizar() {
         const modo = modoLecturaActual || 'detallada';
         const textoExtenso = this.getAttribute('extenso') || '';
@@ -17,15 +15,16 @@ class TextoDinamico extends HTMLElement {
         this.innerHTML = modo === 'detallada' ? textoExtenso : textoCorto;
     }
 }
-// Registramos la etiqueta para que el navegador la reconozca
 customElements.define('texto-dinamico', TextoDinamico);
-
 
 // ESTADO GLOBAL
 let temaActual = localStorage.getItem('tema-guardado') || 'auto';
 let modoLecturaActual = localStorage.getItem('modo-lectura-guardado') || 'detallada';
 let paginaActualId = localStorage.getItem('pagina-actual') || configSitio.paginas[0].id;
 let moduloPaginaActual = null;
+
+// Los 3 temas básicos para el ciclo del botón izquierdo
+const TEMAS_BASICOS = ['auto', 'light', 'dark'];
 
 // ==========================================
 // 1. INICIALIZACIÓN DE LA UI
@@ -42,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function construirMenuTemas() {
     const contenedor = document.getElementById('menu-flotante');
     
+    // Los 3 básicos sueltos, fuera de carpeta, antes de la línea divisora
     contenedor.innerHTML = `
         <div class="item-tema-opcion" data-tema="auto">
             <div class="item-flex-izq"><div class="circulo-color" style="background-color: #a1a1aa;"></div><span>A &nbsp;Automático</span></div>
@@ -58,6 +58,7 @@ function construirMenuTemas() {
         <div class="menu-divisor-linea"></div>
     `;
 
+    // Categorías con carpetas (ya sin "BÁSICOS" redundantes)
     configSitio.categoriasTemas.forEach(cat => {
         let htmlTemas = '';
         cat.temas.forEach(tema => {
@@ -119,7 +120,7 @@ function construirMenuSidebar() {
 }
 
 // ==========================================
-// 2. MOTOR DE RENDERIZADO DE PÁGINAS (SPA)
+// 2. MOTOR DE RENDERIZADO (SPA)
 // ==========================================
 async function cargarPagina(idPagina) {
     const paginaConfig = configSitio.paginas.find(p => p.id === idPagina) || configSitio.paginas[0];
@@ -130,7 +131,6 @@ async function cargarPagina(idPagina) {
         moduloPaginaActual = await import(`./paginas/${paginaConfig.archivo}`);
         renderizarContenidoActual();
         
-        // Refrescar qué página se ve activa en la barra lateral
         document.querySelectorAll('#menu-navegacion-paginas .opcion-navegacion').forEach((el, index) => {
             if (configSitio.paginas[index].id === idPagina) {
                 el.style.color = 'var(--texto-principal)';
@@ -150,7 +150,6 @@ function renderizarContenidoActual() {
     if (!moduloPaginaActual) return;
     const contenedor = document.getElementById('contenedor-central');
     
-    // CORRECCIÓN: Soporta páginas con formato antiguo (objeto) o nuevo (string HTML directo)
     if (typeof moduloPaginaActual.contenido === 'string') {
         contenedor.innerHTML = moduloPaginaActual.contenido;
     } else {
@@ -166,13 +165,15 @@ function renderizarContenidoActual() {
 // 3. CONTROL DE TEMAS Y LECTURA
 // ==========================================
 function cambiarTema(idTema) {
+    temaActual = idTema;
     localStorage.setItem('tema-guardado', idTema);
     aplicarTema(idTema);
     cerrarMenus();
 }
 
 function aplicarTema(idTema) {
-    document.body.className = document.body.className.replace(/modo-oscuro|tema-\w+/g, '').trim();
+    temaActual = idTema;
+    document.body.className = document.body.className.replace(/modo-oscuro|tema-[\w-]+/g, '').trim();
     
     let icono = 'A';
     if (idTema === 'dark' || (idTema === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -182,11 +183,17 @@ function aplicarTema(idTema) {
         icono = '☼';
     } else if (idTema !== 'auto') {
         document.body.classList.add(`tema-${idTema}`);
-        const temaEncontrado = configSitio.categoriasTemas.flatMap(c => c.temas).find(t => t.id === idTema);
+        const todosLosTemas = configSitio.categoriasTemas.flatMap(c => c.temas);
+        const temaEncontrado = todosLosTemas.find(t => t.id === idTema);
         if (temaEncontrado) icono = temaEncontrado.icono;
     }
     
-    document.getElementById('icono-tema').textContent = icono;
+    const iconoEl = document.getElementById('icono-tema');
+    iconoEl.textContent = icono;
+    iconoEl.classList.remove('girando');
+    void iconoEl.offsetWidth; // reflow
+    iconoEl.classList.add('girando');
+    setTimeout(() => iconoEl.classList.remove('girando'), 400);
     marcarCheckActivo('#menu-flotante', idTema);
 }
 
@@ -198,11 +205,8 @@ function aplicarModoLectura(modo) {
     document.body.classList.add(`lectura-${modo}`);
     
     marcarCheckActivo('#menu-opciones', modo);
-    
-    // CORRECCIÓN: Avisar a los componentes <texto-dinamico> que el modo cambió
     window.dispatchEvent(new CustomEvent('modoLecturaCambiado', { detail: modo }));
     
-    // Re-renderizar solo si es el formato antiguo de objeto
     if (moduloPaginaActual && typeof moduloPaginaActual.contenido !== 'string') {
         renderizarContenidoActual();
     }
@@ -219,7 +223,18 @@ function marcarCheckActivo(selectorMenu, valorActivo) {
 }
 
 // ==========================================
-// 4. EVENTOS DE INTERFAZ GENERAL (MENÚS Y TOGGLES)
+// 4. CICLO BÁSICO — botón izquierdo del split
+// ==========================================
+document.getElementById('btn-rotar-tema').addEventListener('click', (e) => {
+    e.stopPropagation();
+    const indiceActual = TEMAS_BASICOS.indexOf(temaActual);
+    // Si el tema actual no es básico, vuelve al primero; si lo es, avanza
+    const siguienteIndice = indiceActual === -1 ? 0 : (indiceActual + 1) % TEMAS_BASICOS.length;
+    cambiarTema(TEMAS_BASICOS[siguienteIndice]);
+});
+
+// ==========================================
+// 5. EVENTOS DE INTERFAZ GENERAL
 // ==========================================
 const menuTemas = document.getElementById('menu-flotante');
 const menuOpciones = document.getElementById('menu-opciones');
