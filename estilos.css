@@ -642,13 +642,15 @@ texto-dinamico h4 {
     /* Mostrar botón hamburguesa en el header */
     .btn-menu-movil { display: flex !important; }
 
-    /* El contenido principal ocupa todo el ancho — el aside sale del flujo */
+    /* El contenido principal ocupa todo el ancho */
     .contenido-interfaz {
         width: 100% !important;
         flex: 1 1 100% !important;
+        min-width: 0 !important;
     }
 
-    /* Sidebar: completamente oculto fuera de pantalla, sin hover, ancho fijo */
+    /* Sidebar: position fixed lo saca del flujo visual,
+       visibility:hidden + transform lo oculta completamente */
     aside {
         position: fixed;
         top: 0;
@@ -656,12 +658,13 @@ texto-dinamico h4 {
         height: 100vh;
         width: var(--ancho-sidebar-total) !important;
         transform: translateX(-110%);
-        transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), var(--transicion-tema);
+        transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.32s, var(--transicion-tema);
         pointer-events: none;
         z-index: 2000;
+        visibility: hidden;
     }
 
-    /* Anular el expand por hover en móvil — el sidebar ya tiene ancho fijo */
+    /* Anular expand por hover en móvil */
     aside:hover {
         width: var(--ancho-sidebar-total) !important;
     }
@@ -681,6 +684,8 @@ texto-dinamico h4 {
         transform: translateX(0);
         box-shadow: 6px 0 32px rgba(0,0,0,0.35);
         pointer-events: auto;
+        visibility: visible;
+        transition: transform 0.32s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0s, var(--transicion-tema);
     }
 
     /* Textos visibles solo cuando el sidebar está abierto */
