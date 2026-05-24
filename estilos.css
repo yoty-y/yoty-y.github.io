@@ -25,9 +25,14 @@
 body {
     font-family: system-ui, -apple-system, sans-serif;
     background-color: var(--bg-principal); color: var(--texto-principal);
-    transition: var(--transicion-tema); min-height: 100vh; overflow-x: hidden;
+    transition: var(--transicion-tema); 
+    min-height: 100vh; 
+    width: 100%; /* Evita desbordamiento en PC */
+    overflow-x: hidden !important; /* Bloqueo estricto de scroll horizontal */
 }
-.layout-global { display: flex; width: 100vw; height: 100vh; overflow: hidden; }
+
+/* CORRECCIÓN: width 100% en lugar de 100vw para matar la barra inferior */
+.layout-global { display: flex; width: 100%; height: 100vh; overflow: hidden; }
 
 /* BARRA LATERAL DINÁMICA DE ESCRITORIO */
 aside { 
@@ -41,7 +46,7 @@ aside {
     gap: 20px; 
     flex-shrink: 0; 
     overflow-y: auto; 
-    overflow-x: hidden; /* Evita que salgan barras horizontales raras */
+    overflow-x: hidden !important; /* Evita que salgan barras horizontales raras aquí dentro */
     z-index: 2000; 
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease, var(--transicion-tema); 
 }
@@ -120,6 +125,9 @@ header {
 
 .header-izq, .header-der { display: flex; align-items: center; gap: 12px; }
 
+/* CORRECCIÓN: Aseguramos que el botón del header desaparezca en pantallas grandes */
+.btn-menu-movil { display: none !important; }
+
 .btn-interactivo { 
     background-color: var(--btn-bg); 
     border: 1px solid var(--borde-color); 
@@ -167,7 +175,14 @@ body.modo-oscuro .carpeta-contenido { background-color: rgba(255,255,255,0.02); 
 .carpeta-categoria.abierta .indicador-flecha { transform: rotate(180deg); }
 
 /* CONTENIDO Y LECTURA */
-main { padding: 20px; width: 100%; flex-grow: 1; overflow-y: auto; transition: var(--transicion-tema); }
+main { 
+    padding: 20px; 
+    width: 100%; 
+    flex-grow: 1; 
+    overflow-y: auto; 
+    overflow-x: hidden; /* Mantiene el contenido estrictamente adentro */
+    transition: var(--transicion-tema); 
+}
 .bloque-lectura { background-color: var(--bg-tarjetas); border: 1px solid var(--borde-color); padding: 20px; border-radius: 14px; box-shadow: 0 4px 12px var(--sombra-general); max-width: 650px; margin: 20px auto; transition: var(--transicion-tema); }
 .bloque-lectura h4 { margin-bottom: 10px; font-size: 1.1rem; color: var(--texto-principal); }
 body.lectura-detallada .txt-resumido { display: none !important; }
@@ -180,6 +195,9 @@ body.lectura-resumida .txt-detallado { display: none !important; }
 /* RESPONSIVE (MÓVIL) */
 @media (min-width: 768px) { main { padding: 40px; } }
 @media (max-width: 767px) {
+    /* En móvil vuelve a aparecer el botón del header */
+    .btn-menu-movil { display: flex !important; }
+    
     aside { position: fixed; top: 0; left: 0; transform: translateX(-100%); width: var(--ancho-sidebar-total) !important; }
     body.sidebar-abierta aside { transform: translateX(0); box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
     body.sidebar-abierta .texto-opcion { opacity: 1; transform: translateX(0); }
