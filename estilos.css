@@ -642,6 +642,12 @@ texto-dinamico h4 {
     /* Mostrar botón hamburguesa en el header */
     .btn-menu-movil { display: flex !important; }
 
+    /* El contenido principal ocupa todo el ancho — el aside sale del flujo */
+    .contenido-interfaz {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+    }
+
     /* Sidebar: completamente oculto fuera de pantalla, sin hover, ancho fijo */
     aside {
         position: fixed;
