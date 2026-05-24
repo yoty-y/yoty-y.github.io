@@ -1,0 +1,397 @@
+/* ==========================================================================
+   1. VARIABLES DE ENTORNO Y DISEÑO BASE (Tema Claro por defecto)
+   ========================================================================== */
+:root {
+    --ancho-sidebar-total: 260px; 
+    --alto-header: 55px;
+    
+    /* Paleta por Defecto: Claro */
+    --bg-principal: #f8fafc;
+    --bg-tarjetas: #ffffff;
+    --bg-sidebar: #f1f5f9;
+    --texto-principal: #0f172a;
+    --texto-secundario: #64748b;
+    --borde-color: #e2e8f0;
+    --btn-bg: #e2e8f0;
+    --accent-color: #3b82f6;
+    --check-color: #22c55e;
+    
+    /* Sombras y Efectos */
+    --sombra-general: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --sombra-menus: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    
+    /* Animación de Suavizado General */
+    --transicion-tema: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* ==========================================================================
+   2. PALETA DE TEMAS DINÁMICOS (Inyectados por core.js)
+   ========================================================================== */
+
+/* --- TEMA OSCURO --- */
+body.modo-oscuro {
+    --bg-principal: #0f172a;
+    --bg-tarjetas: #1e293b;
+    --bg-sidebar: #0f172a;
+    --texto-principal: #f8fafc;
+    --texto-secundario: #94a3b8;
+    --borde-color: #334155;
+    --btn-bg: #334155;
+    --accent-color: #38bdf8;
+    --sombra-general: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* --- TEMA CYBERPUNK --- */
+body.tema-cyberpunk {
+    --bg-principal: #120136;
+    --bg-tarjetas: #03001e;
+    --bg-sidebar: #120136;
+    --texto-principal: #00f5ff;
+    --texto-secundario: #ff007f;
+    --borde-color: #ff007f;
+    --btn-bg: #ff007f;
+    --accent-color: #fffb00;
+}
+
+/* --- TEMA RGB (GAMER) --- */
+body.tema-rgb {
+    --bg-principal: #111111;
+    --bg-tarjetas: #1a1a1a;
+    --bg-sidebar: #0d0d0d;
+    --texto-principal: #00ff66;
+    --texto-secundario: #a1a1aa;
+    --borde-color: #262626;
+    --btn-bg: #262626;
+    --accent-color: #00ff66;
+}
+
+/* Reset Estándar */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-principal);
+    color: var(--texto-principal);
+    transition: var(--transicion-tema);
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   3. ESTRUCTURA GLOBAL (LAYOUT SPA)
+   ========================================================================== */
+.layout-global {
+    display: flex;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+/* Fondo oscuro para móviles cuando la barra lateral se despliega */
+.overlay-fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+body.sidebar-abierta .overlay-fondo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- BARRA LATERAL (SIDEBAR) --- */
+#barra-lateral {
+    width: var(--ancho-sidebar-total);
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--borde-color);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), var(--transicion-tema);
+}
+
+.divisor-sidebar {
+    border-bottom: 1px solid var(--borde-color);
+    padding-bottom: 10px;
+}
+
+#menu-navegacion-paginas {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 5px;
+}
+
+.opcion-navegacion {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.opcion-navegacion:hover {
+    background-color: var(--borde-color);
+}
+
+.texto-opcion {
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.contenido-interfaz {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#encabezado-fijo {
+    height: var(--alto-header);
+    background-color: var(--bg-tarjetas);
+    border-bottom: 1px solid var(--borde-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    transition: var(--transicion-tema);
+    flex-shrink: 0;
+}
+
+.header-izq, .header-der {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-menu-movil {
+    display: none; /* Se activa solo en pantallas pequeñas */
+}
+
+#contenedor-central {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: var(--bg-principal);
+    transition: var(--transicion-tema);
+}
+
+/* ==========================================================================
+   4. BOTONES E INTERACTIVIDAD
+   ========================================================================== */
+.btn-interactivo {
+    background-color: var(--btn-bg);
+    border: 1px solid var(--borde-color);
+    color: var(--texto-principal);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transicion-tema);
+}
+
+.btn-interactivo:hover {
+    filter: brightness(1.1);
+}
+
+/* Split Button (Tema Automático / Selector) */
+.contenedor-split-button {
+    display: flex;
+    border: 1px solid var(--borde-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.split-accion-principal, .split-flecha {
+    background-color: var(--bg-tarjetas);
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: var(--transicion-tema);
+}
+
+.split-accion-principal:hover, .split-flecha:hover {
+    background-color: var(--btn-bg);
+}
+
+.split-divisor {
+    width: 1px;
+    background-color: var(--borde-color);
+}
+
+/* ==========================================================================
+   5. MENÚS DESPLEGABLES FLOTANTES (ANIMACIONES CLAVE)
+   ========================================================================== */
+.posicion-menu-relativo {
+    position: relative;
+}
+
+.menu-temas-flotante, .menu-opciones-flotante {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 240px;
+    background-color: var(--bg-tarjetas);
+    border: 1px solid var(--borde-color);
+    border-radius: 8px;
+    box-shadow: var(--sombra-menus);
+    padding: 8px;
+    z-index: 110;
+    
+    /* Estado inicial oculto con animación hacia arriba */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Clase desencadenada por JavaScript para abrir los menús */
+.menu-temas-flotante.activo, .menu-opciones-flotante.activo {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* Carpetas de Categorías dentro del menú */
+.carpeta-categoria {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.carpeta-cabecera {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--texto-secundario);
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.carpeta-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Items Opciones/Temas individuales */
+.item-tema-opcion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--texto-principal);
+    transition: background-color 0.15s ease;
+}
+
+.item-tema-opcion:hover {
+    background-color: var(--btn-bg);
+}
+
+.item-flex-izq {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.circulo-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+/* Control del Check de Selección (Oculto por defecto, aparece al seleccionarse) */
+.check-seleccionado {
+    color: var(--check-color);
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.item-tema-opcion.seleccionado .check-seleccionado {
+    opacity: 1;
+}
+
+.menu-divisor-linea {
+    height: 1px;
+    background-color: var(--borde-color);
+    margin: 6px 0;
+}
+
+/* ==========================================================================
+   6. CONTENIDOS Y WEB COMPONENT <texto-dinamico>
+   ========================================================================== */
+.bloque-lectura {
+    background-color: var(--bg-tarjetas);
+    border: 1px solid var(--borde-color);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: var(--sombra-general);
+    max-width: 800px;
+    margin: 0 auto;
+    transition: var(--transicion-tema);
+}
+
+.titulo-contenido {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+/* Estilos de animación interna para cuando cambia de modo el Web Component */
+texto-dinamico {
+    display: block;
+    line-height: 1.6;
+    animation: fadeInTexto 0.3s ease-in-out;
+}
+
+@keyframes fadeInTexto {
+    from { opacity: 0; transform: translateY(3px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   7. DISEÑO RESPONSIVO (MÓVILES)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Esconder Sidebar fuera de la pantalla en móviles */
+    #barra-lateral {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        transform: translateX(-100%);
+    }
+
+    /* Mostrar menú cuando se activa la clase en el body */
+    body.sidebar-abierta #barra-lateral {
+        transform: translateX(0);
+    }
+
+    .btn-menu-movil {
+        display: flex;
+    }
+
+    #contenedor-central {
+        padding: 15px;
+    }
+}
