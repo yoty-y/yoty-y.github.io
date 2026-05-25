@@ -7,6 +7,18 @@ window.modoLecturaActual = localStorage.getItem('modo-lectura-guardado') || 'det
 let _paginaActualId    = localStorage.getItem('pagina-actual') || configSitio.paginas[0].id;
 let _moduloPaginaActual = null;
 
+// ─── Búsqueda recursiva en el árbol de páginas ───────────────────────────────
+function _buscarPagina(paginas, id) {
+    for (const p of paginas) {
+        if (p.id === id) return p;
+        if (Array.isArray(p.hijos)) {
+            const found = _buscarPagina(p.hijos, id);
+            if (found) return found;
+        }
+    }
+    return null;
+}
+
 // ─── EstadoGlobal ─────────────────────────────────────────────────────────────
 export const EstadoGlobal = {
 
@@ -14,7 +26,7 @@ export const EstadoGlobal = {
 
     // ── Navegación SPA ────────────────────────────────────────────────────────
     async cargarPagina(idPagina) {
-        const cfg = configSitio.paginas.find(p => p.id === idPagina) || configSitio.paginas[0];
+        const cfg = _buscarPagina(configSitio.paginas, idPagina) || configSitio.paginas[0];
         _paginaActualId = cfg.id;
         localStorage.setItem('pagina-actual', _paginaActualId);
 
