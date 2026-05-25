@@ -146,3 +146,8 @@ menuOpciones.addEventListener('click', e => e.stopPropagation());
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
     if (temaActual === 'auto') aplicarTema('auto');
 });
+// ─── Navegación programática (páginas con sidebar: false) ─────────────────────
+window.addEventListener('navegarA', e => {
+    EstadoGlobal.cargarPagina(e.detail);
+    if (window.innerWidth < 768) document.body.classList.remove('sidebar-abierta');
+});

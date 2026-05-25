@@ -911,3 +911,407 @@ aside  { animation: sidebarFadeIn   0.42s cubic-bezier(0.4,0,0.2,1) both; }
 @media (min-width: 768px) {
     main { padding: 40px 48px; }
 }
+/* ==========================================================================
+   13. SIDEBAR — ÁRBOL JERÁRQUICO (sub-páginas + triángulo desplegable)
+   ========================================================================== */
+
+/* Wrapper que contiene la fila + la sub-lista */
+.nav-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Sub-lista colapsada por defecto */
+.nav-sublista {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition:
+        max-height 0.32s cubic-bezier(0.4,0,0.2,1),
+        opacity    0.25s cubic-bezier(0.4,0,0.2,1),
+        transform  0.28s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: 0;
+}
+
+/* Sub-lista abierta */
+.nav-wrapper.nav-desplegado > .nav-sublista {
+    max-height: 600px;   /* suficiente para cualquier árbol razonable */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Botón triángulo */
+.btn-nav-triangulo {
+    background: transparent;
+    border: none;
+    width: 28px;
+    height: 28px;
+    display: none;                /* oculto cuando el sidebar está colapsado */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-right: 4px;
+    transition: background-color 0.18s;
+}
+.btn-nav-triangulo:hover { background-color: var(--icono-sumido); }
+
+/* Solo visible cuando el sidebar está expandido */
+aside:hover .btn-nav-triangulo,
+body.sidebar-abierta .btn-nav-triangulo {
+    display: flex;
+}
+
+.nav-tri-icono {
+    font-size: 0.55rem;
+    color: var(--texto-secundario);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    display: inline-block;
+}
+
+/* Rotar triángulo cuando está abierto */
+.nav-wrapper.nav-desplegado > .opcion-navegacion .nav-tri-icono {
+    transform: rotate(90deg);
+}
+
+/* ==========================================================================
+   14. ESTILOS DE PÁGINAS — INICIO (stats grid)
+   ========================================================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 4px 0 8px;
+}
+
+.stat-card {
+    background: color-mix(in srgb, var(--accent-color) 8%, var(--bg-principal));
+    border: 1px solid color-mix(in srgb, var(--accent-color) 20%, var(--borde-color));
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, var(--transicion-tema);
+}
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px var(--sombra-general);
+}
+
+.stat-numero {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--texto-principal);
+    margin-top: 4px;
+    letter-spacing: 0.01em;
+}
+
+.stat-desc {
+    font-size: 0.65rem;
+    color: var(--texto-secundario);
+    margin-top: 2px;
+    font-family: var(--font-mono);
+}
+
+/* Botón para ir a página secreta */
+.btn-ir-secreto {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: color-mix(in srgb, #f59e0b 12%, var(--btn-bg));
+    border: 1px solid color-mix(in srgb, #f59e0b 35%, var(--borde-color));
+    color: var(--texto-principal);
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.22s ease, var(--transicion-tema);
+    box-shadow: 0 2px 8px var(--sombra-general);
+}
+.btn-ir-secreto:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px var(--sombra-general);
+    border-color: #f59e0b;
+}
+.btn-ir-secreto:active { transform: scale(0.97); }
+
+/* ==========================================================================
+   15. ESTILOS — TEXTO-UNO (chips + timeline)
+   ========================================================================== */
+.demo-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 4px 0 8px;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 13px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    border: 1px solid transparent;
+    transition: transform 0.18s ease;
+}
+.chip:hover { transform: scale(1.06); }
+
+.chip-verde  { background: color-mix(in srgb,#22c55e 14%,transparent); color:#16a34a; border-color:color-mix(in srgb,#22c55e 30%,transparent); }
+.chip-naranja{ background: color-mix(in srgb,#f97316 14%,transparent); color:#ea580c; border-color:color-mix(in srgb,#f97316 30%,transparent); }
+.chip-azul   { background: color-mix(in srgb,#3b82f6 14%,transparent); color:#2563eb; border-color:color-mix(in srgb,#3b82f6 30%,transparent); }
+.chip-rojo   { background: color-mix(in srgb,#ef4444 14%,transparent); color:#dc2626; border-color:color-mix(in srgb,#ef4444 30%,transparent); }
+
+/* Timeline */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 20px;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--borde-color);
+    border-radius: 2px;
+}
+
+.tl-item {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    position: relative;
+    align-items: flex-start;
+}
+
+.tl-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--btn-bg);
+    border: 2px solid var(--borde-color);
+    flex-shrink: 0;
+    margin-left: -27px;
+    margin-top: 3px;
+    transition: var(--transicion-tema);
+}
+
+.tl-activo .tl-dot {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color) 25%, transparent);
+}
+
+.tl-body {
+    font-size: 0.88rem;
+    color: var(--texto-principal);
+    line-height: 1.55;
+}
+
+.tl-desc { margin-top: 4px; }
+
+/* ==========================================================================
+   16. ESTILOS — EXPLORADOR (concepto-grid + medidor)
+   ========================================================================== */
+.concepto-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 4px 0 8px;
+}
+
+.concepto-card {
+    background: var(--bg-principal);
+    border: 1px solid var(--borde-color);
+    border-radius: 12px;
+    padding: 14px 14px 12px;
+    transition: transform 0.2s, box-shadow 0.2s, var(--transicion-tema);
+    font-size: 0.87rem;
+    color: var(--texto-principal);
+}
+.concepto-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px var(--sombra-general);
+}
+
+.concepto-icono {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+.concepto-texto {
+    margin-top: 4px;
+    font-size: 0.82rem;
+}
+
+/* Medidor de curiosidad */
+.curiosidad-bar-wrap {
+    margin: 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.curiosidad-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.84rem;
+    color: var(--texto-secundario);
+    font-family: var(--font-mono);
+}
+
+.curiosidad-track {
+    height: 10px;
+    background: var(--btn-bg);
+    border-radius: 100px;
+    border: 1px solid var(--borde-color);
+    overflow: hidden;
+}
+
+.curiosidad-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb,var(--accent-color) 60%,#ffffff));
+    border-radius: 100px;
+    transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.btn-curiosidad {
+    align-self: flex-start;
+    background: var(--btn-bg);
+    border: 1px solid var(--borde-color);
+    color: var(--texto-principal);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease, var(--transicion-tema);
+    box-shadow: -1px -1px 3px var(--btn-sombra-clara), 1px 1px 3px var(--btn-sombra-oscura);
+}
+.btn-curiosidad:hover { transform: translateY(-2px); }
+.btn-curiosidad:active { transform: scale(0.97); }
+
+/* ==========================================================================
+   17. ESTILOS — SECRETO (teclado numérico + ficha tabla)
+   ========================================================================== */
+.secreto-teclado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+    background: color-mix(in srgb, #f59e0b 6%, var(--bg-principal));
+    border: 1px solid color-mix(in srgb, #f59e0b 20%, var(--borde-color));
+    border-radius: 14px;
+    margin: 4px 0 8px;
+}
+
+.secreto-display {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--texto-principal);
+    background: var(--btn-bg);
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: 1px solid var(--borde-color);
+    min-width: 160px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.secreto-numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.secreto-btn {
+    background: var(--btn-bg);
+    border: 1px solid var(--borde-color);
+    color: var(--texto-principal);
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.18s ease, var(--transicion-tema);
+    box-shadow: -1px -1px 3px var(--btn-sombra-clara), 1px 1px 3px var(--btn-sombra-oscura);
+}
+.secreto-btn:hover { transform: scale(1.06); background: color-mix(in srgb, var(--accent-color) 12%, var(--btn-bg)); }
+.secreto-btn:active { transform: scale(0.94); box-shadow: inset 1px 1px 3px var(--btn-sombra-oscura); }
+
+.secreto-btn-clear { color: #ef4444; }
+.secreto-btn-ok    { color: var(--check-color); font-size: 0.85rem; }
+
+.secreto-hint {
+    font-size: 0.82rem;
+    color: var(--texto-secundario);
+    font-family: var(--font-mono);
+    text-align: center;
+    transition: color 0.3s;
+}
+
+/* Ficha técnica tabla */
+.ficha-tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--borde-color);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.87rem;
+}
+
+.ficha-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    gap: 12px;
+    border-bottom: 1px solid var(--borde-color);
+    transition: var(--transicion-tema);
+}
+.ficha-fila:last-child { border-bottom: none; }
+.ficha-fila:hover { background: var(--icono-sumido); }
+
+.ficha-clave {
+    color: var(--texto-secundario);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    flex-shrink: 0;
+}
+
+.ficha-valor {
+    color: var(--texto-principal);
+    font-weight: 500;
+    text-align: right;
+}

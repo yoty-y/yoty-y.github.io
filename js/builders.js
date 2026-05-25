@@ -1,23 +1,88 @@
 // js/builders.js
 
-// ─── Sidebar ──────────────────────────────────────────────────────────────────
+// ─── Sidebar (árbol recursivo con sub-items desplegables) ─────────────────────
+//
+// Regla de renderizado:
+//   • sidebar: false  → omitir en el sidebar (pero sí existe en configSitio.paginas)
+//   • hijos: [...]    → agregar triángulo desplegable. El triángulo dispara el
+//                       acordeón; el icono y el texto de la página navegan normalmente.
+//   • Recursivo       → soporta nietos, bisnietos, etc., con indentación automática.
+
 export function construirSidebar(config, contenedorId, callbackClic) {
     const nav = document.getElementById(contenedorId);
     if (!nav) return;
     nav.innerHTML = '';
+    _renderNivel(config.paginas, nav, callbackClic, 0);
+}
 
-    config.paginas.forEach(pagina => {
-        const div = document.createElement('div');
-        div.className = 'opcion-navegacion';
-        div.setAttribute('data-id', pagina.id);
-        div.innerHTML = `
-            <button class="btn-interactivo" style="flex-shrink:0;" aria-label="${pagina.titulo}">
-                <span>${pagina.icono}</span>
-            </button>
-            <span class="texto-opcion">${pagina.titulo}</span>
-        `;
-        div.addEventListener('click', () => callbackClic(pagina.id));
-        nav.appendChild(div);
+function _renderNivel(paginas, contenedor, callbackClic, nivel) {
+    paginas.forEach(pagina => {
+        // Páginas con sidebar: false no se muestran
+        if (pagina.sidebar === false) return;
+
+        const tieneHijos = Array.isArray(pagina.hijos) && pagina.hijos.length > 0;
+
+        // ── Wrapper que agrupa el item + su sub-lista ─────────────────────────
+        const wrapper = document.createElement('div');
+        wrapper.className = 'nav-wrapper';
+        if (nivel > 0) wrapper.style.paddingLeft = `${nivel * 14}px`;
+
+        // ── Fila del item ──────────────────────────────────────────────────────
+        const fila = document.createElement('div');
+        fila.className = 'opcion-navegacion';
+        fila.setAttribute('data-id', pagina.id);
+
+        // Icono/btn (navega)
+        const btn = document.createElement('button');
+        btn.className = 'btn-interactivo';
+        btn.style.flexShrink = '0';
+        btn.setAttribute('aria-label', pagina.titulo);
+        btn.innerHTML = `<span>${pagina.icono}</span>`;
+        btn.addEventListener('click', e => {
+            e.stopPropagation();
+            callbackClic(pagina.id);
+        });
+
+        // Texto (navega)
+        const textoEl = document.createElement('span');
+        textoEl.className = 'texto-opcion';
+        textoEl.textContent = pagina.titulo;
+        textoEl.style.flex = '1';
+        textoEl.addEventListener('click', e => {
+            e.stopPropagation();
+            callbackClic(pagina.id);
+        });
+
+        fila.appendChild(btn);
+        fila.appendChild(textoEl);
+
+        // ── Triángulo (solo si hay hijos) ──────────────────────────────────────
+        if (tieneHijos) {
+            const tri = document.createElement('button');
+            tri.className = 'btn-nav-triangulo';
+            tri.setAttribute('aria-label', 'Desplegar sub-páginas');
+            tri.innerHTML = `<span class="nav-tri-icono">▶</span>`;
+
+            tri.addEventListener('click', e => {
+                e.stopPropagation();
+                const abierto = wrapper.classList.toggle('nav-desplegado');
+                tri.setAttribute('aria-expanded', String(abierto));
+            });
+
+            fila.appendChild(tri);
+        }
+
+        wrapper.appendChild(fila);
+
+        // ── Sub-lista recursiva ────────────────────────────────────────────────
+        if (tieneHijos) {
+            const sublista = document.createElement('div');
+            sublista.className = 'nav-sublista';
+            _renderNivel(pagina.hijos, sublista, callbackClic, nivel + 1);
+            wrapper.appendChild(sublista);
+        }
+
+        contenedor.appendChild(wrapper);
     });
 }
 
@@ -26,7 +91,7 @@ export function construirMenuTemas(config, contenedorId, callbackClic) {
     const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
 
-    // ── Temas básicos sueltos (desde config) ──────────────────────────────────
+    // ── Temas básicos sueltos ─────────────────────────────────────────────────
     let html = '';
     config.temasBasicos.forEach(tema => {
         const borde = tema.borde ? '; border: 1px solid #cbd5e1;' : '';
@@ -41,7 +106,7 @@ export function construirMenuTemas(config, contenedorId, callbackClic) {
     });
     html += '<div class="menu-divisor-linea"></div>';
 
-    // ── Categorías en carpetas ────────────────────────────────────────────────
+    // ── Categorías ────────────────────────────────────────────────────────────
     config.categoriasTemas.forEach(cat => {
         let htmlTemas = '';
         cat.temas.forEach(tema => {
@@ -68,12 +133,10 @@ export function construirMenuTemas(config, contenedorId, callbackClic) {
 
     contenedor.innerHTML = html;
 
-    // Listeners de temas
     contenedor.querySelectorAll('.item-tema-opcion').forEach(item => {
         item.addEventListener('click', () => callbackClic(item.dataset.tema));
     });
 
-    // Acordeón de carpetas
     contenedor.querySelectorAll('.carpeta-cabecera').forEach(cabecera => {
         cabecera.addEventListener('click', e => {
             e.stopPropagation();

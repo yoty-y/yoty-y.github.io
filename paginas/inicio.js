@@ -32,11 +32,64 @@ export const contenido = `
             ">
         </texto-dinamico>
 
+        <div class="separador-deco">estadísticas del universo</div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-numero" data-target="93">0</div>
+                <div class="stat-label">Mil millones de años</div>
+                <div class="stat-desc">edad del universo</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero" data-target="200">0</div>
+                <div class="stat-label">Mil millones de galaxias</div>
+                <div class="stat-desc">observable</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero" data-target="7">0</div>
+                <div class="stat-label">Continentes</div>
+                <div class="stat-desc">en la Tierra</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-numero" data-target="118">0</div>
+                <div class="stat-label">Elementos</div>
+                <div class="stat-desc">tabla periódica</div>
+            </div>
+        </div>
+
+        <div class="separador-deco">explorar</div>
+
         <div class="bloque-acento" style="margin-top: 24px;">
             <texto-dinamico
-                extenso="La simplicidad no está reñida con la elegancia — este sistema fue diseñado para crecer sin volverse complicado."
-                corto="Simple de expandir, elegante por diseño.">
+                extenso="La simplicidad no está reñida con la elegancia — este sistema fue diseñado para crecer sin volverse complicado. Despliega el ítem <strong>Inicio</strong> en el menú lateral para ver la sub-sección Explorador."
+                corto="Simple de expandir, elegante por diseño. Toca ▶ en Inicio para ver sub-páginas.">
             </texto-dinamico>
         </div>
+
+        <button class="btn-ir-secreto" id="btn-desde-inicio" style="margin-top: 20px;">
+            🔒 Acceder a la Página Secreta
+        </button>
     </div>
 `;
+
+export function inicializar() {
+    // Animación contadora
+    document.querySelectorAll('.stat-numero').forEach(el => {
+        const target = parseInt(el.dataset.target, 10);
+        let current = 0;
+        const step = Math.ceil(target / 40);
+        const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = current;
+            if (current >= target) clearInterval(timer);
+        }, 30);
+    });
+
+    // Botón secreto
+    const btn = document.getElementById('btn-desde-inicio');
+    if (btn) {
+        btn.addEventListener('click', () => {
+            window.dispatchEvent(new CustomEvent('navegarA', { detail: 'secreto' }));
+        });
+    }
+}

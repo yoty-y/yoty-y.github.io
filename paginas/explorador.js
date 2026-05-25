@@ -1,0 +1,105 @@
+// paginas/explorador.js
+// Página hija de "inicio" — aparece como sub-item desplegable en el sidebar.
+export const contenido = `
+    <div class="bloque-lectura">
+        <span class="badge">✦ Explorador</span>
+
+        <h3 class="titulo-contenido" style="margin-top: 18px;">
+            Explorador<br>de Conceptos
+        </h3>
+
+        <texto-dinamico
+            extenso="
+                <p class='txt-detallado'>
+                    Esta es una sub-página hija de Inicio. Aparece desplegada en el sidebar
+                    solo cuando presionas el triángulo ▶ junto al ítem padre. El código es
+                    idéntico a cualquier otra página — solo su posición en <code style='font-family:var(--font-mono);background:var(--btn-bg);padding:2px 6px;border-radius:4px;font-size:0.85rem;'>config.js</code> la hace hija.
+                </p>
+            "
+            corto="<p class='txt-resumido'>Sub-página de Inicio. Solo config.js la distingue.</p>">
+        </texto-dinamico>
+
+        <div class="separador-deco">tarjetas de concepto</div>
+
+        <div class="concepto-grid">
+            <div class="concepto-card">
+                <div class="concepto-icono">🧩</div>
+                <texto-dinamico
+                    extenso="<strong>Modularidad</strong><p class='txt-detallado concepto-texto'>Cada página es un archivo JS independiente. No hay dependencias cruzadas entre contenidos.</p>"
+                    corto="<strong>Modularidad</strong><p class='txt-resumido concepto-texto'>Archivos JS independientes.</p>">
+                </texto-dinamico>
+            </div>
+            <div class="concepto-card">
+                <div class="concepto-icono">🌲</div>
+                <texto-dinamico
+                    extenso="<strong>Jerarquía</strong><p class='txt-detallado concepto-texto'>Las páginas pueden tener hijos, nietos y más, definidos con el campo <em>hijos</em> en config.js.</p>"
+                    corto="<strong>Jerarquía</strong><p class='txt-resumido concepto-texto'>Hijos y nietos en config.js.</p>">
+                </texto-dinamico>
+            </div>
+            <div class="concepto-card">
+                <div class="concepto-icono">🔒</div>
+                <texto-dinamico
+                    extenso="<strong>Páginas ocultas</strong><p class='txt-detallado concepto-texto'>Con <em>sidebar: false</em> una página existe pero no aparece en el menú lateral. Solo accesible por botón o link explícito.</p>"
+                    corto="<strong>Páginas ocultas</strong><p class='txt-resumido concepto-texto'>sidebar: false las esconde del menú.</p>">
+                </texto-dinamico>
+            </div>
+            <div class="concepto-card">
+                <div class="concepto-icono">⚡</div>
+                <texto-dinamico
+                    extenso="<strong>Sin recargas</strong><p class='txt-detallado concepto-texto'>La navegación es 100 % SPA: los módulos se importan dinámicamente, nunca se recarga la página.</p>"
+                    corto="<strong>Sin recargas</strong><p class='txt-resumido concepto-texto'>Importación dinámica pura.</p>">
+                </texto-dinamico>
+            </div>
+        </div>
+
+        <div class="separador-deco">medidor de curiosidad</div>
+
+        <div class="curiosidad-bar-wrap">
+            <div class="curiosidad-label">
+                <span>Tu nivel de curiosidad</span>
+                <span id="curiosidad-val">0%</span>
+            </div>
+            <div class="curiosidad-track">
+                <div class="curiosidad-fill" id="curiosidad-fill"></div>
+            </div>
+            <button class="btn-curiosidad" id="btn-mas-curiosidad">
+                +10 curiosidad
+            </button>
+        </div>
+
+        <div class="bloque-acento" style="margin-top: 24px;">
+            <texto-dinamico
+                extenso="Esta sub-página fue creada añadiendo un objeto en el array <em>hijos</em> de la página 'inicio' en config.js. El sidebar se reconstruye solo. No se tocó ni una línea de HTML."
+                corto="Solo se editó config.js. El sidebar se actualizó solo.">
+            </texto-dinamico>
+        </div>
+
+        <button class="btn-ir-secreto" id="btn-secreto-explorador" style="margin-top: 20px;">
+            🔒 Acceder a la Página Secreta
+        </button>
+    </div>
+`;
+
+export function inicializar() {
+    let nivel = 0;
+
+    const fill = document.getElementById('curiosidad-fill');
+    const val  = document.getElementById('curiosidad-val');
+    const btn  = document.getElementById('btn-mas-curiosidad');
+
+    if (btn && fill && val) {
+        btn.addEventListener('click', () => {
+            nivel = Math.min(nivel + 10, 100);
+            fill.style.width = nivel + '%';
+            val.textContent  = nivel + '%';
+            if (nivel === 100) btn.textContent = '🎉 ¡Máxima curiosidad!';
+        });
+    }
+
+    const btnSecreto = document.getElementById('btn-secreto-explorador');
+    if (btnSecreto) {
+        btnSecreto.addEventListener('click', () => {
+            window.dispatchEvent(new CustomEvent('navegarA', { detail: 'secreto' }));
+        });
+    }
+}
