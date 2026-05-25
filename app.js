@@ -123,7 +123,13 @@ document.getElementById('btn-abrir-sidebar').addEventListener('click', e => {
 });
 document.getElementById('btn-cerrar-sidebar').addEventListener('click', e => {
     e.stopPropagation();
-    document.body.classList.remove('sidebar-abierta');
+    if (window.innerWidth >= 768) {
+        // Desktop: las ☰ alternan el bloqueo fijo del sidebar
+        document.body.classList.toggle('sidebar-abierta');
+    } else {
+        // Móvil: siempre cierra
+        document.body.classList.remove('sidebar-abierta');
+    }
 });
 document.getElementById('overlay-sidebar').addEventListener('click', () =>
     document.body.classList.remove('sidebar-abierta'));

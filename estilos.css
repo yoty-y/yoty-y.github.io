@@ -375,29 +375,24 @@ aside::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 
 /* ── Sidebar expandido en desktop ── */
 @media (min-width: 768px) {
     aside:hover,
-    aside:has(.nav-desplegado),
     body.sidebar-abierta aside {
         width: var(--ancho-sidebar-total);
     }
 
     aside:hover .texto-opcion,
-    aside:has(.nav-desplegado) .texto-opcion,
     body.sidebar-abierta .texto-opcion {
         opacity: 1; transform: translateX(0); pointer-events: auto; transition-delay: 0.06s;
     }
     aside:hover .sidebar-brand-nombre,
-    aside:has(.nav-desplegado) .sidebar-brand-nombre,
     body.sidebar-abierta .sidebar-brand-nombre {
         opacity: 1; transform: translateX(0); pointer-events: auto; transition-delay: 0.04s;
     }
     aside:hover .sidebar-footer,
-    aside:has(.nav-desplegado) .sidebar-footer,
     body.sidebar-abierta .sidebar-footer {
         opacity: 1; pointer-events: auto; transition-delay: 0.08s;
     }
-    /* Triángulo visible cuando sidebar expandido */
+    /* Triángulo visible solo cuando sidebar expandido */
     aside:hover .btn-nav-triangulo,
-    aside:has(.nav-desplegado) .btn-nav-triangulo,
     body.sidebar-abierta .btn-nav-triangulo {
         opacity: 1;
         pointer-events: auto;
@@ -948,7 +943,9 @@ aside  { animation: sidebarFadeIn   0.42s cubic-bezier(0.4,0,0.2,1) both; }
 }
 
 /* Sub-lista abierta */
-.nav-wrapper.nav-desplegado > .nav-sublista {
+/* Sublista visible solo si está desplegada Y el sidebar está expandido */
+aside:hover .nav-wrapper.nav-desplegado > .nav-sublista,
+body.sidebar-abierta .nav-wrapper.nav-desplegado > .nav-sublista {
     max-height: 600px;
     opacity: 1;
 }
@@ -982,7 +979,9 @@ aside  { animation: sidebarFadeIn   0.42s cubic-bezier(0.4,0,0.2,1) both; }
 }
 
 /* Rotar triángulo cuando está abierto */
-.nav-wrapper.nav-desplegado > .opcion-navegacion .nav-tri-icono {
+/* Triángulo rotado solo cuando sidebar expandido y desplegado */
+aside:hover .nav-wrapper.nav-desplegado > .opcion-navegacion .nav-tri-icono,
+body.sidebar-abierta .nav-wrapper.nav-desplegado > .opcion-navegacion .nav-tri-icono {
     transform: rotate(90deg);
 }
 
