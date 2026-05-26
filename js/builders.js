@@ -67,6 +67,7 @@ function _renderNivel(paginas, contenedor, callbackClic, nivel) {
                 e.stopPropagation();
                 const abierto = wrapper.classList.toggle('nav-desplegado');
                 tri.setAttribute('aria-expanded', String(abierto));
+                _guardarDesplegados();
             });
 
             fila.appendChild(tri);
@@ -146,4 +147,32 @@ export function construirMenuTemas(config, contenedorId, callbackClic) {
             if (!estaAbierta) carpeta.classList.add('abierta');
         });
     });
+}
+
+// ─── Persistencia de desplegables ─────────────────────────────────────────────
+// Guarda un array con los ids de los nav-wrapper que tienen nav-desplegado.
+
+function _guardarDesplegados() {
+    const abiertos = [...document.querySelectorAll('.nav-wrapper.nav-desplegado')]
+        .map(w => w.querySelector('.opcion-navegacion')?.dataset?.id)
+        .filter(Boolean);
+    localStorage.setItem('nav-desplegados', JSON.stringify(abiertos));
+}
+
+// Llamada desde app.js después de construirSidebar()
+export function restaurarDesplegados() {
+    try {
+        const abiertos = JSON.parse(localStorage.getItem('nav-desplegados') || '[]');
+        abiertos.forEach(id => {
+            const fila = document.querySelector(`.opcion-navegacion[data-id="${id}"]`);
+            if (fila) {
+                const wrapper = fila.closest('.nav-wrapper');
+                if (wrapper) {
+                    wrapper.classList.add('nav-desplegado');
+                    const tri = wrapper.querySelector('.btn-nav-triangulo');
+                    if (tri) tri.setAttribute('aria-expanded', 'true');
+                }
+            }
+        });
+    } catch (_) {}
 }

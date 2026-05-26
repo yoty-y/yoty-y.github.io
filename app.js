@@ -1,7 +1,7 @@
 // app.js — Punto de entrada. Solo orquesta; toda la lógica vive en js/
 import { configSitio }                      from './config.js';
 import { EstadoGlobal }                     from './js/core.js';
-import { construirSidebar, construirMenuTemas } from './js/builders.js';
+import { construirSidebar, construirMenuTemas, restaurarDesplegados } from './js/builders.js';
 import './js/componentes.js';   // registra <texto-dinamico>
 
 // ─── Estado local de UI ───────────────────────────────────────────────────────
@@ -21,6 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
     aplicarModoLectura(window.modoLecturaActual);
     aplicarTema(temaActual);
     EstadoGlobal.cargarPagina(EstadoGlobal.paginaActualId);
+
+    // Restaurar estado del sidebar (solo desktop)
+    if (window.innerWidth >= 768) {
+        if (localStorage.getItem('sidebar-fijo') === '1') {
+            document.body.classList.add('sidebar-fijo');
+        }
+    }
+    // Restaurar desplegables (desktop y móvil, pero no el panel abierto en móvil)
+    restaurarDesplegados();
 });
 
 // ─── Escucha cambios de página para resaltar el item activo ──────────────────
@@ -125,7 +134,8 @@ document.getElementById('btn-cerrar-sidebar').addEventListener('click', e => {
     e.stopPropagation();
     if (window.innerWidth >= 768) {
         // Desktop: ☰ fija o libera el sidebar (clase separada de la móvil)
-        document.body.classList.toggle('sidebar-fijo');
+        const fijo = document.body.classList.toggle('sidebar-fijo');
+        localStorage.setItem('sidebar-fijo', fijo ? '1' : '0');
     } else {
         // Móvil: siempre cierra
         document.body.classList.remove('sidebar-abierta');
@@ -138,6 +148,14 @@ document.getElementById('overlay-sidebar').addEventListener('click', () =>
 document.getElementById('btn-restablecer').addEventListener('click', () => {
     temaActual = 'auto';
     document.body.classList.remove('sidebar-fijo');
+    localStorage.setItem('sidebar-fijo', '0');
+    localStorage.removeItem('nav-desplegados');
+    // Cerrar todos los desplegables visualmente
+    document.querySelectorAll('.nav-wrapper.nav-desplegado').forEach(w => {
+        w.classList.remove('nav-desplegado');
+        const tri = w.querySelector('.btn-nav-triangulo');
+        if (tri) tri.setAttribute('aria-expanded', 'false');
+    });
     EstadoGlobal.restablecer();
     aplicarTema('auto');
     aplicarModoLectura('detallada');
