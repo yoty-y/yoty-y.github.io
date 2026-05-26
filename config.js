@@ -20,6 +20,12 @@ export const configSitio = {
             archivo: "texto-uno.js"
         },
         {
+            id: "minima",
+            titulo: "Página Mínima",
+            icono: "🧱",
+            archivo: "minima.js"
+        },
+        {
             id: "secreto",
             titulo: "Página Secreta",
             icono: "🔒",
