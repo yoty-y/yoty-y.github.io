@@ -865,9 +865,10 @@ aside  { animation: sidebarFadeIn   0.42s cubic-bezier(0.4,0,0.2,1) both; }
         width: var(--ancho-sidebar-total);
         transform: translateX(-110%);
         pointer-events: none;
-        visibility: hidden;
+        /* opacity en vez de visibility — permite que transform anime hasta el final */
+        opacity: 0;
         transition: transform 0.32s cubic-bezier(0.4,0,0.2,1),
-                    visibility 0s linear 0.32s,
+                    opacity   0.28s cubic-bezier(0.4,0,0.2,1),
                     var(--transicion-tema);
     }
 
@@ -888,9 +889,9 @@ aside  { animation: sidebarFadeIn   0.42s cubic-bezier(0.4,0,0.2,1) both; }
         transform: translateX(0);
         box-shadow: 6px 0 32px rgba(0,0,0,0.35);
         pointer-events: auto;
-        visibility: visible;
+        opacity: 1;
         transition: transform 0.32s cubic-bezier(0.4,0,0.2,1),
-                    visibility 0s linear 0s,
+                    opacity   0.22s cubic-bezier(0.4,0,0.2,1),
                     var(--transicion-tema);
     }
     body.sidebar-abierta aside .texto-opcion,
