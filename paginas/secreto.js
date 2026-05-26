@@ -1,8 +1,98 @@
 // paginas/secreto.js
 // sidebar: false en config.js — no aparece en el menú lateral.
-// Solo accesible mediante el evento 'navegarA' disparado por botones en otras páginas.
 
-export const contenido = `
+const estilos = `
+<style>
+    .secreto-teclado {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 20px;
+        background: color-mix(in srgb, #f59e0b 6%, var(--bg-principal));
+        border: 1px solid color-mix(in srgb, #f59e0b 20%, var(--borde-color));
+        border-radius: 14px;
+        margin: 4px 0 8px;
+    }
+    .secreto-display {
+        font-family: var(--font-mono);
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        color: var(--texto-principal);
+        background: var(--btn-bg);
+        padding: 10px 24px;
+        border-radius: 10px;
+        border: 1px solid var(--borde-color);
+        min-width: 160px;
+        text-align: center;
+        transition: color 0.3s ease;
+    }
+    .secreto-numpad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    .secreto-btn {
+        background: var(--btn-bg);
+        border: 1px solid var(--borde-color);
+        color: var(--texto-principal);
+        width: 54px;
+        height: 54px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        font-family: var(--font-body);
+        cursor: pointer;
+        transition: all 0.18s ease, var(--transicion-tema);
+        box-shadow: -1px -1px 3px var(--btn-sombra-clara), 1px 1px 3px var(--btn-sombra-oscura);
+    }
+    .secreto-btn:hover { transform: scale(1.06); background: color-mix(in srgb, var(--accent-color) 12%, var(--btn-bg)); }
+    .secreto-btn:active { transform: scale(0.94); box-shadow: inset 1px 1px 3px var(--btn-sombra-oscura); }
+    .secreto-btn-clear { color: #ef4444; }
+    .secreto-btn-ok    { color: var(--check-color); font-size: 0.85rem; }
+    .secreto-hint {
+        font-size: 0.82rem;
+        color: var(--texto-secundario);
+        font-family: var(--font-mono);
+        text-align: center;
+        transition: color 0.3s;
+    }
+    .ficha-tabla {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        border: 1px solid var(--borde-color);
+        border-radius: 10px;
+        overflow: hidden;
+        font-size: 0.87rem;
+    }
+    .ficha-fila {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        gap: 12px;
+        border-bottom: 1px solid var(--borde-color);
+        transition: var(--transicion-tema);
+    }
+    .ficha-fila:last-child { border-bottom: none; }
+    .ficha-fila:hover { background: var(--icono-sumido); }
+    .ficha-clave {
+        color: var(--texto-secundario);
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.03em;
+        flex-shrink: 0;
+    }
+    .ficha-valor {
+        color: var(--texto-principal);
+        font-weight: 500;
+        text-align: right;
+    }
+</style>`;
+
+export const contenido = estilos + `
     <div class="bloque-lectura secreto-pagina">
         <span class="badge" style="background:color-mix(in srgb,#f59e0b 15%,transparent);color:#f59e0b;border-color:color-mix(in srgb,#f59e0b 30%,transparent);">
             🔒 Restringido
@@ -116,7 +206,11 @@ export function inicializar() {
                 if (hint) { hint.textContent = '❌ Código incorrecto. Intenta de nuevo.'; hint.style.color = '#ef4444'; }
                 if (display) display.style.color = '#ef4444';
                 entrada = '';
-                setTimeout(() => { actualizarDisplay(); if (display) display.style.color = ''; if (hint) hint.style.color = ''; if (hint) hint.textContent = 'Ingresa el código de 4 dígitos'; }, 1200);
+                setTimeout(() => {
+                    actualizarDisplay();
+                    if (display) display.style.color = '';
+                    if (hint) { hint.style.color = ''; hint.textContent = 'Ingresa el código de 4 dígitos'; }
+                }, 1200);
             }
         });
     }

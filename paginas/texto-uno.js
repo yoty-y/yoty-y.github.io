@@ -1,5 +1,62 @@
 // paginas/texto-uno.js
-export const contenido = `
+
+const estilos = `
+<style>
+    .demo-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 4px 0 8px;
+    }
+    .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: relative;
+        padding-left: 20px;
+    }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 6px;
+        bottom: 6px;
+        width: 2px;
+        background: var(--borde-color);
+        border-radius: 2px;
+    }
+    .tl-item {
+        display: flex;
+        gap: 14px;
+        padding: 10px 0;
+        position: relative;
+        align-items: flex-start;
+    }
+    .tl-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--btn-bg);
+        border: 2px solid var(--borde-color);
+        flex-shrink: 0;
+        margin-left: -27px;
+        margin-top: 3px;
+        transition: var(--transicion-tema);
+    }
+    .tl-activo .tl-dot {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color) 25%, transparent);
+    }
+    .tl-body {
+        font-size: 0.88rem;
+        color: var(--texto-principal);
+        line-height: 1.55;
+    }
+    .tl-desc { margin-top: 4px; }
+</style>`;
+
+export const contenido = estilos + `
     <div class="bloque-lectura">
         <span class="badge">✦ Demo</span>
 

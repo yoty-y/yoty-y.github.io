@@ -1,5 +1,48 @@
 // paginas/inicio.js
-export const contenido = `
+
+const estilos = `
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 4px 0 8px;
+    }
+    .stat-card {
+        background: color-mix(in srgb, var(--accent-color) 8%, var(--bg-principal));
+        border: 1px solid color-mix(in srgb, var(--accent-color) 20%, var(--borde-color));
+        border-radius: 12px;
+        padding: 14px 16px;
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, var(--transicion-tema);
+    }
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px var(--sombra-general);
+    }
+    .stat-numero {
+        font-family: var(--font-display);
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        line-height: 1;
+    }
+    .stat-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--texto-principal);
+        margin-top: 4px;
+        letter-spacing: 0.01em;
+    }
+    .stat-desc {
+        font-size: 0.65rem;
+        color: var(--texto-secundario);
+        margin-top: 2px;
+        font-family: var(--font-mono);
+    }
+</style>`;
+
+export const contenido = estilos + `
     <div class="bloque-lectura">
         <span class="badge">✦ Inicio</span>
 

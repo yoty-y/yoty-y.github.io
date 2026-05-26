@@ -1,6 +1,80 @@
 // paginas/explorador.js
-// Página hija de "inicio" — aparece como sub-item desplegable en el sidebar.
-export const contenido = `
+
+const estilos = `
+<style>
+    .concepto-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin: 4px 0 8px;
+    }
+    .concepto-card {
+        background: var(--bg-principal);
+        border: 1px solid var(--borde-color);
+        border-radius: 12px;
+        padding: 14px 14px 12px;
+        transition: transform 0.2s, box-shadow 0.2s, var(--transicion-tema);
+        font-size: 0.87rem;
+        color: var(--texto-principal);
+    }
+    .concepto-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px var(--sombra-general);
+    }
+    .concepto-icono {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+    }
+    .concepto-texto {
+        margin-top: 4px;
+        font-size: 0.82rem;
+    }
+    .curiosidad-bar-wrap {
+        margin: 8px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .curiosidad-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.84rem;
+        color: var(--texto-secundario);
+        font-family: var(--font-mono);
+    }
+    .curiosidad-track {
+        height: 10px;
+        background: var(--btn-bg);
+        border-radius: 100px;
+        border: 1px solid var(--borde-color);
+        overflow: hidden;
+    }
+    .curiosidad-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 60%, #ffffff));
+        border-radius: 100px;
+        transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .btn-curiosidad {
+        align-self: flex-start;
+        background: var(--btn-bg);
+        border: 1px solid var(--borde-color);
+        color: var(--texto-principal);
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-family: var(--font-body);
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease, var(--transicion-tema);
+        box-shadow: -1px -1px 3px var(--btn-sombra-clara), 1px 1px 3px var(--btn-sombra-oscura);
+    }
+    .btn-curiosidad:hover { transform: translateY(-2px); }
+    .btn-curiosidad:active { transform: scale(0.97); }
+</style>`;
+
+export const contenido = estilos + `
     <div class="bloque-lectura">
         <span class="badge">✦ Explorador</span>
 
@@ -81,7 +155,6 @@ export const contenido = `
 `;
 
 export function inicializar() {
-    // Restaurar nivel guardado, o 0 si no hay nada
     let nivel = parseInt(localStorage.getItem('explorador-curiosidad') || '0', 10);
 
     const fill = document.getElementById('curiosidad-fill');
@@ -89,7 +162,6 @@ export function inicializar() {
     const btn  = document.getElementById('btn-mas-curiosidad');
 
     if (btn && fill && val) {
-        // Aplicar estado guardado al cargar
         fill.style.width = nivel + '%';
         val.textContent  = nivel + '%';
         if (nivel === 100) btn.textContent = '🎉 ¡Máxima curiosidad!';
