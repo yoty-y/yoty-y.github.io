@@ -897,7 +897,8 @@ aside  { animation: sidebarFadeIn   0.42s cubic-bezier(0.4,0,0.2,1) both; }
     body.sidebar-abierta aside .sidebar-brand-nombre,
     body.sidebar-abierta aside .sidebar-footer,
     body.sidebar-abierta aside .btn-interactivo,
-    body.sidebar-abierta aside .opcion-navegacion {
+    body.sidebar-abierta aside .opcion-navegacion,
+    body.sidebar-abierta aside .btn-nav-triangulo {
         opacity: 1;
         pointer-events: auto;
         transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1);
@@ -945,7 +946,8 @@ aside  { animation: sidebarFadeIn   0.42s cubic-bezier(0.4,0,0.2,1) both; }
 /* Sub-lista abierta */
 /* Sublista visible solo si está desplegada Y el sidebar está expandido */
 aside:hover .nav-wrapper.nav-desplegado > .nav-sublista,
-body.sidebar-fijo .nav-wrapper.nav-desplegado > .nav-sublista {
+body.sidebar-fijo .nav-wrapper.nav-desplegado > .nav-sublista,
+body.sidebar-abierta .nav-wrapper.nav-desplegado > .nav-sublista {
     max-height: 600px;
     opacity: 1;
 }
@@ -981,7 +983,8 @@ body.sidebar-fijo .nav-wrapper.nav-desplegado > .nav-sublista {
 /* Rotar triángulo cuando está abierto */
 /* Triángulo rotado solo cuando sidebar expandido y desplegado */
 aside:hover .nav-wrapper.nav-desplegado > .opcion-navegacion .nav-tri-icono,
-body.sidebar-fijo .nav-wrapper.nav-desplegado > .opcion-navegacion .nav-tri-icono {
+body.sidebar-fijo .nav-wrapper.nav-desplegado > .opcion-navegacion .nav-tri-icono,
+body.sidebar-abierta .nav-wrapper.nav-desplegado > .opcion-navegacion .nav-tri-icono {
     transform: rotate(90deg);
 }
 
