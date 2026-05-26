@@ -81,17 +81,24 @@ export const contenido = `
 `;
 
 export function inicializar() {
-    let nivel = 0;
+    // Restaurar nivel guardado, o 0 si no hay nada
+    let nivel = parseInt(localStorage.getItem('explorador-curiosidad') || '0', 10);
 
     const fill = document.getElementById('curiosidad-fill');
     const val  = document.getElementById('curiosidad-val');
     const btn  = document.getElementById('btn-mas-curiosidad');
 
     if (btn && fill && val) {
+        // Aplicar estado guardado al cargar
+        fill.style.width = nivel + '%';
+        val.textContent  = nivel + '%';
+        if (nivel === 100) btn.textContent = '🎉 ¡Máxima curiosidad!';
+
         btn.addEventListener('click', () => {
             nivel = Math.min(nivel + 10, 100);
             fill.style.width = nivel + '%';
             val.textContent  = nivel + '%';
+            localStorage.setItem('explorador-curiosidad', nivel);
             if (nivel === 100) btn.textContent = '🎉 ¡Máxima curiosidad!';
         });
     }
