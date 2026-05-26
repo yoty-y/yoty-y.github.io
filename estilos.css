@@ -374,6 +374,13 @@ aside::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 
 
 /* ── Sidebar expandido en desktop ── */
 @media (min-width: 768px) {
+    /* Reset completo: cancelar cualquier estado móvil y aplicar animación de entrada */
+    aside {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        animation: sidebarFadeIn 0.42s cubic-bezier(0.4,0,0.2,1) both;
+    }
     aside:hover,
     body.sidebar-fijo aside {
         width: var(--ancho-sidebar-total);
@@ -816,7 +823,7 @@ texto-dinamico h4 {
 }
 
 header { animation: headerSlideDown 0.38s cubic-bezier(0.4,0,0.2,1) both; }
-aside  { animation: sidebarFadeIn   0.42s cubic-bezier(0.4,0,0.2,1) both; }
+/* sidebarFadeIn movido al bloque desktop — ver @media (min-width: 768px) */
 
 .menu-temas-flotante.activo,
 .menu-opciones-flotante.activo {
