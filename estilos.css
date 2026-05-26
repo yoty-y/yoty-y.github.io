@@ -374,11 +374,10 @@ aside::-webkit-scrollbar-thumb { background: var(--borde-color); border-radius: 
 
 /* ── Sidebar expandido en desktop ── */
 @media (min-width: 768px) {
-    /* Reset: asegurar estado correcto en desktop */
+    /* Cancelar transform y visibility del móvil en desktop */
     aside {
-        opacity: 1;
-        transform: none;
-        pointer-events: auto;
+        position: static;
+        visibility: visible;
         animation: none;
     }
     aside:hover,
@@ -823,7 +822,7 @@ texto-dinamico h4 {
 }
 
 header { animation: headerSlideDown 0.38s cubic-bezier(0.4,0,0.2,1) both; }
-/* sidebarFadeIn movido al bloque desktop — ver @media (min-width: 768px) */
+aside  { animation: sidebarFadeIn 0.42s cubic-bezier(0.4,0,0.2,1); } /* sin "both" */
 
 .menu-temas-flotante.activo,
 .menu-opciones-flotante.activo {
@@ -872,10 +871,10 @@ header { animation: headerSlideDown 0.38s cubic-bezier(0.4,0,0.2,1) both; }
         width: var(--ancho-sidebar-total);
         transform: translateX(-110%);
         pointer-events: none;
-        opacity: 0;
-        animation: none; /* cancelar cualquier animación global */
+        visibility: hidden;
+        animation: none;
         transition: transform 0.32s cubic-bezier(0.4,0,0.2,1),
-                    opacity   0.28s cubic-bezier(0.4,0,0.2,1),
+                    visibility 0s linear 0.32s,
                     var(--transicion-tema);
     }
 
@@ -896,9 +895,9 @@ header { animation: headerSlideDown 0.38s cubic-bezier(0.4,0,0.2,1) both; }
         transform: translateX(0);
         box-shadow: 6px 0 32px rgba(0,0,0,0.35);
         pointer-events: auto;
-        opacity: 1;
+        visibility: visible;
         transition: transform 0.32s cubic-bezier(0.4,0,0.2,1),
-                    opacity   0.22s cubic-bezier(0.4,0,0.2,1),
+                    visibility 0s linear 0s,
                     var(--transicion-tema);
     }
     body.sidebar-abierta aside .texto-opcion,
