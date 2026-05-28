@@ -1,38 +1,11 @@
 // config.js
+import { paginas } from './paginas.js';
+
 export const configSitio = {
-    // ─── Páginas registradas ───────────────────────────────────────────────────
-    // hijos: [] → aparecen como sub-items desplegables en el sidebar
-    // sidebar: false → NO aparecen en el sidebar (acceso solo por botón/link)
-    paginas: [
-        {
-            id: "inicio",
-            titulo: "Inicio Principal",
-            icono: "🏠",
-            archivo: "inicio.js",
-            hijos: [
-                { id: "explorador", titulo: "Explorador", icono: "🔭", archivo: "explorador.js" }
-            ]
-        },
-        {
-            id: "texto-uno",
-            titulo: "Texto Uno (Demo)",
-            icono: "📄",
-            archivo: "texto-uno.js"
-        },
-        {
-            id: "minima",
-            titulo: "Página Mínima",
-            icono: "🧱",
-            archivo: "minima.js"
-        },
-        {
-            id: "secreto",
-            titulo: "Página Secreta",
-            icono: "🔒",
-            archivo: "secreto.js",
-            sidebar: false          // no aparece en el sidebar
-        }
-    ],
+    // ─── Páginas ───────────────────────────────────────────────────────────────
+    // Definidas en paginas.js. Se exponen aquí igual que antes para que
+    // app.js, core.js y builders.js no necesiten ningún cambio.
+    paginas,
 
     // ─── Los 3 temas básicos del botón izquierdo (ciclo) ─────────────────────
     temasBasicos: [
