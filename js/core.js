@@ -31,7 +31,7 @@ export const EstadoGlobal = {
         localStorage.setItem('pagina-actual', _paginaActualId);
 
         try {
-            _moduloPaginaActual = await import(`../paginas/${cfg.archivo}`);
+            _moduloPaginaActual = await import(`../${cfg.ruta}`);
             this.renderizarContenidoActivo();
             window.dispatchEvent(new CustomEvent('paginaCambiada', { detail: _paginaActualId }));
         } catch (err) {
