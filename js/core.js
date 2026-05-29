@@ -1,114 +1,95 @@
-// js/core.js
-import { configSitio }          from '../config.js';
-import { inyectarCSS }          from './temas-engine.js';
+// js/core.js — SPA: navegación, temas, modo lectura
+import { paginas }                    from '../paginas.js';
+import { temasBasicos, categoriasTemas } from '../temas.js';
 
-// ─── Estado global expuesto en window para que los web components lo lean ────
 window.modoLecturaActual = localStorage.getItem('modo-lectura-guardado') || 'detallada';
 
-let _paginaActualId     = localStorage.getItem('pagina-actual') || configSitio.paginas[0].id;
-let _moduloPaginaActual = null;
+let _paginaActual  = null;
+let _moduloActual  = null;
+const _config      = { paginas, temasBasicos, categoriasTemas };
 
-// ─── Búsqueda recursiva en el árbol de páginas ───────────────────────────────
-function _buscarPagina(paginas, id) {
-    for (const p of paginas) {
+// ── Búsqueda recursiva ────────────────────────────────────────────────────────
+function _buscar(lista, id) {
+    for (const p of lista) {
         if (p.id === id) return p;
-        if (Array.isArray(p.hijos)) {
-            const found = _buscarPagina(p.hijos, id);
-            if (found) return found;
-        }
+        if (p.hijos) { const h = _buscar(p.hijos, id); if (h) return h; }
     }
     return null;
 }
 
-// ─── Busca el objeto tema en temasBasicos + todas las categorías ─────────────
-function _buscarTema(idTema) {
-    const basico = configSitio.temasBasicos.find(t => t.id === idTema);
-    if (basico) return basico;
-    for (const cat of configSitio.categoriasTemas) {
-        const encontrado = (cat.temas || []).find(t => t.id === idTema);
-        if (encontrado) return encontrado;
-    }
-    return null;
+// ── Inyección CSS del tema activo ─────────────────────────────────────────────
+function _inyectarCSS(css) {
+    let tag = document.getElementById('tema-activo');
+    if (!tag) { tag = document.createElement('style'); tag.id = 'tema-activo'; document.head.appendChild(tag); }
+    tag.textContent = css || '';
 }
 
-// ─── EstadoGlobal ─────────────────────────────────────────────────────────────
+// ── Busca el objeto tema en basicos + categorías ──────────────────────────────
+function _buscarTema(id) {
+    return temasBasicos.find(t => t.id === id)
+        || categoriasTemas.flatMap(c => c.temas).find(t => t.id === id)
+        || null;
+}
+
+// ── EstadoGlobal ──────────────────────────────────────────────────────────────
 export const EstadoGlobal = {
 
-    get paginaActualId() { return _paginaActualId; },
+    get config() { return _config; },
+    get paginaActualId() { return _paginaActual?.id || paginas[0].id; },
 
-    // ── Navegación SPA ────────────────────────────────────────────────────────
-    async cargarPagina(idPagina) {
-        const cfg = _buscarPagina(configSitio.paginas, idPagina) || configSitio.paginas[0];
-        _paginaActualId = cfg.id;
-        localStorage.setItem('pagina-actual', _paginaActualId);
-
+    // Navegación SPA
+    async cargarPagina(id) {
+        const cfg = _buscar(paginas, id) || paginas[0];
+        _paginaActual = cfg;
+        localStorage.setItem('pagina-actual', cfg.id);
         try {
-            _moduloPaginaActual = await import(`../${cfg.ruta}`);
-            this.renderizarContenidoActivo();
-            window.dispatchEvent(new CustomEvent('paginaCambiada', { detail: _paginaActualId }));
+            _moduloActual = await import(`../${cfg.ruta}`);
+            this._renderizar();
+            window.dispatchEvent(new CustomEvent('paginaCambiada', { detail: cfg.id }));
         } catch (err) {
             document.getElementById('contenedor-central').innerHTML =
-                `<p style="color:var(--texto-secundario);padding:24px;">Error cargando: <strong>${cfg.titulo}</strong></p>`;
+                `<p style="color:var(--texto-secundario);padding:24px">Error cargando: <strong>${cfg.titulo}</strong></p>`;
             console.error(err);
         }
     },
 
-    renderizarContenidoActivo() {
-        if (!_moduloPaginaActual) return;
-        const contenedor = document.getElementById('contenedor-central');
-        contenedor.innerHTML = typeof _moduloPaginaActual.contenido === 'string'
-            ? _moduloPaginaActual.contenido
-            : (_moduloPaginaActual.contenido[window.modoLecturaActual] || '');
-
-        if (typeof _moduloPaginaActual.inicializar === 'function') {
-            _moduloPaginaActual.inicializar();
-        }
+    _renderizar() {
+        if (!_moduloActual) return;
+        const el = document.getElementById('contenedor-central');
+        el.innerHTML = typeof _moduloActual.contenido === 'string'
+            ? _moduloActual.contenido
+            : (_moduloActual.contenido[window.modoLecturaActual] || '');
+        if (typeof _moduloActual.inicializar === 'function') _moduloActual.inicializar();
     },
 
-    // ── Temas ─────────────────────────────────────────────────────────────────
-    aplicarTema(idTema) {
-        localStorage.setItem('tema-guardado', idTema);
-
-        // Limpia clases de tema anteriores
+    // Temas
+    aplicarTema(id) {
+        localStorage.setItem('tema-guardado', id);
         document.body.className = document.body.className
-            .replace(/\bmodo-oscuro\b|\btema-[\w-]+\b/g, '')
-            .trim();
+            .replace(/\bmodo-oscuro\b|\btema-[\w-]+\b/g, '').trim();
 
-        const esDark = idTema === 'dark' ||
-            (idTema === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        const esDark = id === 'dark' || (id === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (esDark)                             document.body.classList.add('modo-oscuro');
+        else if (id !== 'light' && id !== 'auto') document.body.classList.add(`tema-${id}`);
 
-        if (esDark) {
-            document.body.classList.add('modo-oscuro');
-        } else if (idTema !== 'light' && idTema !== 'auto') {
-            document.body.classList.add(`tema-${idTema}`);
-        }
-
-        // Inyectar CSS del tema (null = tema básico, usa estilos.css)
-        const tema = _buscarTema(idTema);
-        inyectarCSS(tema?.css ?? null);
-
-        window.dispatchEvent(new CustomEvent('temaCambiado', { detail: idTema }));
+        _inyectarCSS(_buscarTema(id)?.css ?? null);
+        window.dispatchEvent(new CustomEvent('temaCambiado', { detail: id }));
     },
 
-    // ── Modo lectura ──────────────────────────────────────────────────────────
+    // Modo lectura
     aplicarModoLectura(modo) {
         window.modoLecturaActual = modo;
         localStorage.setItem('modo-lectura-guardado', modo);
-
         document.body.classList.remove('lectura-detallada', 'lectura-resumida');
         document.body.classList.add(`lectura-${modo}`);
-
         window.dispatchEvent(new CustomEvent('modoLecturaCambiado', { detail: modo }));
-
-        if (_moduloPaginaActual && typeof _moduloPaginaActual.contenido === 'object') {
-            this.renderizarContenidoActivo();
-        }
+        if (_moduloActual && typeof _moduloActual.contenido === 'object') this._renderizar();
     },
 
-    // ── Restablecer ───────────────────────────────────────────────────────────
+    // Restablecer
     restablecer() {
         this.aplicarTema('auto');
         this.aplicarModoLectura('detallada');
-        this.cargarPagina(configSitio.paginas[0].id);
+        this.cargarPagina(paginas[0].id);
     }
 };

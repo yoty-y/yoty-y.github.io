@@ -39,15 +39,6 @@
 /* ==========================================================================
    2. TEMAS — Oscuro base
    ========================================================================== */
-
-/* ==========================================================================
-   2. TEMAS — Los bloques body.tema-X y body.modo-oscuro fueron migrados a
-      temas/basicos.js y temas/[categoria].js.
-      El engine los inyecta dinámicamente en <style id='tema-activo'>.
-   ==========================================================================
-   EXCEPCIÓN: body.modo-oscuro se mantiene aquí porque 'dark' y 'auto' lo
-   activan por clase CSS directa, no por inyección de bloque.
-   ========================================================================== */
 body.modo-oscuro {
     --bg-principal:      #131110;
     --bg-tarjetas:       #1c1916;
@@ -64,7 +55,7 @@ body.modo-oscuro {
     --check-color:       #6dbf85;
 }
 
-/* ==========================================================================
+/* ── Cálidos ── */
    3. RESET Y BASE
    ========================================================================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
