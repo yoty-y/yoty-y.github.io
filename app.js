@@ -2,6 +2,7 @@
 import { configSitio }                      from './config.js';
 import { EstadoGlobal }                     from './js/core.js';
 import { construirSidebar, construirMenuTemas, restaurarDesplegados } from './js/builders.js';
+import { inicializar as inicializarEngine }  from './js/temas-engine.js';
 import './js/componentes.js';   // registra <texto-dinamico>
 
 // ─── Estado local de UI ───────────────────────────────────────────────────────
@@ -10,6 +11,9 @@ const TEMAS_BASICOS = configSitio.temasBasicos.map(t => t.id);   // ['auto','lig
 
 // ─── Inicialización ───────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+    // Inicializar engine de temas (registra escucha de desbloqueos)
+    inicializarEngine(configSitio.categoriasTemas);
+
     // Construir menús desde config
     construirMenuTemas(configSitio, 'menu-flotante', cambiarTema);
     construirSidebar(configSitio, 'menu-navegacion-paginas', idPagina => {
@@ -28,8 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.add('sidebar-fijo');
         }
     }
-    // Restaurar desplegables (desktop y móvil, pero no el panel abierto en móvil)
     restaurarDesplegados();
+});
+
+// ─── Cuando se desbloquea un tema, regenerar el menú ─────────────────────────
+window.addEventListener('temaDesbloqueado', () => {
+    construirMenuTemas(configSitio, 'menu-flotante', cambiarTema);
 });
 
 // ─── Escucha cambios de página para resaltar el item activo ──────────────────
@@ -57,7 +65,7 @@ function aplicarTema(idTema) {
     temaActual = idTema;
     EstadoGlobal.aplicarTema(idTema);
 
-    // Determinar icono del botón
+    // Determinar icono del botón — busca en básicos primero, luego en categorías
     const basico = configSitio.temasBasicos.find(t => t.id === idTema);
     let icono = basico ? basico.icono : null;
 
@@ -70,7 +78,7 @@ function aplicarTema(idTema) {
     const iconoEl = document.getElementById('icono-tema');
     iconoEl.textContent = icono;
     iconoEl.classList.remove('girando');
-    void iconoEl.offsetWidth; // forzar reflow para reiniciar animación
+    void iconoEl.offsetWidth;
     iconoEl.classList.add('girando');
     setTimeout(() => iconoEl.classList.remove('girando'), 400);
 
@@ -98,17 +106,15 @@ function cerrarMenus() {
 }
 
 // ─── Eventos de interfaz ──────────────────────────────────────────────────────
-const menuTemas   = document.getElementById('menu-flotante');
+const menuTemas    = document.getElementById('menu-flotante');
 const menuOpciones = document.getElementById('menu-opciones');
 
-// Ciclo de 3 temas básicos
 document.getElementById('btn-rotar-tema').addEventListener('click', e => {
     e.stopPropagation();
     const idx = TEMAS_BASICOS.indexOf(temaActual);
     cambiarTema(TEMAS_BASICOS[idx === -1 ? 0 : (idx + 1) % TEMAS_BASICOS.length]);
 });
 
-// Abrir / cerrar menús
 document.getElementById('btn-toggle-temas').addEventListener('click', e => {
     e.stopPropagation();
     menuOpciones.classList.remove('activo');
@@ -121,36 +127,32 @@ document.getElementById('btn-toggle-opciones').addEventListener('click', e => {
     menuOpciones.classList.toggle('activo');
 });
 
-// Modos de lectura
 document.getElementById('opt-lectura-detallada').addEventListener('click', () => aplicarModoLectura('detallada'));
 document.getElementById('opt-lectura-resumida').addEventListener('click',  () => aplicarModoLectura('resumida'));
 
-// Sidebar móvil
 document.getElementById('btn-abrir-sidebar').addEventListener('click', e => {
     e.stopPropagation();
     document.body.classList.toggle('sidebar-abierta');
 });
+
 document.getElementById('btn-cerrar-sidebar').addEventListener('click', e => {
     e.stopPropagation();
     if (window.innerWidth >= 768) {
-        // Desktop: ☰ fija o libera el sidebar (clase separada de la móvil)
         const fijo = document.body.classList.toggle('sidebar-fijo');
         localStorage.setItem('sidebar-fijo', fijo ? '1' : '0');
     } else {
-        // Móvil: siempre cierra
         document.body.classList.remove('sidebar-abierta');
     }
 });
+
 document.getElementById('overlay-sidebar').addEventListener('click', () =>
     document.body.classList.remove('sidebar-abierta'));
 
-// Restablecer
 document.getElementById('btn-restablecer').addEventListener('click', () => {
     temaActual = 'auto';
     document.body.classList.remove('sidebar-fijo');
     localStorage.setItem('sidebar-fijo', '0');
     localStorage.removeItem('nav-desplegados');
-    // Cerrar todos los desplegables visualmente
     document.querySelectorAll('.nav-wrapper.nav-desplegado').forEach(w => {
         w.classList.remove('nav-desplegado');
         const tri = w.querySelector('.btn-nav-triangulo');
@@ -162,16 +164,14 @@ document.getElementById('btn-restablecer').addEventListener('click', () => {
     marcarCheckActivo('#menu-opciones', 'detallada');
 });
 
-// Cerrar menús al clic fuera
 document.addEventListener('click', cerrarMenus);
 menuTemas.addEventListener('click',    e => e.stopPropagation());
 menuOpciones.addEventListener('click', e => e.stopPropagation());
 
-// Actualizar tema 'auto' si el sistema cambia claro/oscuro
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
     if (temaActual === 'auto') aplicarTema('auto');
 });
-// ─── Navegación programática (páginas con sidebar: false) ─────────────────────
+
 window.addEventListener('navegarA', e => {
     EstadoGlobal.cargarPagina(e.detail);
     if (window.innerWidth < 768) document.body.classList.remove('sidebar-abierta');

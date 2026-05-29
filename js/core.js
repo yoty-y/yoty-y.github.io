@@ -1,10 +1,11 @@
 // js/core.js
-import { configSitio } from '../config.js';
+import { configSitio }          from '../config.js';
+import { inyectarCSS }          from './temas-engine.js';
 
 // ─── Estado global expuesto en window para que los web components lo lean ────
 window.modoLecturaActual = localStorage.getItem('modo-lectura-guardado') || 'detallada';
 
-let _paginaActualId    = localStorage.getItem('pagina-actual') || configSitio.paginas[0].id;
+let _paginaActualId     = localStorage.getItem('pagina-actual') || configSitio.paginas[0].id;
 let _moduloPaginaActual = null;
 
 // ─── Búsqueda recursiva en el árbol de páginas ───────────────────────────────
@@ -15,6 +16,17 @@ function _buscarPagina(paginas, id) {
             const found = _buscarPagina(p.hijos, id);
             if (found) return found;
         }
+    }
+    return null;
+}
+
+// ─── Busca el objeto tema en temasBasicos + todas las categorías ─────────────
+function _buscarTema(idTema) {
+    const basico = configSitio.temasBasicos.find(t => t.id === idTema);
+    if (basico) return basico;
+    for (const cat of configSitio.categoriasTemas) {
+        const encontrado = (cat.temas || []).find(t => t.id === idTema);
+        if (encontrado) return encontrado;
     }
     return null;
 }
@@ -71,6 +83,10 @@ export const EstadoGlobal = {
             document.body.classList.add(`tema-${idTema}`);
         }
 
+        // Inyectar CSS del tema (null = tema básico, usa estilos.css)
+        const tema = _buscarTema(idTema);
+        inyectarCSS(tema?.css ?? null);
+
         window.dispatchEvent(new CustomEvent('temaCambiado', { detail: idTema }));
     },
 
@@ -84,7 +100,6 @@ export const EstadoGlobal = {
 
         window.dispatchEvent(new CustomEvent('modoLecturaCambiado', { detail: modo }));
 
-        // Re-renderiza solo si la página usa el objeto {detallada, resumida}
         if (_moduloPaginaActual && typeof _moduloPaginaActual.contenido === 'object') {
             this.renderizarContenidoActivo();
         }
