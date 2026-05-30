@@ -1,4 +1,5 @@
 // paginas/inicio.js
+import { htmlBoton as htmlHuevo, inicializarBoton as inicializarHuevo } from '../temas/secretos/huevo-de-pascua.js';
 
 const estilos = `
 <style>
@@ -112,6 +113,9 @@ export const contenido = estilos + `
         <button class="btn-ir-secreto" id="btn-desde-inicio" style="margin-top: 20px;">
             🔒 Acceder a la Página Secreta
         </button>
+
+        <div class="separador-deco">huevo de pascua</div>
+        ${htmlHuevo}
     </div>
 `;
 
@@ -129,6 +133,8 @@ export function inicializar() {
     });
 
     // Botón secreto
+    inicializarHuevo();
+
     const btn = document.getElementById('btn-desde-inicio');
     if (btn) {
         btn.addEventListener('click', () => {

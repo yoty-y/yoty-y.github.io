@@ -105,3 +105,29 @@ export const categoriasTemas = [
         ]
     }
 ];
+
+// ─── Temas secretos ───────────────────────────────────────────────────────────
+// Almacén compartido con temas/secretos/*.js
+// Cada archivo de tema secreto escribe su id aquí al desbloquearse.
+// Esta función lee el almacén y devuelve solo los temas ya desbloqueados.
+// builders.js lo consume igual que cualquier categoría — si está vacío, no muestra nada.
+// ─────────────────────────────────────────────────────────────────────────────
+import { tema as huevoPascua, STORAGE_KEY } from './temas/secretos/huevo-de-pascua.js';
+
+const _CATALOGO_SECRETOS = [ huevoPascua ];
+// Cuando agregues más temas secretos:
+//   import { tema as otroTema } from './temas/secretos/otro-tema.js';
+//   _CATALOGO_SECRETOS.push(otroTema);  ← o agrégalo al array directamente
+
+function _temasDesbloqueados() {
+    try {
+        const ids = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        return _CATALOGO_SECRETOS.filter(t => ids.includes(t.id));
+    } catch (_) { return []; }
+}
+
+export function getCategoriaSecretos() {
+    const desbloqueados = _temasDesbloqueados();
+    if (desbloqueados.length === 0) return null;
+    return { nombre: "🥚 SECRETOS", temas: desbloqueados };
+}
